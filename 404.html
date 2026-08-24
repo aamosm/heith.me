@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>//</title>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background: #0D1117;
+        }
+    </style>
+
+    <script>
+        (function () {
+            var host = window.location.hostname.toLowerCase();
+            var path = window.location.pathname;
+
+            var base = host.endsWith('.github.io')
+                ? '/heith.me/'
+                : '/';
+
+            var current = path.replace(/\/+$/, '').toLowerCase();
+            var target = base.replace(/\/+$/, '').toLowerCase();
+
+            if (current !== target) {
+                window.location.replace(base);
+            }
+        })();
+    </script>
+</head>
+<body></body>
+</html>

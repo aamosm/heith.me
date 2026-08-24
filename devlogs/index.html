@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>// devlogs</title>
+
+    <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+
+    <link rel="preload" as="image" href="../assets/favicon.png" fetchpriority="high">
+
+    <script src="../favicon.js" defer></script>
+    <!-- system capability check -->
+    <script src="../system-check.js"></script>
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../crt.css">
+</head>
+<body>
+
+    <div id="loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="crt-overlay">
+        <div class="scanlines"></div>
+        <div class="crt-refresh-line"></div>
+    </div>
+    
+    <div class="ui-layer">
+        
+        <header class="top-nav glass-panel">
+            <a href="../" class="nav-item nav-item--back">&lt;&lt; return to root</a>
+            <div class="brand allow-select">DHC</div>
+        </header>
+
+        <main class="content-section">
+            <div class="hero-header">
+                <h1 class="massive-title">DEVLOGS</h1>
+                <p class="sub-text">Development logs, system notes, and project post-mortems.</p>
+            </div>
+
+            <div class="blog-grid">
+                <a class="blog-card" href="https://stardance.hackclub.com/projects/29187" target="_blank" rel="noopener">
+                    <h2 class="blog-title">This Alien Does Not Exist</h2>
+                    <p class="blog-excerpt">An Algorithm inspired by This Person Doesn't Exist. Every refresh reveals a procedurally generated alien species that has never been seen before.</p>
+                    <div class="blog-tags">
+                        <span class="tag">#procedural-generation</span>
+                        <span class="tag">#canvas-api</span>
+                    </div>
+                    <div class="blog-link">Read Logs &rarr;</div>
+                </a>
+
+                <div class="blog-card">
+                    <h2 class="blog-title">Seven Minute Shadow</h2>
+                    <p class="blog-excerpt">Seven minutes. Seven minigames. One story. Behind-the-scenes looks at game loop architecture, sprite creation, and Godot engine learnings.</p>
+                    <div class="blog-tags">
+                        <span class="tag">#godot</span>
+                        <span class="tag">#game-dev</span>
+                        <span class="tag">#pixel-art</span>
+                    </div>
+                    <div style="display: flex; gap: 1.5rem;">
+                        <a href="https://stardance.hackclub.com/projects/29189" target="_blank" rel="noopener" class="blog-link">Stardance Logs &rarr;</a>
+                        <a href="https://aamosm.itch.io/seven-minute-shadow/devlog" target="_blank" rel="noopener" class="blog-link">Itch.io Logs &rarr;</a>
+                    </div>
+                </div>
+                
+                <a class="blog-card" href="https://stardance.hackclub.com/projects/31884" target="_blank" rel="noopener">
+                    <h2 class="blog-title">VoyagerOS</h2>
+                    <p class="blog-excerpt">A web-based &amp; terminal-themed operating system for the fictional Voyager-9 deep-space probe. Integrated with my other project "This Alien Doesn't Exist".</p>
+                    <div class="blog-tags">
+                        <span class="tag">#webos</span>
+                        <span class="tag">#ui-design</span>
+                        <span class="tag">#worldbuilding</span>
+                    </div>
+                    <div class="blog-link">Read Logs &rarr;</div>
+                </a>
+
+                <a class="blog-card" href="https://stardance.hackclub.com/projects/43357" target="_blank" rel="noopener">
+                    <h2 class="blog-title">Obscure</h2>
+                    <p class="blog-excerpt">A lightweight homepage for searching across curated and independent search engines. Notes on setup and search integrations.</p>
+                    <div class="blog-tags">
+                        <span class="tag">#react</span>
+                        <span class="tag">#vite</span>
+                        <span class="tag">#productivity</span>
+                    </div>
+                    <div class="blog-link">Read Logs &rarr;</div>
+                </a>
+
+                <div class="blog-card blog-card--disabled">
+                    <h2 class="blog-title">heith.me</h2>
+                    <p class="blog-excerpt">My Portfolio Page. System architecture refactors, analog aesthetics, and building a brutalist web experience.</p>
+                    <div class="blog-tags">
+                        <span class="tag">#frontend</span>
+                        <span class="tag">#design</span>
+                    </div>
+                    <div class="blog-link blog-link--soon">Not linked</div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="script.js" defer></script>
+    <script src="../cursor-blob.js" defer></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.DHCMark && window.DHCMark.ready) {
+        window.DHCMark.ready.then(function(loaded){
+          if (!loaded) return;
+          window.DHCMark.updateFavicon(window.matchMedia('(prefers-color-scheme: dark)').matches);
+        });
+      }
+    });
+    </script>
+</body>
+</html>

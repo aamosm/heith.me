@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+
+    <link rel="preload" as="image" href="../assets/favicon.png" fetchpriority="high">
+
+    <script src="../favicon.js" defer></script>
+    <!-- system capability check -->
+    <script src="../system-check.js"></script>
+    <title>// projects</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../crt.css">
+</head>
+<body>
+
+    <div id="loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+
+    <div class="crt-overlay">
+        <div class="scanlines"></div>
+        <div class="crt-refresh-line"></div>
+    </div>
+    <div class="blueprint-grid"></div>
+
+    <div class="scrolling-gallery-container" id="gallery-container">
+        <div class="gallery-track track-1" id="track-1"></div>
+        <div class="gallery-track track-2" id="track-2"></div>
+        <div class="gallery-track track-3" id="track-3"></div>
+    </div>
+
+    <div class="ui-layer">
+        
+        <header class="top-nav glass-panel">
+            <a href="../" class="nav-item nav-item--back">&lt;&lt; return to root</a>
+            <div class="brand allow-select">DHC</div>
+        </header>
+
+        <div class="hero-title-container">
+            <h1 class="massive-title">PROJECTS</h1>
+            
+            <div class="coords-box jitter">
+                <span>location:</span>
+                <span>localhost:8080</span>
+            </div>
+        </div>
+
+        <section class="content-section">
+            <div class="projects-grid">
+
+                <div class="project-card">
+                    <h2 class="project-title">This Alien Doesn't Exist</h2>
+                    <p class="project-overview">A procedural creature generator that seeds a Mulberry32 PRNG from custom string inputs to mathematically calculate anatomical traits, colors, and textures, rendering unique alien lifeforms straight to the browser canvas.</p>
+                    <div class="project-used"><span class="project-used-label">Used:</span> Vanilla JavaScript, HTML5/CSS3, Canvas API, Mulberry32 PRNG.</div>
+                    <a class="project-link" href="https://github.com/aamosm/This-Alien-Does-Not-Exist" target="_blank" rel="noopener">Source / Live &rarr;</a>
+                </div>
+
+                <div class="project-card">
+                    <h2 class="project-title">VoyagerOS (Voyager9)</h2>
+                    <p class="project-overview">A retro-futuristic, narrative-driven WebOS designed for a deep-space exploration ship. Acts as an interactive UI ecosystem that weaves sci-fi lore and procedural data directly into the system interface.</p>
+                    <div class="project-used"><span class="project-used-label">Used:</span> Vanilla JavaScript, CSS3, Web Components, Narrative Design.</div>
+                    <a class="project-link" href="https://github.com/aamosm/VoyagerOS" target="_blank" rel="noopener">Source / Live &rarr;</a>
+                </div>
+
+                <div class="project-card">
+                    <h2 class="project-title">Obscure</h2>
+                    <p class="project-overview">A lightweight, high-performance new tab homepage designed for searching across curated and independent search engines without the clutter.</p>
+                    <div class="project-used"><span class="project-used-label">Used:</span> React.js, Vite, CSS.</div>
+                    <a class="project-link" href="https://github.com/aamosm/Obscure" target="_blank" rel="noopener">Source / Live &rarr;</a>
+                </div>
+
+                <div class="project-card">
+                    <h2 class="project-title">Seven Minute Shadow</h2>
+                    <p class="project-overview">A fast-paced, WarioWare-style minigame collection built in Godot. Packed with hand-drawn frame-by-frame pixel art and low-poly 3D environmental assets.</p>
+                    <div class="project-used"><span class="project-used-label">Used:</span> Godot (GDScript), Aseprite, Blender.</div>
+                    <a class="project-link" href="https://github.com/aamosm/SevenMinuteShadow" target="_blank" rel="noopener">Source / Live &rarr;</a>
+                </div>
+
+                <div class="project-card">
+                    <h2 class="project-title">Predictive Grade App &amp; API</h2>
+                    <p class="project-overview">An academic tracking application built for Android that aggregates historic performance metrics to estimate final grades. Features backend AI workflows configured to review, test, and self-patch their own code across multi-step execution tasks.</p>
+                    <div class="project-used"><span class="project-used-label">Used:</span> Android Studio, Java, Python, REST APIs, Autonomous AI Workflows.</div>
+                    <span class="project-link project-link--dead">No Public Link</span>
+                </div>
+
+                <div class="project-card">
+                    <h2 class="project-title">Self-Balancing Beam System</h2>
+                    <p class="project-overview">A hardware-software physical feedback loop built during a competitive research internship at SysIDEA Robotics Lab, IIT Gandhinagar. Runs real-time closed-loop C++ PID algorithms across microcontrollers to maintain physical equilibrium.</p>
+                    <div class="project-used"><span class="project-used-label">Used:</span> C++, PID Control Logic, Microcontrollers, CAD, Rapid Prototyping.</div>
+                    <span class="project-link project-link--dead">No Public Link</span>
+                </div>
+
+                <div class="project-card">
+                    <h2 class="project-title">State-Champion F1 RC Vehicle</h2>
+                    <p class="project-overview">A high-speed RC vehicle engineered from scratch under strict competition deadlines, winning 1st place at Technofest. Handled mechanical chassis design, power distribution, and multi-channel transmitter integration.</p>
+                    <div class="project-used"><span class="project-used-label">Used:</span> Microcontrollers, Multi-Channel Controllers, CAD, Mechanical Assembly.</div>
+                    <a class="project-link" href="https://www.linkedin.com/posts/vijaybhoomi-university_vijaybhoomijuniorcollege-vsis-technofest25-activity-7297563791465009152-bONx" target="_blank" rel="noopener">View Post &rarr;</a>
+                </div>
+
+                <div class="project-card">
+                    <h2 class="project-title">Client Platforms &amp; Student Resource Hub</h2>
+                    <p class="project-overview">Production web builds ranging from a centralized notes repository for school peers to end-to-end full-stack applications built for freelance clients. Focused on fast load times, responsive layouts, and search engine optimization.</p>
+                    <div class="project-used"><span class="project-used-label">Used:</span> TypeScript, React.js, Vite, Vanilla JavaScript, HTML5/CSS3, Git/GitHub, SEO.</div>
+                    <span class="project-link project-link--dead">No Public Link</span>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.DHCMark && window.DHCMark.ready) {
+        window.DHCMark.ready.then(function(loaded){
+          if (!loaded) return;
+          window.DHCMark.updateFavicon(window.matchMedia('(prefers-color-scheme: dark)').matches);
+        });
+      }
+    });
+    </script>
+    <script src="script.js" defer></script>
+    <script src="../cursor-blob.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>// landing</title>
+
+<!-- empty tab icon: -->
+<link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<link rel="preload" as="image" href="./assets/favicon.png" fetchpriority="high">
+
+<script src="favicon.js" defer></script>
+<!-- system capability check -->
+<script src="system-check.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="crt.css">
+</head>
+<body>
+
+  <div id="loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  <div id="spacer"></div>
+
+  <div class="crt-overlay">
+      <div class="scanlines"></div>
+      <div class="crt-refresh-line"></div>
+  </div>
+
+  <div id="layer-bg">
+    <div class="reel" id="reel">
+      <video autoplay loop muted playsinline preload="auto"></video>
+    </div>
+
+    <span class="reel-label blend-excl desktop-only" id="deskReelLabel">crude render</span>
+
+    <div class="reel-controls desktop-only" id="deskReelControls">
+      <button class="reel-btn blend-excl play-btn" type="button" data-playing="true" aria-label="Pause video" title="Pause video">
+        <svg class="icon icon-pause" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><rect x="3" y="2" width="3.2" height="12" rx="1"/><rect x="9.8" y="2" width="3.2" height="12" rx="1"/></svg>
+        <svg class="icon icon-play" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M4 2.3v11.4a1 1 0 0 0 1.53.85l9-5.7a1 1 0 0 0 0-1.7l-9-5.7A1 1 0 0 0 4 2.3z"/></svg>
+      </button>
+      <button class="reel-btn blend-excl mute-btn" type="button" data-muted="true" aria-label="Unmute video" title="Unmute video">
+        <svg class="icon icon-sound" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M1.5 6h2.6L8 3v10L4.1 10H1.5A.5.5 0 0 1 1 9.5v-3A.5.5 0 0 1 1.5 6z"/><path class="sound-wave" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M10.3 5.2a4.2 4.2 0 0 1 0 5.6"/><path class="sound-wave" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M12 3.6a6.8 6.8 0 0 1 0 8.8"/><path class="sound-slash" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M2.3 2.3l11.4 11.4"/></svg>
+      </button>
+    </div>
+
+    <a class="s-text s1 blend desktop-only desk-s-text" href="./site-design/" data-text="Design">Design</a>
+    <a class="s-text s2 blend desktop-only desk-s-text" href="./devlogs/" data-text="Devlogs">Devlogs</a>
+    <a class="s-text s3 blend desktop-only desk-s-text" href="./projects/" data-text="Projects">Projects</a>
+  </div>
+
+  <div class="hero-fixed mobile-only">
+    <header class="nav">
+      <a class="nav-item" href="https://github.com/aamosm/heith.me" data-transition-dest="true">site src</a>
+      <div class="brand allow-select">DHC</div>
+      <a class="nav-item" href="mailto:write@heith.me" target="_blank" rel="noopener">email me</a>
+    </header>
+
+    <div class="hero-copy" id="mobileHeroCopy">
+      <p class="eyebrow">Hey</p>
+      <h1 class="headline">I'm <span class="brand-inline allow-select">DHC</span></h1>
+      <p class="sub">>>Dhruv Heith Chheda.<br>inter-disciplinary student with a passion for creating.</p>
+    </div>
+
+    <div class="scroll-hint" id="mobileScrollHint">scroll</div>
+
+    <div class="reel-controls" id="mobileReelControls">
+      <span class="reel-label blend">crude render</span>
+      <button class="reel-btn blend play-btn" type="button" data-playing="true" aria-label="Pause video" title="Pause video">
+        <svg class="icon icon-pause" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><rect x="3" y="2" width="3.2" height="12" rx="1"/><rect x="9.8" y="2" width="3.2" height="12" rx="1"/></svg>
+        <svg class="icon icon-play" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M4 2.3v11.4a1 1 0 0 0 1.53.85l9-5.7a1 1 0 0 0 0-1.7l-9-5.7A1 1 0 0 0 4 2.3z"/></svg>
+      </button>
+      <button class="reel-btn blend mute-btn" type="button" data-muted="true" aria-label="Unmute video" title="Unmute video">
+        <svg class="icon icon-sound" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M1.5 6h2.6L8 3v10L4.1 10H1.5A.5.5 0 0 1 1 9.5v-3A.5.5 0 0 1 1.5 6z"/><path class="sound-wave" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M10.3 5.2a4.2 4.2 0 0 1 0 5.6"/><path class="sound-wave" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M12 3.6a6.8 6.8 0 0 1 0 8.8"/><path class="sound-slash" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M2.3 2.3l11.4 11.4"/></svg>
+      </button>
+    </div>
+
+    <a class="s-text s1 blend mobile-s-text" href="./site-design/" data-text="Design">Design</a>
+    <a class="s-text s2 blend mobile-s-text" href="./devlogs/" data-text="Devlogs">Devlogs</a>
+    <a class="s-text s3 blend mobile-s-text" href="./projects/" data-text="Projects">Projects</a>
+  </div>
+
+  <div id="panel-right-base" class="panel desktop-only">
+    <div class="panel-fray"></div>
+    <div class="panel-dest-img"><img src="./assets/github.jpg" alt=""></div>
+    <div class="panel-solid">
+      <a class="panel-right-label" href="https://github.com/aamosm/heith.me" data-transition-dest="true">site src</a>
+    </div>
+  </div>
+
+  <div id="panel-top" class="panel desktop-only">
+    <div class="panel-fray"></div>
+    <div class="panel-solid">
+      <header class="nav">
+        <a class="nav-item nav-item--reach-out" href="mailto:write@heith.me" target="_blank" rel="noopener">email me</a>
+        <div class="brand allow-select">DHC</div>
+      </header>
+    </div>
+  </div>
+
+  <div id="panel-left" class="panel desktop-only">
+    <div class="panel-fray"></div>
+    <div class="panel-solid">
+      <div class="paper-left">
+        <div class="hero-copy" id="heroCopy">
+          <p class="eyebrow">Hey</p>
+          <h1 class="headline">I'm <span class="brand-inline allow-select">DHC</span></h1>
+          <p class="sub">>>Dhruv Heith Chheda.<br>inter-disciplinary student with a passion for creating.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-bottom" class="panel desktop-only">
+    <div class="panel-fray"></div>
+    <div class="panel-solid">
+      <div class="paper-bottom">
+        <div class="scroll-hint" id="scrollHint">scroll</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-right-fake" class="panel desktop-only">
+    <div class="panel-fray"></div>
+    <div class="panel-solid"></div>
+  </div>
+
+<script src="glass-loader.js" defer></script>
+<script src="script.js" defer></script>
+<script src="cursor-blob.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>// portfolio</title>
+
+    <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+    <link rel="preload" as="image" href="../assets/favicon.png" fetchpriority="high">
+    <script src="../favicon.js" defer></script>
+    <!-- system capability check -->
+    <script src="../system-check.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../crt.css">
+</head>
+<body>
+
+    <div id="loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+
+    <div class="crt-overlay">
+        <div class="scanlines"></div>
+        <div class="crt-refresh-line"></div>
+    </div>
+
+    <header class="top-nav glass-panel">
+        <a href="../" class="nav-item nav-item--back">&lt;&lt; return to root</a>
+        <div class="brand allow-select">DHC</div>
+    </header>
+
+    <div id="app-layout">
+
+        <aside id="sidebar-left">
+            <div class="tracker-header">INDEX</div>
+            <div id="tracker-list">
+                <div id="tracker-indicator">&gt;</div>
+            </div>
+        </aside>
+
+        <main id="stage-container">
+            <div id="doc">
+
+                <!-- PAGE 01 — COVER -->
+                <section class="doc-page doc-cover"
+                    data-name="DHC_SELECTED_WORKS"
+                    data-title="DHC — Selected Works"
+                    data-desc="An interdisciplinary case study covering the concept, process, and interaction design behind the DHC site, plus three companion projects.">
+                    <div class="doc-cover-image">
+                        <img src="../assets/portfolio/cover.png" alt="Cover image" loading="eager">
+                    </div>
+                    <div class="doc-cover-content">
+                        <div></div>
+                        <div>
+                            <div class="doc-cover-mark allow-select">DHC</div>
+                            <div class="doc-cover-sub">Selected Works</div>
+                        </div>
+                        <div class="doc-cover-tag">Inter-<br>disciplinary<br>Student</div>
+                    </div>
+                </section>
+
+                <!-- PAGE 02 — CHASING AWWWARDS -->
+                <section class="doc-page"
+                    data-name="CHASING_AWWWARDS"
+                    data-title="Chasing Awwwards"
+                    data-desc="Project 01: Concept. Chasing the complexity of award-winning developer portfolios as a personal test of ability.">
+                    <div class="doc-head">
+                        <div class="doc-meta">Project 01: Concept</div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 02 / 11</div>
+                        </div>
+                    </div>
+
+                    <div class="doc-massive" style="margin-bottom: 18px;">Chasing<br>Awwwards</div>
+                    <p class="doc-body" style="max-width: 560px; margin-bottom: 32px;">
+                        I spend a lot of time looking at <a href="https://www.awwwards.com/" target="_blank" class="doc-link">Awwwards</a> recognized sites. I've always admired those incredibly complex, award-winning developer portfolios, and I wanted to know if I could actually build one myself. This project was a personal test: how much could I make? What are my limits compared to the people winning these big awards?
+                    </p>
+
+                    <div class="doc-row" style="flex-direction: column; gap: 20px;">
+                        <div class="doc-img-frame">
+                            <div class="doc-img" style="aspect-ratio: 16/10;">
+                                <img src="../assets/portfolio/landing.jpg" alt="Website preview — landing" style="object-position: top;">
+                            </div>
+                        </div>
+                        <div class="doc-img-frame">
+                            <div class="doc-img" style="aspect-ratio: 16/10;">
+                                <img src="../assets/portfolio/fullscroll.jpg" alt="Website preview — full scroll" style="object-position: bottom;">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 03 — DRAFTING THE LANDING -->
+                <section class="doc-page"
+                    data-name="DRAFTING_THE_LANDING"
+                    data-title="Drafting the Landing"
+                    data-desc="Process, sketches, and rejected directions — and how the paper-and-CRT contrast came together.">
+                    <div class="doc-head">
+                        <div class="doc-title">Drafting the Landing</div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 03 / 11</div>
+                        </div>
+                    </div>
+
+                    <p class="doc-body" style="max-width: 560px; margin-bottom: 24px;">
+                        Designing the landing page took a lot more time than I thought it would. I tried entirely different layouts, aesthetics, and color palettes. It felt like the average modern website design. Going too abstract or raw made it look janky, and making it modern made it look bleak. Compared to this, the other pages were easier since by the time the landing page was done, I had the exact idea of what I wanted to do.
+                    </p>
+
+                    <div class="doc-grid-3" style="margin-bottom: 24px;">
+                        <div class="doc-img"><img src="../assets/portfolio/pg3_1.png" alt="Process sketch 1"></div>
+                        <div class="doc-img"><img src="../assets/portfolio/pg3_2.png" alt="Process sketch 2"></div>
+                        <div class="doc-img"><img src="../assets/portfolio/pg3_3.png" alt="Process sketch 3"></div>
+                        <div class="doc-img"><img src="../assets/portfolio/pg3_4.png" alt="Process sketch 4"></div>
+                        <div class="doc-img"><img src="../assets/portfolio/pg3_5.png" alt="Process sketch 5"></div>
+                        <div class="doc-img"><img src="../assets/portfolio/pg3_6.png" alt="Process sketch 6"></div>
+                    </div>
+
+                    <div class="doc-divider"></div>
+
+                    <div class="doc-row" style="align-items: center;">
+                        <div class="doc-col" style="flex-basis: 320px;">
+                            <div class="doc-img contain" style="aspect-ratio: 4/3; padding: 10px; border: none;">
+                                <img src="../assets/portfolio/pg3_7.png" alt="Rejected, safer design direction">
+                            </div>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-label">Finding the Core Theme</div>
+                            <p class="doc-body">I knew I wanted the landing page to have two very different sides to it. The video reveal was part of the idea from the start. Instead of having a normal expanding window, I tried making the paper itself tear open and reveal the video underneath.</p>
+                            <p class="doc-body">The final version ended up being paper on top and CRT underneath,with an Escher-like loop for the paper panels. The texts on the panels are like ink on paper and move along with it.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 04 — INTERACTION DETAILS -->
+                <section class="doc-page"
+                    data-name="INTERACTION_DETAILS"
+                    data-title="Interaction Details"
+                    data-desc="The favicon-to-browser illusion, and how the DHC brand mark is choreographed across the scroll.">
+                    <div class="doc-head">
+                        <div class="doc-title">Interaction Details</div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 04 / 11</div>
+                        </div>
+                    </div>
+
+                    <div class="doc-row" style="align-items: center; margin-bottom: 24px;">
+                        <div class="doc-col">
+                            <div class="doc-eyebrow" style="margin-bottom: 10px;">Bridging the Browser</div>
+                            <p class="doc-body">The opening animation is meant to mess with the browser a little. At first the tab has no favicon because I put a transparent pixel in its place. The glass favicon appears inside the loading screen, moves upward, and ends up sitting in the browser tab where the empty space was.</p>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-img" style="aspect-ratio: 4/3; border-radius: 12px; border: 3.5px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                                <img src="../assets/portfolio/root_landing.png" alt="Root landing view">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="doc-divider"></div>
+
+                    <div class="doc-row" style="align-items: center;">
+                        <div class="doc-col">
+                            <div class="doc-img" style="aspect-ratio: 4/3; border-radius: 12px; border: 3.5px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
+                                <img src="../assets/portfolio/dhc_reveal.png" alt="DHC brand reveal">
+                            </div>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-eyebrow" style="margin-bottom: 10px;">Controlling the Focus</div>
+                            <p class="doc-body">The DHC brand is the one piece of text I left selectable. Everything else on the site has selection disabled.</p>
+                            <p class="doc-body">I also wanted the brand to feel like one object instead of two copies. It starts underneath the left paper panel. As the page moves, that version slides away at the same time the one in the navigation comes into view.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 05 — INTERACTIVE DESIGN -->
+                <section class="doc-page"
+                    data-name="INTERACTIVE_DESIGN"
+                    data-title="Interactive Design"
+                    data-desc="Difference-blended nav text, and the tactile paper-panel scroll interaction underneath it.">
+                    <div class="doc-head">
+                        <div class="doc-title">Interactive Design</div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 05 / 11</div>
+                        </div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div class="doc-col">
+                            <div class="doc-label">The Disco Texts</div>
+                            <p class="doc-body">The central navigation isn't static. The "S-Text" elements (Design, Devlogs, Projects) are suspended over the video layer, utilizing <span class="doc-code">mix-blend-mode: difference</span>.</p>
+                            <p class="doc-body">Difference blending subtracts the text color from the background. If the video frame changes, the text color changes wildly. This made the text look funky but also caused issues: let's say on inverting 10 it becomes 1, inverting 2 becomes 9, 3 would then become 8, and 7 would become 4. But colors close to each other, like gray and other muddy colors, would produce colors similar to each other.</p>
+
+                            <div style="margin: 16px 0; padding-left: 10px; border-left: 2px solid #e5e5e5; display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px;">
+                                    <span style="width: 45px; color: #888;">10 - 1</span>
+                                    <div style="flex-grow: 1; height: 10px; background: linear-gradient(90deg, #fff 50%, #111 50%); border: 1px solid #ddd; border-radius: 2px;"></div>
+                                    <span style="width: 10px; text-align: center; color: #888;">=</span>
+                                    <div style="width: 20px; height: 10px; background: #eee; border: 1px solid #ddd; border-radius: 2px;"></div>
+                                    <span style="width: 55px; color: #111;">9 (Clear)</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px;">
+                                    <span style="width: 45px; color: #888;">5 - 4</span>
+                                    <div style="flex-grow: 1; height: 10px; background: linear-gradient(90deg, #888 50%, #666 50%); border: 1px solid #ddd; border-radius: 2px;"></div>
+                                    <span style="width: 10px; text-align: center; color: #888;">=</span>
+                                    <div style="width: 20px; height: 10px; background: #1a1a1a; border: 1px solid #ddd; border-radius: 2px;"></div>
+                                    <span style="width: 55px; color: #111;">1 (Muddy)</span>
+                                </div>
+                            </div>
+
+                            <p class="doc-body">So I stopped trying to pick one text colour that worked everywhere. I read the video colours and worked backwards from it to find the CSS colour the text needs at specific seconds.</p>
+                            <p class="doc-body">The same thing is done for the little colour ghosts around the text. Their colours are updated with the video too.</p>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-label">Cursor and Scroll</div>
+                            <p class="doc-body">The paper panels aren't just sitting there as decoration. They move backward as you scroll and uncover the CRT footage underneath them.</p>
+                            <p class="doc-body" style="margin-bottom: 16px;">The cursor follows the mouse with lerped movement, stretches as it moves, and changes when it hits something interactive. Clicking the window can also push the scroll transition all the way through.</p>
+                            <div class="doc-img" style="aspect-ratio: 3/4; border-radius: 4px; border: 2px solid #111; box-shadow: -4px 4px 0px rgba(0,0,0,0.1); padding: 4px; box-sizing: border-box;">
+                                <img src="../assets/portfolio/pg5.png" alt="Landing page — scroll interaction" style="border-radius: 2px;">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 06 — COLOR & DISPARITY -->
+                <section class="doc-page"
+                    data-name="COLOR_AND_DISPARITY"
+                    data-title="Color & Disparity"
+                    data-desc="How color is assigned practical jobs across the site — and the page-by-page convergence running through this document.">
+                    <div class="doc-head">
+                        <div class="doc-title">Color &amp; Disparity</div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 06 / 11</div>
+                        </div>
+                    </div>
+
+                    <p class="doc-body" style="max-width: 560px; margin: 0 auto 24px; text-align: center;">
+                        I pulled a lot of the colour direction from Wes Anderson. One thing I liked in one of his work was keeping most of a scene close together and then letting one colour be noticeably louder.
+                    </p>
+
+                    <div class="doc-row" style="align-items: center; margin-bottom: 28px;">
+                        <div class="doc-img contain" style="flex: 0 0 220px; aspect-ratio: 10/7; border: none;">
+                            <img src="../assets/portfolio/wes-anderson-ref.jpg" alt="Reference: symmetrical red palace with a muted mauve-and-gold palette and one saturated red outlier">
+                        </div>
+                        <p class="doc-body" style="flex: 1 1 280px;">The reference here is one I found on Tumblr. The yellows, greys, and muddy colours sit together, while the red is allowed to stick out and the purple feeling outwardly alien. I used the same idea on the site while the panel colors vary they also have an earthly side, then the video brings in neon colours without changing the rest of the page.</p>
+                    </div>
+
+                    <div style="margin-bottom: 28px;">
+                        <div class="doc-label">The Colors of this Document <span style="opacity: 0.6; font-weight: 400; text-transform: none;">(see below)</span></div>
+                        <div id="convergence-strip"></div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div class="doc-col">
+                            <div class="doc-label">Functional Use of Colors</div>
+                            <p class="doc-body" style="margin-bottom: 16px;">The colours also have jobs outside of looking nice. The right panel on the root site uses <span class="doc-code">#0D1117</span>, which is GitHub's dark background. When that panel opens, the real GitHub interface slides into it, so the two already match. The other panel colours are used in the same way on the other sites.</p>
+                            <div class="doc-img" style="width: 100%; height: 60px; margin-top: 10px;">
+                                <img src="../assets/portfolio/pg6_1.png" alt="" style="object-position: right;">
+                            </div>
+                            <div class="doc-img" style="width: 100%; height: 60px; margin-top: 4px;">
+                                <img src="../assets/portfolio/pg6_2.png" alt="">
+                            </div>
+                            <div class="doc-meta" style="margin-top: 16px; margin-bottom: 8px; font-size: 10px; opacity: 0.7;">↳ Website Colors</div>
+                            <div class="doc-swatch-row">
+                                <div class="doc-swatch"><div class="doc-swatch-chip" style="background:#7A6656;"></div><div class="doc-meta" style="font-size:8px;">#7A6656</div></div>
+                                <div class="doc-swatch"><div class="doc-swatch-chip" style="background:#4A3752;"></div><div class="doc-meta" style="font-size:8px;">#4A3752</div></div>
+                                <div class="doc-swatch"><div class="doc-swatch-chip" style="background:#3C4A3E;"></div><div class="doc-meta" style="font-size:8px;">#3C4A3E</div></div>
+                                <div class="doc-swatch"><div class="doc-swatch-chip" style="background:#0D1117;"></div><div class="doc-meta" style="font-size:8px;">#0D1117</div></div>
+                            </div>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-label">Converging and Meaning <span style="opacity: 0.6; font-weight: 400; text-transform: none;">(see strip above)</span></div>
+                            <p class="doc-body">This document follows the same colour idea. Odd pages start white. Even pages start black. As the document goes on, those two tracks get closer together through perceptual OKLCH colour space until they meet at the same vermilion red on the last page.</p>
+                            <p class="doc-body">That is why the pages look so different at the start and much closer together at the end. The project and the site are full of things that don't normally belong together: paper UI, CRT footage, GitHub, a fake OS, alien generators, a game. Still, a site can really just be there to do one thing: disseminate information. The implementation can change completely and the purpose stays the same. They are all parts of the same portfolio — the same vermilion red.</p>
+                            <div class="doc-img" style="width: 100%; height: 60px; margin-top: 26px;">
+                                <img src="../assets/portfolio/pg6_3.png" alt="">
+                            </div>
+                            <div class="doc-img" style="width: 100%; height: 60px; margin-top: 4px;">
+                                <img src="../assets/portfolio/pg6_4.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 07 — PERFORMANCE & CAPABILITY -->
+                <section class="doc-page"
+                    data-name="PERFORMANCE_CHECK"
+                    data-title="Performance & Capability"
+                    data-desc="Hardware detection and the Lite fallback that keeps low-end devices from stuttering.">
+                    <div class="doc-head">
+                        <div>
+                            <div class="doc-title" style="margin-bottom: 6px;">Performance &amp; Capability</div>
+                            <div class="doc-eyebrow">Hardware Check</div>
+                        </div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 07 / 11</div>
+                        </div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div class="doc-col">
+                            <p class="doc-body" style="margin-bottom: 20px;">The full version is heavy on hardware. There are CRT scanlines, the four-layer paper transition, WebGL blending and a lot of things moving at once.</p>
+                            <div class="doc-label">system-check.js</div>
+                            <p class="doc-body" style="margin-bottom: 20px;">I didn't want the site to just assume every device could handle that. So there is a check in the <span class="doc-code">&lt;head&gt;</span> that runs before the first paint. It checks the WebGL renderer, <span class="doc-code">deviceMemory</span>, <span class="doc-code">hardwareConcurrency</span> and the browser's <span class="doc-code">saveData</span> setting.</p>
+                            <div class="doc-label">The Lite Fallback</div>
+                            <p class="doc-body">When the check says the machine probably shouldn't be running the full version, the site switches to Lite mode instead. The scanlines disappear. The paper layout is removed. The S-text ghosts are removed. The page becomes a much simpler static version instead of trying to keep all the effects running and turning the experience into a slideshow while still presenting the same information.</p>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-img contain" style="aspect-ratio: 3/4;">
+                                <img src="../assets/portfolio/pg7.png" alt="Responsive / lite layout">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 08 — TYPOGRAPHY SYSTEM -->
+                <section class="doc-page"
+                    data-name="TYPOGRAPHY_SYSTEM"
+                    data-title="Typography System"
+                    data-desc="Big Shoulders Display and IBM Plex Sans on the root site; Manrope and JetBrains Mono in this document.">
+                    <div class="doc-head">
+                        <div>
+                            <div class="doc-title" style="margin-bottom: 6px;">Typography System</div>
+                            <div class="doc-eyebrow">Voices and Architecture</div>
+                        </div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 08 / 11</div>
+                        </div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div class="doc-col">
+                            <div class="doc-label">The Root Display</div>
+                            <p class="doc-body" style="margin-bottom: 20px;">The main site uses <strong>Big Shoulders Display</strong> for the huge headings and gateway links. I liked how narrow and tall it was, especially when the text gets really big. It makes the links feel more like parts of the layout than normal website headings.</p>
+                            <p class="doc-body" style="margin-bottom: 20px;"><strong>IBM Plex Sans</strong> handles the smaller text and UI because it is easier to read at normal sizes.</p>
+                            <div class="doc-label">The Document Aesthetic</div>
+                            <p class="doc-body">This case study requires a different voice. It mimics a physical printed document. <strong>Manrope</strong> serves as the geometric, cleanly readable body typeface. <strong>JetBrains Mono</strong> is used for meta-labels, dimensions, and structural annotations, treating the page like a blueprint.</p>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-specimen">
+                                <div class="doc-specimen-item">
+                                    <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 38px; line-height: 0.95; letter-spacing: -0.5px; color: #111;">GATEWAY</div>
+                                    <div class="doc-specimen-label">Big Shoulders Display — root headlines</div>
+                                </div>
+                                <div class="doc-specimen-item">
+                                    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; line-height: 1.3; color: #111;">Easy to read at normal UI sizes.</div>
+                                    <div class="doc-specimen-label">IBM Plex Sans — root body / UI</div>
+                                </div>
+                                <div class="doc-specimen-item">
+                                    <div style="font-family: 'Manrope', sans-serif; font-size: 15px; line-height: 1.3; color: #111;">Main body type for the portfolio.</div>
+                                    <div class="doc-specimen-label">Manrope — case study body copy</div>
+                                </div>
+                                <div class="doc-specimen-item">
+                                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.5px; color: #111;">FIG. 08 — TYPE SYSTEM — SCALE 1:1</div>
+                                    <div class="doc-specimen-label">JetBrains Mono — meta / structural labels</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 09 — THIS ALIEN DOESN'T EXIST -->
+                <section class="doc-page"
+                    data-name="ALIEN_GENERATOR"
+                    data-title="This Alien Doesn't Exist"
+                    data-desc="Project 02. A seeded PRNG turns arbitrary text into deterministic alien anatomy, rendered live to canvas.">
+                    <div class="doc-head">
+                        <div>
+                            <div class="doc-title" style="margin-bottom: 6px;">This Alien Doesn't Exist</div>
+                            <div class="doc-meta">Project 02: Generative Rules &amp; Speculative Biology</div>
+                        </div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 09 / 11</div>
+                        </div>
+                    </div>
+
+                    <div class="doc-tags" style="margin-bottom: 24px;">
+                        <span class="doc-tag">Vanilla JavaScript</span>
+                        <span class="doc-tag">HTML5 Canvas API</span>
+                        <span class="doc-tag">Mulberry32 PRNG</span>
+                        <span class="doc-tag">Procedural Generation</span>
+                        <span class="doc-tag"><a href="https://thisaliendoesnotexist.app" target="_blank">Live Page</a></span>
+                        <span class="doc-tag"><a href="https://github.com/aamosm/This-Alien-Does-Not-Exist" target="_blank">GitHub</a></span>
+                    </div>
+
+                    <div class="doc-row">
+                        <div class="doc-col">
+                            <p class="doc-body" style="margin-bottom: 20px;">This is a creature generator where the input is a PRNG number. You type something in and that number becomes the seed. Mulberry32 uses that seed to decide what the creature looks like. The same seed creates the same alien. with over 4 billion unique ones.</p>
+                            <div class="doc-label">The Pipeline</div>
+                            <p class="doc-body" style="margin-bottom: 16px;">The number becomes the creature's seed. Mulberry32 turns it into a repeatable sequence of numbers, which I use to choose the anatomy, colours, textures and other traits. I put rules around those choices so the result doesn't just become a pile of unrelated random parts, all of the categorization and taxonomy are related to each other and the numbers and can be reproduced with the same seed.</p>
+                            <div class="doc-label">Canvas Construction</div>
+                            <p class="doc-body" style="margin-bottom: 20px;">The creature is drawn directly onto an HTML5 canvas. The textures, gradients and appendages are generated from the same seed.</p>
+                            <div class="doc-divider"></div>
+                            <p class="doc-body"><span class="doc-eyebrow">Determinism:</span> Pure randomness does not exist natively in CS, and that is used to our advantage with a fairly easy to predict number generator. With the seeded generator, the same seed will always give you the same result every time you run it. Change the seed and you get a different creature.</p>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-img" style="aspect-ratio: 4/3.4; margin-bottom: 16px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: #111;">
+                                <img src="../assets/portfolio/pg9_1.png" alt="Alien generator interface">
+                            </div>
+                            <div class="doc-img" style="aspect-ratio: 4/2.6; border-radius: 4px; box-shadow: 0 6px 20px rgba(0,0,0,0.08);">
+                                <img src="../assets/portfolio/pg9_2.png" alt="Projects page listing">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 10 — VOYAGEROS -->
+                <section class="doc-page"
+                    data-name="VOYAGER_OS"
+                    data-title="VoyagerOS"
+                    data-desc="Project 03. A fictional spacecraft's desktop OS, built out with windows, a terminal, and a mission archive.">
+                    <div class="doc-head">
+                        <div>
+                            <div class="doc-title" style="margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; letter-spacing: -1px; font-size: 26px;">VoyagerOS</div>
+                            <div class="doc-meta">Project 03: Browser OS &amp; Worldbuilding</div>
+                        </div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 10 / 11</div>
+                        </div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div class="doc-col narrow">
+                            <div class="doc-label">The Point</div>
+                            <p class="doc-body" style="margin-bottom: 18px;">VoyagerOS started as a silly idea: what if the website was not a website at all? What if it was the computer running on a ship that has been travelling for far too long?</p>
+                            <p class="doc-body" style="margin-bottom: 20px;">So instead of building a fake desktop and stopping there, I built the boring stuff too: boot screens, windows, files, a terminal, processes, an archive and a whole fake filesystem. It is basically a tiny computer for a spacecraft that does not exist.</p>
+                            <div class="doc-label">The Story</div>
+                            <p class="doc-body" style="margin-bottom: 16px;">The important part is what the OS hides.</p>
+                            <p class="doc-body" style="margin-bottom: 24px;">Mission files, logs and strange little bits of data turn the interface into a place to discover the Voyager-9 story. The Alien Registry connects it to the creatures being found outside the ship, with <span class="doc-code">.alr</span> packages making those discoveries feel like actual files from the mission.</p>
+
+                            <div class="doc-meta" style="margin-bottom: 8px;">HTML / CSS / JS · Canvas · LocalStorage</div>
+                            <div class="doc-links">
+                                <a class="doc-link" href="https://aamosm.github.io/VoyagerOS" target="_blank">Enter the OS → Live</a>
+                                <a class="doc-link" href="https://github.com/aamosm/VoyagerOS" target="_blank">Read the files → GitHub</a>
+                                <a class="doc-link" href="https://stardance.hackclub.com/projects/31884" target="_blank">Read the devlog → Stardance</a>
+                                <a class="doc-link" href="https://thisaliendoesnotexist.app" target="_blank">Meet the aliens → TADE</a>
+                            </div>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-img" style="aspect-ratio: 16/8.4; margin-bottom: 6px;">
+                                <img src="../assets/portfolio/voyager_desktop.png" alt="VoyagerOS desktop interface">
+                            </div>
+                            <div class="doc-caption">VoyagerOS / main desktop</div>
+
+                            <div class="doc-row tight" style="margin-top: 20px;">
+                                <div class="doc-col" style="flex-basis: 45%;">
+                                    <div class="doc-img" style="aspect-ratio: 4/3;">
+                                        <img src="../assets/portfolio/voyager_login.png" alt="VoyagerOS login">
+                                    </div>
+                                    <div class="doc-caption">Login / authentication</div>
+                                </div>
+                                <div class="doc-col" style="flex-basis: 45%;">
+                                    <div class="doc-img" style="aspect-ratio: 4/3;">
+                                        <img src="../assets/portfolio/alien.webp" alt="VoyagerOS alien registry">
+                                    </div>
+                                    <div class="doc-caption">Alien Registry / field archive</div>
+                                </div>
+                            </div>
+
+                            <div class="doc-row tight" style="margin-top: 16px;">
+                                <div class="doc-img" style="flex: 1 1 45%; aspect-ratio: 1.45/1;">
+                                    <img src="../assets/portfolio/archive.webp" alt="VoyagerOS archive viewer">
+                                </div>
+                                <div class="doc-img" style="flex: 1 1 45%; aspect-ratio: 1.45/1;">
+                                    <img src="../assets/portfolio/desktop.webp" alt="VoyagerOS windows">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 11 — SEVEN MINUTE SHADOW & OUTRO -->
+                <section class="doc-page"
+                    data-name="SEVEN_MINUTE_SHADOW"
+                    data-title="Seven Minute Shadow"
+                    data-desc="Project 04. A scrappy collection of fast, rule-shifting microgames built in Godot.">
+                    <div class="doc-head">
+                        <div>
+                            <div class="doc-title" style="margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; letter-spacing: -1px; font-size: 26px;">Seven Minute Shadow</div>
+                            <div class="doc-meta">Project 04: Designing with Constraints</div>
+                        </div>
+                        <div class="doc-head-right">
+                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
+                            <div class="doc-meta">Page 11 / 11</div>
+                        </div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div class="doc-col narrow">
+                            <div class="doc-label">The Idea</div>
+                            <p class="doc-body" style="margin-bottom: 18px;">Seven Minute Shadow is a tiny collection of fast, weird little games. Every few seconds the rules change, so the real challenge is figuring out what you are supposed to do before the game decides you have had enough.</p>
+                            <p class="doc-body" style="margin-bottom: 20px;">I wanted it to feel deliberately scrappy and playful rather than like a huge polished game. Short rounds, quick reactions, pixel art, chunky 3D bits and increasingly questionable ideas.</p>
+                            <div class="doc-label">Making It</div>
+                            <p class="doc-body" style="margin-bottom: 24px;">The whole thing lives in Godot, with GDScript handling the game logic. Aseprite handles the 2D art and animation, while Blender covers the little 3D pieces. The result is a pile of small experiments that somehow became a game — still a demo.</p>
+
+                            <div class="doc-meta" style="margin-bottom: 8px;">Godot / GDScript · Aseprite · Blender</div>
+                            <div class="doc-links">
+                                <a class="doc-link" href="https://aamosm.itch.io/seven-minute-shadow" target="_blank">Play demo → itch.io</a>
+                                <a class="doc-link" href="https://github.com/aamosm/SevenMinuteShadow" target="_blank">View the mess → GitHub</a>
+                                <a class="doc-link" href="https://stardance.hackclub.com/projects/29189" target="_blank">Devlog → Stardance</a>
+                            </div>
+                        </div>
+                        <div class="doc-col">
+                            <div class="doc-img" style="aspect-ratio: 16/9; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                                <img src="../assets/portfolio/sms.png" alt="Seven Minute Shadow gameplay">
+                            </div>
+                            <div class="doc-caption">Seven Minute Shadow / gameplay</div>
+
+                            <div class="doc-row tight" style="margin-top: 20px;">
+                                <div class="doc-col" style="flex-basis: 45%;">
+                                    <div class="doc-img" style="aspect-ratio: 4/3; border: 1px solid #333;">
+                                        <img src="../assets/portfolio/radio.webp" alt="Seven Minute Shadow detail" style="object-position: left;">
+                                    </div>
+                                    <div class="doc-caption">Microgame / one of many</div>
+                                </div>
+                                <div class="doc-col" style="flex-basis: 45%;">
+                                    <div class="doc-img" style="aspect-ratio: 4/3; border: 1px solid #333;">
+                                        <img src="../assets/portfolio/tile.webp" alt="Seven Minute Shadow world" style="object-position: right;">
+                                    </div>
+                                    <div class="doc-caption">Art / pixels + 3D</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="doc-foot">
+                        <div class="doc-foot-eof">E O F</div>
+                        <div class="doc-foot-links">
+                            <a href="mailto:write@heith.me">write@heith.me</a>
+                            <span>|</span>
+                            <a href="https://github.com/aamosm" target="_blank">github.com/aamosm</a>
+                            <span>|</span>
+                            <a href="https://heith.me" target="_blank" style="display:inline-flex; align-items:center;">
+                                <img src="../assets/favicon.png" alt="heith" style="height: 48px; width: auto; opacity: 1; mix-blend-mode: multiply; display: inline-block; vertical-align: middle;">.me
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <aside id="sidebar-right">
+            <div>
+                <h2 class="meta-title" id="meta-title">TITLE</h2>
+                <div class="meta-desc" id="meta-desc">Description text.</div>
+            </div>
+            <div class="meta-footer">
+                <span style="color: var(--text-muted)"><a href="portfolio.html" class="portfolio-link" target="_blank" rel="noopener">GO TO PORTFOLIO</a></span>
+                <span id="meta-count" style="color: var(--text-main);">01 / 11</span>
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="script.js" defer></script>
+    <script src="../cursor-blob.js" defer></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.DHCMark && window.DHCMark.ready) {
+        window.DHCMark.ready.then(function(loaded){
+          if (!loaded) return;
+          window.DHCMark.updateFavicon(window.matchMedia('(prefers-color-scheme: dark)').matches);
+        });
+      }
+    });
+    </script>
+</body>
+</html>
