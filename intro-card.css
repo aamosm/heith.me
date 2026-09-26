@@ -1,0 +1,169 @@
+#intro-card {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background: var(--bg, var(--bg-base));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 32px 0;
+  display: flex;
+  align-items: safe center;
+  justify-content: center;
+  
+  transition: opacity .45s ease;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  color: var(--ink-on-loader, var(--ink));
+}
+#intro-card::-webkit-scrollbar { display: none; }
+#intro-card.exit {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+
+.intro-dots {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 2;          
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+
+#intro-card.text-ready .intro-dots { opacity: 0; }
+
+
+#intro-card.instant-text .intro-dots { display: none; }
+#intro-card.instant-text .intro-content { transition: none !important; opacity: 1 !important; }
+
+.intro-dots .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);   
+  animation: loaderPulse 1s ease-in-out infinite;
+}
+.intro-dots .dot:nth-child(2) { animation-delay: .15s; }
+.intro-dots .dot:nth-child(3) { animation-delay: .30s; }
+
+
+
+.intro-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 620px;
+  padding: 0 clamp(20px, 5vw, 48px);
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity .55s ease .1s;  
+}
+#intro-card.text-ready .intro-content { opacity: 1; }
+
+
+.intro-name {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: clamp(28px, 4.5vw, 52px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--ink-on-loader, var(--ink));
+  
+  margin: 0 0 3px;
+}
+.intro-sub {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--ink-on-loader, var(--ink)) 60%, transparent);
+  letter-spacing: .04em;
+  font-weight: 500;
+  margin: 0 0 18px;
+}
+.intro-body p {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: clamp(12px, 1.6vw, 13.5px);
+  line-height: 1.7;
+  color: var(--ink);
+  opacity: 0.88;
+  margin: 0 0 10px;
+}
+.intro-body p:last-child { margin-bottom: 0; }
+
+.intro-tools-heading {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent) !important;
+  margin: 14px 0 6px !important;
+}
+.intro-tools {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: clamp(11.5px, 1.5vw, 13px);
+  line-height: 1.65;
+  color: var(--ink);
+  opacity: 0.85;
+  padding-left: 16px;
+  margin: 0 0 8px;
+}
+.intro-tools strong { color: var(--ink); font-weight: 600; }
+
+.intro-footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 14px;
+}
+.intro-links { display: flex; flex-wrap: wrap; }
+.intro-link {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .02em;
+  transition: color .15s ease;
+}
+.intro-link + .intro-link::before {
+  content: ' · ';
+  color: rgba(255,255,255,0.2);
+}
+.intro-link:hover { color: var(--ink); }
+
+.intro-actions { text-align: right; }
+.intro-skip {
+  display: block;
+  background: none; border: none; padding: 0;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--accent);
+  letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer;
+  
+  transition: color .15s ease;
+  margin-bottom: 3px;
+}
+.intro-skip:hover { color: var(--ink); }
+
+.intro-hint {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 10px; color: color-mix(in srgb, var(--ink-on-loader, var(--ink)) 50%, transparent);
+  letter-spacing: .1em; text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .intro-footer { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .intro-actions { text-align: left; }
+}
+
+#intro-card.intro-light-theme { --accent: #8C6A1D; }
+

@@ -1,15 +1,7 @@
 (function(){
-  var ASCENT_TENSION = 40;
-  var ASCENT_FRICTION = 10.47;
-  var RESOLVE_COMPLETE_AT = 0.82;
-  var FAVICON_SWAP_AT = 0.88;
-  var ASCENT_SAFETY_MS = 1800;
   var FILL_IN_TIMEOUT_MS = 700;
+  var READY_TIMEOUT_MS = 2500;
   var CANVAS_SIZE = 200;
-
-  function prefersReducedMotion(){
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
 
   function buildOverlay(){
     var overlay = document.createElement('div');
@@ -32,25 +24,26 @@
 
   function play(onDone){
     var done = false;
+    var imageWait;
     function finish(){
       if (done) return;
       done = true;
+      clearTimeout(imageWait);
       onDone();
     }
 
-    if (prefersReducedMotion()) {
-      console.info('[glass-loader] skipped: prefers-reduced-motion is on.');
-      finish();
-      return;
-    }
-    if (!window.DHCMark || typeof window.DHCMark.render !== 'function') {
-      console.warn('[glass-loader] skipped: window.DHCMark is missing — is favicon.js loaded before glass-loader.js?');
+    if (!window.DHCMark ||
+        typeof window.DHCMark.render !== 'function' ||
+        !window.DHCMark.ready ||
+        typeof window.DHCMark.ready.then !== 'function') {
       finish();
       return;
     }
 
+    imageWait = setTimeout(finish, READY_TIMEOUT_MS);
     window.DHCMark.ready.then(function(loaded){
       if (done) return;
+      clearTimeout(imageWait);
       if (!loaded) {
         console.warn('[glass-loader] skipped: DHCMark reported the source image was not usable (see the [DHCMark] warning above).');
         finish();
@@ -64,6 +57,7 @@
 
       window.DHCMark.render(dom.canvas, { resolve: 1, dark: dark });
 
+      void dom.shell.offsetWidth;
       requestAnimationFrame(function(){
         dom.overlay.classList.add('in');
         dom.overlay.classList.add('filled');
@@ -74,9 +68,11 @@
 
   function runFillIn(dom, dark, finish){
     var settled = false;
+    var fillTimer;
     function proceed(){
       if (settled) return;
       settled = true;
+      clearTimeout(fillTimer);
       dom.shell.removeEventListener('transitionend', onEnd);
       runAscent(dom, dark, finish);
     }
@@ -84,7 +80,7 @@
       if (e.target === dom.shell && e.propertyName === 'transform') proceed();
     }
     dom.shell.addEventListener('transitionend', onEnd);
-    setTimeout(proceed, FILL_IN_TIMEOUT_MS);
+    fillTimer = setTimeout(proceed, FILL_IN_TIMEOUT_MS);
   }
 
   function runAscent(dom, dark, finish){

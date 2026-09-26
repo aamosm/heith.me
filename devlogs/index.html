@@ -1,31 +1,77 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <style>
+      html, body { background: #7A6656; }
+      html[data-fonts="loading"] [data-font-reveal] { opacity: 0; visibility: hidden; }
+      html[data-page-entry="quiet"] #intro-card[data-entry-intro] { display: none !important; }
+      #intro-card[data-entry-intro] .intro-content,
+      #intro-card[data-entry-intro] .intro-dots { visibility: hidden; }
+      html[data-page-entry] #glass-loader { background: transparent; pointer-events: none; }
+    </style>
+    <script>
+      document.documentElement.dataset.pageEntry = new URLSearchParams(location.search).get('v') === 'd' ? 'quiet' : 'direct';
+      document.documentElement.dataset.fonts = 'loading';
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>// devlogs</title>
-
     <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
 
     <link rel="preload" as="image" href="../assets/favicon.png" fetchpriority="high">
 
     <script src="../favicon.js" defer></script>
-    <!-- system capability check -->
-    <script src="../system-check.js"></script>
+    <title>// devlogs</title>
+    <meta name="description" content="Development logs and post-mortems by DHC.">
+    
+    <link rel="preload" href="../fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../site-shared.css">
+    <script src="../site-shared.js" defer></script>
+    <script id="lenis-script" src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js" async></script>
+
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="script.js" as="script">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../projects/embed.css">
+    <link rel="stylesheet" href="../corner-menu.css">
     <link rel="stylesheet" href="../crt.css">
+    <link rel="stylesheet" href="../glass-loader.css">
+    <link rel="stylesheet" href="../brand-hover.css">
+    <link rel="stylesheet" href="../intro-card.css">
 </head>
 <body>
 
-    <div id="loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  <div id="intro-card" data-entry-intro inert aria-label="Introduction">
+    <div class="intro-dots" id="introDots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="intro-content">
+      <h1 class="intro-name">Dhruv Heith Chheda</h1>
+      <p class="intro-sub">Mauritian Â· Interdisciplinary student</p>
+      <div class="intro-body">
+        <p>I'm interested in games and the tools people use to make them. I enjoy programming, and I'd like a hand in the writing, visual decisions and coordination behind a project too. Working with a team appeals to me because there's more than one way to contribute.</p>
+        <p>I grew up playing GBA games on a laptop, and older games and emulation remain personal interests. I also like films that say a lot through simple choices. That's something I'd like to explore in my own work.</p>
+        <p>I'm usually up for a project or a competition, especially with teammates. Some of my projects started with someone around me needing something; others were ideas I wanted to try. I've worked independently, with school teams and during a robotics internship at IIT Gandhinagar.</p>
+        <p class="intro-tools-heading">Some of the tools I've worked with</p>
+        <ul class="intro-tools">
+          <li><strong>Games:</strong> Godot and GDScript; currently learning Unity and C#.</li>
+          <li><strong>Visual work:</strong> Blender, Aseprite and After Effects.</li>
+          <li><strong>Programming:</strong> Python, C++ and JavaScript, with Git/GitHub for managing projects.</li>
+          <li><strong>CAD:</strong> SolidWorks.</li>
+        </ul>
+        <p>I'm open to internships and collaborations across programming, design and game production. You're always welcome to contact me for a detailed CV, more about my work, or a project you'd like to discuss.</p>
+      </div>
+      <div class="intro-footer">
+        <div class="intro-links">
+          <span class="intro-link copyable-email">write@heith.me</span>
+          <a href="https://github.com/aamosm" target="_blank" rel="noopener" class="intro-link">github/aamosm</a>
+        </div>
+        <div class="intro-actions">
+          <button class="intro-skip" type="button" aria-label="Enter site">Enter &darr;</button>
+          <div class="intro-hint">any key to continue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="crt-overlay">
         <div class="scanlines"></div>
         <div class="crt-refresh-line"></div>
@@ -33,18 +79,23 @@
     
     <div class="ui-layer">
         
-        <header class="top-nav glass-panel">
-            <a href="../" class="nav-item nav-item--back">&lt;&lt; return to root</a>
-            <div class="brand allow-select">DHC</div>
-        </header>
+        <header class="top-nav glass-panel corner-menu-header" data-font-reveal>
+    <div style="justify-self: start; display: flex; align-items: center;"><button class="nav-item close-btn" style="background:none;border:none;cursor:pointer;font-family: 'IBM Plex Sans', system-ui, sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.04em; color: inherit; padding: 4px 8px; margin-left: -8px;">Close</button></div>
+    <div class="brand allow-select" id="navBrand" role="button" tabindex="0" aria-label="Show introduction">DHC</div>
+    <button class="nav-item corner-menu-trigger" type="button" aria-controls="dhc-corner-menu" aria-expanded="false">Menu</button>
+</header>
+
+        <button class="scroll-hint" type="button" data-scroll-target="#devlogs-list" data-font-reveal aria-label="Scroll to devlogs">
+            <span>scroll</span><svg viewBox="0 0 12 19" aria-hidden="true"><path d="M6 1v15M1 11l5 5 5-5"/></svg>
+        </button>
+
+        <div class="hero-header" data-font-reveal>
+            <h1 class="massive-title">DEVLOGS</h1>
+            <p class="sub-text">Development logs, system notes, and project post-mortems.</p>
+        </div>
 
         <main class="content-section">
-            <div class="hero-header">
-                <h1 class="massive-title">DEVLOGS</h1>
-                <p class="sub-text">Development logs, system notes, and project post-mortems.</p>
-            </div>
-
-            <div class="blog-grid">
+            <div class="blog-grid" id="devlogs-list" data-font-reveal>
                 <a class="blog-card" href="https://stardance.hackclub.com/projects/29187" target="_blank" rel="noopener">
                     <h2 class="blog-title">This Alien Does Not Exist</h2>
                     <p class="blog-excerpt">An Algorithm inspired by This Person Doesn't Exist. Every refresh reveals a procedurally generated alien species that has never been seen before.</p>
@@ -63,9 +114,21 @@
                         <span class="tag">#game-dev</span>
                         <span class="tag">#pixel-art</span>
                     </div>
-                    <div style="display: flex; gap: 1.5rem;">
-                        <a href="https://stardance.hackclub.com/projects/29189" target="_blank" rel="noopener" class="blog-link">Stardance Logs &rarr;</a>
+                    <div style="display: flex; gap: 1.5rem; margin-bottom: 2rem;">
                         <a href="https://aamosm.itch.io/seven-minute-shadow/devlog" target="_blank" rel="noopener" class="blog-link">Itch.io Logs &rarr;</a>
+                    </div>
+                    
+                    <div class="project-embed-block" style="margin-top: 1rem;">
+                        <div class="project-embed-label" style="font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem;">Play</div>
+                        <a class="itch-card" href="https://aamosm.itch.io/seven-minute-shadow" target="_blank" rel="noopener" aria-label="Play Seven Minute Shadow on itch.io">
+                            <img class="itch-card-cover" src="../assets/projects/seven-minute-shadow.png" alt="Seven Minute Shadow cover art" loading="lazy" width="1027" height="613">
+                            <div class="itch-card-content">
+                                <span class="itch-card-byline">aamosm / itch.io</span>
+                                <h2 class="itch-card-title">Seven Minute Shadow</h2>
+                                <p>A fast-paced, WarioWare-style minigame collection.</p>
+                                <span class="itch-card-action">Play on itch.io <span aria-hidden="true">&nearr;</span></span>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 
@@ -105,17 +168,11 @@
 
     </div>
 
-    <script src="script.js" defer></script>
+    <script src="../glass-loader.js" defer></script>
+    <script src="../intro-overlay.js" defer></script><script src="script.js" defer></script>
+    <script src="../corner-menu.js" defer></script>
     <script src="../cursor-blob.js" defer></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      if (window.DHCMark && window.DHCMark.ready) {
-        window.DHCMark.ready.then(function(loaded){
-          if (!loaded) return;
-          window.DHCMark.updateFavicon(window.matchMedia('(prefers-color-scheme: dark)').matches);
-        });
-      }
-    });
-    </script>
+
 </body>
 </html>
+

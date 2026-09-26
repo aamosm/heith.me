@@ -1,5 +1,6 @@
 (function(){
   const docStyle = document.documentElement.style;
+  document.getElementById('copyright-year').textContent = new Date().getFullYear();
   const spacerEl  = document.getElementById('spacer');
   const reel      = document.getElementById('reel');
   const video     = reel ? reel.querySelector('video') : null;
@@ -32,29 +33,28 @@
   let targetP = 0, currentP = 0, currentPanelP = 0;
   let panelVelocity = 0, scrollVelocity = 0;
   let lastTickTime = 0;
+  let wasPlayingBeforeHidden = false;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const panelMotion = Object.fromEntries(['top', 'bottom', 'left', 'right'].map(edge => [edge, { displacement: 0, velocity: 0 }]));
+  const panelGroups = {
+    top: [document.getElementById('panel-top')],
+    bottom: [document.getElementById('panel-bottom')],
+    left: [document.getElementById('panel-left')],
+    right: [document.getElementById('panel-right-base'), document.getElementById('panel-right-fake')]
+  };
+  let panelDrag = null;
+  let suppressPanelClick = false;
+  let clearingBrandSelection = false;
+  window.addEventListener('pointerdown', () => {
+    const selection = window.getSelection();
+    clearingBrandSelection = !!selection && !selection.isCollapsed && !!selection.anchorNode?.parentElement?.closest('.allow-select');
+  }, { capture: true, passive: true });
 
-  const LENIS_VERSION = '1.3.26';
   let lenis = null;
 
-  (function loadLenis(){
-    if (!document.getElementById('lenis-css')) {
-      const link = document.createElement('link');
-      link.id = 'lenis-css';
-      link.rel = 'stylesheet';
-      link.href = 'https://unpkg.com/lenis@' + LENIS_VERSION + '/dist/lenis.css';
-      document.head.appendChild(link);
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/lenis@' + LENIS_VERSION + '/dist/lenis.min.js';
-    script.onload = initLenis;
-    script.onerror = function(){
-      console.warn('[scroll] Lenis failed to load — falling back to native scroll.');
-    };
-    document.head.appendChild(script);
-  })();
-
   function initLenis(){
+    if (lenis || !window.Lenis) return;
+
     lenis = new window.Lenis({
       lerp: 0.1,
       wheelMultiplier: 1,
@@ -64,6 +64,12 @@
       syncTouch: false,
       anchors: true
     });
+
+    window.DHCSite = window.DHCSite || {};
+    window.DHCSite.scroller = lenis;
+    window.DHCLenis = lenis;
+    const intro = document.getElementById('intro-card');
+    if (intro && document.documentElement.dataset.entry !== 'quiet') lenis.stop();
 
     function raf(time){
       lenis.raf(time);
@@ -75,14 +81,132 @@
     onScroll(lenis.scroll);
   }
 
+  initLenis();
+  document.getElementById('lenis-script')?.addEventListener('load', initLenis, { once: true });
+
   const REEL_TENSION = 280;
   const REEL_FRICTION = 26;
 
   const PANEL_TENSION = 120;
   const PANEL_FRICTION = 16;
+  const PANEL_SPLIT_CLEARANCE = 48;
+  const PANEL_GRIP_DELAY = 150;
+  const PANEL_GRIP_SLOP = 8;
+  const PANEL_RETURN_TENSION = 210;
+  const PANEL_RETURN_DAMPING = 12;
+  const PANEL_RETURN_FREQUENCY = Math.sqrt(PANEL_RETURN_TENSION - PANEL_RETURN_DAMPING ** 2);
 
   const lerp  = function(a, b, t){ return a + (b - a) * t; };
   const clamp = function(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); };
+
+  function settlePanels(dt) {
+    let settled = true;
+    const decay = Math.exp(-PANEL_RETURN_DAMPING * dt);
+    const cos = Math.cos(PANEL_RETURN_FREQUENCY * dt);
+    const sin = Math.sin(PANEL_RETURN_FREQUENCY * dt) / PANEL_RETURN_FREQUENCY;
+    for (const [edge, motion] of Object.entries(panelMotion)) {
+      if (panelDrag?.edge === edge && panelDrag.armed) continue;
+      if (reducedMotion.matches || (Math.abs(motion.displacement) < .05 && Math.abs(motion.velocity) < .1)) {
+        motion.displacement = 0;
+        motion.velocity = 0;
+        continue;
+      }
+      const displacement = motion.displacement;
+      const velocity = motion.velocity;
+      motion.displacement = decay * (displacement * cos + (velocity + PANEL_RETURN_DAMPING * displacement) * sin);
+      motion.velocity = decay * (velocity * cos - (PANEL_RETURN_DAMPING * velocity + PANEL_RETURN_TENSION * displacement) * sin);
+      settled = false;
+    }
+    return settled;
+  }
+
+  function endPanelDrag(cancelled = false) {
+    if (!panelDrag) return;
+    const drag = panelDrag;
+    panelDrag = null;
+    clearTimeout(drag.timer);
+    panelGroups[drag.edge].forEach(panel => panel.classList.remove('is-dragging'));
+    if (drag.panel.hasPointerCapture(drag.pointerId)) drag.panel.releasePointerCapture(drag.pointerId);
+    if (drag.armed) {
+      panelMotion[drag.edge].velocity *= cancelled ? 0 : Math.exp(-Math.max(0, performance.now() - drag.time - 32) / 60);
+    }
+    suppressPanelClick = drag.moved && !cancelled;
+    ensureLoop();
+  }
+
+  const panelControls = 'a, button, input, textarea, select, [role="button"], [contenteditable="true"], .allow-select, .scroll-hint';
+  for (const [edge, panels] of Object.entries(panelGroups)) {
+    panels.forEach(panel => {
+      panel.addEventListener('pointerdown', event => {
+        if (!event.isPrimary || event.button !== 0 || panelDrag || !introDone || transitionActive || document.body.classList.contains('mobile-mode')) return;
+        if (event.target.closest(panelControls) || document.querySelector('#intro-card:not(.exit)')) return;
+        panelDrag = {
+          edge, panel, pointerId: event.pointerId,
+          x: event.clientX, y: event.clientY,
+          lastX: event.clientX, lastY: event.clientY,
+          displacement: panelMotion[edge].displacement,
+          time: performance.now(), moved: false, armed: false, timer: 0
+        };
+        const drag = panelDrag;
+        drag.timer = window.setTimeout(() => {
+          if (panelDrag !== drag) return;
+          drag.armed = true;
+          drag.x = drag.lastX;
+          drag.y = drag.lastY;
+          drag.displacement = panelMotion[edge].displacement;
+          drag.time = performance.now();
+          panelMotion[edge].velocity = 0;
+        }, PANEL_GRIP_DELAY);
+        panel.setPointerCapture(event.pointerId);
+      });
+    });
+  }
+  document.addEventListener('pointermove', event => {
+    const drag = panelDrag;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    drag.lastX = event.clientX;
+    drag.lastY = event.clientY;
+    if (!drag.armed) {
+      if (Math.hypot(event.clientX - drag.x, event.clientY - drag.y) > PANEL_GRIP_SLOP) endPanelDrag(true);
+      return;
+    }
+    const horizontal = drag.edge === 'left' || drag.edge === 'right';
+    const delta = horizontal ? event.clientX - drag.x : event.clientY - drag.y;
+    if (!drag.moved) {
+      if (Math.abs(delta) < 3) return;
+      drag.moved = true;
+      panelGroups[drag.edge].forEach(panel => panel.classList.add('is-dragging'));
+    }
+    const direction = drag.edge === 'bottom' || drag.edge === 'right' ? -1 : 1;
+    const next = drag.displacement + direction * delta;
+    const now = performance.now();
+    const elapsed = Math.max(.001, (now - drag.time) / 1000);
+    const motion = panelMotion[drag.edge];
+    const speed = clamp((next - motion.displacement) / elapsed, -1400, 1400);
+    motion.velocity = lerp(motion.velocity, speed, 1 - Math.exp(-elapsed / .04));
+    motion.displacement = next;
+    drag.time = now;
+    ensureLoop();
+  }, { passive: true });
+  document.addEventListener('pointerup', event => {
+    if (panelDrag?.pointerId === event.pointerId) endPanelDrag();
+  });
+  ['pointercancel', 'lostpointercapture'].forEach(type => {
+    document.addEventListener(type, event => {
+      if (panelDrag?.pointerId === event.pointerId) endPanelDrag(true);
+    });
+  });
+  document.addEventListener('pointerdown', () => { suppressPanelClick = false; }, { capture: true, passive: true });
+  document.addEventListener('click', event => {
+    if (!suppressPanelClick || event.detail === 0) return;
+    suppressPanelClick = false;
+    event.preventDefault();
+    event.stopPropagation();
+  }, { capture: true });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') endPanelDrag(true);
+  });
+  window.addEventListener('blur', () => endPanelDrag(true));
 
   const ease = function(t){
     t = clamp(t, 0, 1);
@@ -132,6 +256,7 @@
 
       docStyle.setProperty('--rest-left', rest.left + 'px');
       docStyle.setProperty('--rest-bottom', (vh - rest.top - rest.height) + 'px');
+      docStyle.setProperty('--rest-top', rest.top + 'px');
     }
 
     full = { radius: 0 };
@@ -149,7 +274,7 @@
 
     pinRange = spacerEl ? (spacerEl.offsetHeight - vh) : 0;
 
-    if(!introDone && !isMobile) {
+    if(!isMobile) {
       initStaticBackgroundDesktop();
     }
   }
@@ -186,15 +311,30 @@
     if (dTexts[2]) { dTexts[2].style.left = leftAnchor; dTexts[2].style.right = 'auto'; dTexts[2].style.top = (midY + gap) + 'px'; }
   }
 
+  function panelOffset(edge, base, inwardRange) {
+    const displacement = panelMotion[edge].displacement;
+    const available = displacement < 0 ? Math.max(0, base - 12) : Math.max(0, inwardRange);
+    const range = edge === 'right' ? Math.min(6, available) : available;
+    return range > 0 ? range * displacement / (range + Math.abs(displacement)) : 0;
+  }
+
   function applyDesktopEdges(e) {
-    docStyle.setProperty('--p-top', e.top + 'px');
-    docStyle.setProperty('--p-bottom', e.bottom + 'px');
-    docStyle.setProperty('--p-left', e.left + 'px');
-    docStyle.setProperty('--p-right', e.right + 'px');
+    const topBase = Math.max(12, e.top);
+    const bottomBase = Math.max(36, e.bottom);
+    const leftBase = Math.max(36, e.left);
+    const rightBase = Math.max(84, e.right);
+    const bottomRange = Math.min(vh * .35, (vh - topBase - 3 * PANEL_SPLIT_CLEARANCE) / 2 - bottomBase);
+    const top = topBase + panelOffset('top', topBase, vh * .35);
+    const bottom = bottomBase + panelOffset('bottom', bottomBase, bottomRange);
+    const left = leftBase + panelOffset('left', leftBase, vw * .35);
+    const right = rightBase + panelOffset('right', rightBase, vw * .35);
+    docStyle.setProperty('--p-top', top + 'px');
+    docStyle.setProperty('--p-bottom', bottom + 'px');
+    docStyle.setProperty('--p-left', left + 'px');
+    docStyle.setProperty('--p-right', right + 'px');
     
-    const centerSplit = e.top + (vh - e.top - e.bottom) / 2;
-    const adjustedSplit = centerSplit + (vh - centerSplit) / 3;
-    docStyle.setProperty('--split-y', adjustedSplit + 'px');
+    const split = Math.min((2 * vh + top - bottom) / 3, vh - bottom - PANEL_SPLIT_CLEARANCE);
+    docStyle.setProperty('--split-y', split + 'px');
   }
 
   const S_TEXT_WINDOWS = [[0.50,0.68], [0.60,0.80], [0.72,0.92]];
@@ -289,9 +429,11 @@
     if (reelSettled) { currentP = targetP; scrollVelocity = 0; }
     if (panelSettled) { currentPanelP = targetP; panelVelocity = 0; }
 
+    const dragSettled = settlePanels(dt);
+
     frame(currentP, currentPanelP);
 
-    if (!(reelSettled && panelSettled)) {
+    if (!(reelSettled && panelSettled && dragSettled)) {
       requestAnimationFrame(tick);
     } else {
       looping = false;
@@ -320,14 +462,12 @@
   window.addEventListener('resize', function(){
     if (resizeFrame) cancelAnimationFrame(resizeFrame);
     resizeFrame = requestAnimationFrame(function(){
+      endPanelDrag(true);
+      Object.values(panelMotion).forEach(motion => { motion.displacement = 0; motion.velocity = 0; });
       computeRects();
       if (introDone) onScroll();
     });
   });
-
-  if (document.fonts && document.fonts.ready){
-    document.fonts.ready.then(function(){ computeRects(); onScroll(); });
-  }
 
   function animateScrollTo(targetY, duration){
     const startY = window.scrollY, t0 = performance.now();
@@ -357,7 +497,7 @@
 
   if (reel) {
     reel.addEventListener('click', function(){
-      if (!introDone || pinRange <= 0 || targetP >= 0.995) return;
+      if (clearingBrandSelection || !introDone || pinRange <= 0 || targetP >= 0.995) return;
       scrollToTarget(pinRange, 650);
     });
   }
@@ -404,6 +544,7 @@
 
     } else {
       applyDesktopEdges(startEdges);
+      void panelGroups.top[0].offsetHeight;
       requestAnimationFrame(function(){
         document.documentElement.classList.add('panel-anim');
         applyDesktopEdges(restEdges);
@@ -416,10 +557,27 @@
     }
   }
 
-  const loader  = document.getElementById('loader');
   const lite    = document.documentElement.classList.contains('lite');
   const lowData = !!window.__DHC_LOWDATA__;
   const VIDEO_SRC = lite ? './assets/finalcompressedver2_lite.mp4' : './assets/finalcompressedver2.mp4';
+  const videoReady = new Promise(resolve => {
+    if (!video || lowData) { resolve(); return; }
+    let ready = false;
+    function finish() {
+      if (ready) return;
+      ready = true;
+      if (video.readyState >= 2) reel.dataset.videoReady = 'true';
+      video.removeEventListener('loadeddata', finish);
+      video.removeEventListener('error', finish);
+      resolve();
+    }
+    if (video.readyState >= 2) finish();
+    else {
+      video.addEventListener('loadeddata', finish);
+      video.addEventListener('error', finish);
+    }
+  });
+  video?.addEventListener('loadeddata', () => { reel.dataset.videoReady = 'true'; });
 
   if (video) {
    if (lowData) {
@@ -632,11 +790,14 @@
     });
   })();
 
-  const FALLBACK_MS = lowData ? 600 : 4000;
-  const NEEDED = 2;
-  let readyCount = 0, revealed = false;
-
-  function markReady(){ readyCount += 1; if (readyCount >= NEEDED) reveal(); }
+  let revealed = false;
+  let siteStarted = false;
+  const sceneReady = (window.DHCSite?.fontsReady || document.fonts?.ready || Promise.resolve()).then(() => {
+    computeRects();
+    if (!siteStarted) frame(0, 0);
+    else frame(currentP, currentPanelP);
+    document.documentElement.dataset.sceneReady = 'true';
+  });
 
   function fadeVolume(vid, targetVolume, duration) {
     const startVolume = vid.volume;
@@ -650,106 +811,127 @@
   }
 
   function tryAutoPlay(){
-  if (!video) return;
+    if (!video) return;
 
-  video.muted = true;
-  video.volume = 0;
+    video.muted = true;
+    video.volume = 0;
 
-  if (!video.currentSrc) {
-    video.src = VIDEO_SRC;
+    if (!video.currentSrc) video.src = VIDEO_SRC;
+
+    const playPromise = video.play();
+
+    if (playPromise && typeof playPromise.then === 'function') {
+      playPromise
+        .then(function(){
+          video.muted = true;
+          video.volume = 1;
+          updateControls();
+        })
+        .catch(function(){
+          updateControls();
+        });
+    } else {
+      updateControls();
+    }
   }
 
-  const playPromise = video.play();
-
-  if (playPromise && typeof playPromise.then === 'function') {
-    playPromise
-      .then(function(){
-        video.muted = true;
-        video.volume = 1;
-        updateControls();
-      })
-      .catch(function(err){
-        console.warn('[video] autoplay failed:', err);
-        updateControls();
-      });
-  } else {
-    updateControls();
+  async function startSite(){
+    if (siteStarted) return;
+    siteStarted = true;
+    await sceneReady;
+    if (!lowData) tryAutoPlay();
+    let wait;
+    await Promise.race([videoReady, new Promise(resolve => { wait = setTimeout(resolve, 1200); })]);
+    clearTimeout(wait);
+    if (window.scrollY > 1) {
+      introDone = true;
+      targetP = pinRange > 0 ? clamp(window.scrollY / pinRange, 0, 1) : 0;
+      currentP = currentPanelP = targetP;
+      frame(currentP, currentPanelP);
+    } else {
+      playIntro();
+    }
   }
-}
-
-function finishReveal(){
-  if (!lowData) tryAutoPlay();
-  playIntro();
-}
 
   function reveal(){
-    if (revealed) return; 
+    if (revealed) return;
     revealed = true;
-    document.documentElement.style.overflow = '';
-
-    const vwNow = window.innerWidth, vhNow = window.innerHeight;
-    const isMobileNow = vwNow < 760 || vhNow < 480 || lite;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const wantsGlass = !lite && !lowData && !isMobileNow && !reducedMotion &&
-      window.DHCGlassLoader && typeof window.DHCGlassLoader.play === 'function';
-
-    if (!wantsGlass) {
-      console.info('[glass-loader] not attempted:', {
-        lite: lite, lowData: lowData, isMobileNow: isMobileNow, reducedMotion: reducedMotion,
-        moduleLoaded: !!(window.DHCGlassLoader && window.DHCGlassLoader.play)
-      });
-    }
-
-    if (wantsGlass) {
-      window.DHCGlassLoader.play(function(){
-        if (loader) loader.remove();
-        finishReveal();
+    const params = new URLSearchParams(location.search);
+    if (document.documentElement.dataset.entry === 'quiet') {
+      document.getElementById('intro-card')?.remove();
+      if (params.get('v') === 'd') params.delete('v');
+      const query = params.toString();
+      history.replaceState(history.state, '', location.pathname + (query ? '?' + query : '') + location.hash);
+      siteStarted = true;
+      introDone = true;
+      computeRects();
+      if (!lowData) tryAutoPlay();
+      targetP = pinRange > 0 ? clamp(window.scrollY / pinRange, 0, 1) : 0;
+      currentP = currentPanelP = targetP;
+      frame(currentP, currentPanelP);
+      if (lenis) lenis.start();
+      window.DHCMark?.ready.then(loaded => {
+        if (loaded) window.DHCMark.updateFavicon(matchMedia('(prefers-color-scheme: dark)').matches);
       });
       return;
     }
 
-    if (loader) {
-      loader.classList.add('done');
-      setTimeout(()=>loader.remove(), 500);
+    const vwNow = window.innerWidth;
+    const vhNow = window.innerHeight;
+    const isMobileNow = vwNow < 760 || vhNow < 480 || lite;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wantsGlass = !lite && !lowData && !isMobileNow && !reducedMotion &&
+      window.DHCGlassLoader && typeof window.DHCGlassLoader.play === 'function';
+
+    let animationResolved = false;
+    let resolveAnimation;
+    const animationDone = new Promise(function(resolve){
+      resolveAnimation = function(){
+        if (animationResolved) return;
+        animationResolved = true;
+        resolve();
+      };
+    });
+
+    if (window.showIntroOverlay) {
+      window.showIntroOverlay(false, animationDone, startSite);
+    } else {
+      startSite();
+      resolveAnimation();
+      return;
     }
 
-    if (window.DHCMark && window.DHCMark.ready) {
-      window.DHCMark.ready.then(function(loaded){
-        if (!loaded) return;
-        var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (typeof window.DHCMark.bounceFavicon === 'function') {
-          window.DHCMark.bounceFavicon(dark);
-        } else if (typeof window.DHCMark.updateFavicon === 'function') {
-          window.DHCMark.updateFavicon(dark);
-        }
-      });
+    if (wantsGlass) {
+      try {
+        window.DHCGlassLoader.play(function(){
+          resolveAnimation();
+        });
+      } catch (_) {
+        resolveAnimation();
+      }
+    } else {
+      resolveAnimation();
+
+      if (window.DHCMark && window.DHCMark.ready && typeof window.DHCMark.ready.then === 'function') {
+        window.DHCMark.ready.then(function(loaded){
+          if (!loaded) return;
+          const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (typeof window.DHCMark.bounceFavicon === 'function') {
+            window.DHCMark.bounceFavicon(dark);
+          } else if (typeof window.DHCMark.updateFavicon === 'function') {
+            window.DHCMark.updateFavicon(dark);
+          }
+        });
+      }
     }
-
-    finishReveal();
   }
 
-  document.documentElement.style.overflow = 'hidden';
-  setTimeout(reveal, FALLBACK_MS);
-
-  if (lowData) {
-    markReady();
-  } else if (video && video.readyState >= 3) {
-    markReady();
-  } else if (video) {
-    video.addEventListener('canplay', markReady, { once: true });
-  } else {
-    markReady();
-  }
-
-  if (!document.fonts || document.fonts.status === 'loaded') {
-    markReady();
-  } else {
-    document.fonts.ready.then(markReady);
-  }
+  reveal();
 
   var transitionActive = false;
   var transitionDest = '';
+  var transitionHistoryAdded = false;
+  var transitionImage = new URL('./assets/github.jpg', window.location.href).href;
   var pushStartTime = 0;
   var pushRafId = null;
   var PUSH_DURATION = 1050;
@@ -860,16 +1042,17 @@ function finishReveal(){
   }
 
   function onTakeoverComplete() {
-    document.body.style.backgroundImage = "url('./assets/github.jpg')";
+    document.body.style.backgroundImage = 'url("' + transitionImage + '")';
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundRepeat = "no-repeat";
-    document.documentElement.style.backgroundImage = "url('./assets/github.jpg')";
+    document.documentElement.style.backgroundImage = 'url("' + transitionImage + '")';
     document.documentElement.style.backgroundSize = "cover";
     document.documentElement.style.backgroundPosition = "center";
     document.documentElement.style.backgroundRepeat = "no-repeat";
     requestAnimationFrame(function() {
-      window.location.href = transitionDest;
+      if (transitionHistoryAdded) window.location.replace(transitionDest);
+      else window.location.href = transitionDest;
     });
   }
 
@@ -889,43 +1072,20 @@ function finishReveal(){
     }
 
     if (transitionActive) return;
+    endPanelDrag(true);
     transitionActive = true;
     transitionDest = dest;
 
     var imgPreload = new Image();
-    imgPreload.src = './assets/github.jpg';
+    imgPreload.src = transitionImage;
 
     try {
-      var newPath = '/placeholder';
-
-try {
-  var u = new URL(dest);
-  var newPath = u.pathname;
-
-  if (u.hostname.toLowerCase() === 'github.com') {
-    var siteBase = '/';
-
-    if (window.location.hostname.toLowerCase().endsWith('.github.io')) {
-      var currentParts = window.location.pathname.split('/').filter(Boolean);
-
-      if (currentParts.length > 0) {
-        siteBase = '/' + currentParts[0] + '/';
-      }
-    }
-
-    newPath =
-      siteBase +
-      u.pathname.replace(/^\/+/, '');
-  }
-
-  history.pushState({ transition: newPath }, '', newPath);
-} catch (_) {
-  var newPath = dest.startsWith('/') ? dest : '/' + dest;
-  history.pushState({ transition: newPath }, '', newPath);
-}
-
-      history.pushState({ transition: newPath }, '', newPath);
-    } catch(e) {
+      var returnURL = new URL(window.location.href);
+      var siteBase = new URL('.', returnURL);
+      var newPath = new URL(new URL(dest).pathname.replace(/^\/+/, ''), siteBase).pathname;
+      history.pushState({ transition: newPath, destination: dest }, '', newPath);
+      transitionHistoryAdded = true;
+    } catch (e) {
       console.warn('URL update failed:', e);
     }
 
@@ -963,18 +1123,39 @@ try {
     }
   });
   
-  window.addEventListener('pageshow', function (event) {
-    if (event.persisted || document.documentElement.classList.contains('transition-active')) {
-      window.location.reload();
+  function restoreLandingPage() {
+    if (history.state?.transition === window.location.pathname && history.state.destination) {
+      window.location.replace(history.state.destination);
+      return;
     }
-  });
+    if (!transitionActive) return;
+    transitionActive = false;
+    cancelAnimationFrame(pushRafId);
+    cancelAnimationFrame(takeRafId);
+    document.documentElement.classList.remove('transition-active');
+    var rightBase = document.getElementById('panel-right-base');
+    rightBase.classList.remove('takeover-ready');
+    rightBase.style.removeProperty('will-change');
+    document.getElementById('panel-right-fake').style.removeProperty('display');
+    [document.body, document.documentElement].forEach(function(element) {
+      ['background-image', 'background-size', 'background-position', 'background-repeat'].forEach(function(property) {
+        element.style.removeProperty(property);
+      });
+    });
+    document.body.style.removeProperty('overflow');
+    computeRects();
+    frame(currentP, currentPanelP);
+    if (lenis) lenis.start();
+    ensureLoop();
+  }
 
-  window.addEventListener('popstate', function () {
-    if (document.documentElement.classList.contains('transition-active')) {
-      window.location.reload();
-    }
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) restoreLandingPage();
+  });
+  window.addEventListener('popstate', restoreLandingPage);
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) event.preventDefault();
   });
 
 })();
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('keydown', e => { if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) { e.preventDefault(); } });

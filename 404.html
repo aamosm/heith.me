@@ -1,37 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>//</title>
-
-    <style>
-        html,
-        body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            background: #0D1117;
-        }
-    </style>
-
-    <script>
-        (function () {
-            var host = window.location.hostname.toLowerCase();
-            var path = window.location.pathname;
-
-            var base = host.endsWith('.github.io')
-                ? '/heith.me/'
-                : '/';
-
-            var current = path.replace(/\/+$/, '').toLowerCase();
-            var target = base.replace(/\/+$/, '').toLowerCase();
-
-            if (current !== target) {
-                window.location.replace(base);
-            }
-        })();
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>//</title>
+  <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+  <style>
+    :root { color-scheme: dark; background: #1a1a18; color: #f0ebe3; font-family: system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; user-select: none; -webkit-user-select: none; }
+    main { width: min(100%, 34rem); padding: 2rem; }
+    .code { margin: 0 0 1.25rem; color: #ecd078; font-size: 12px; font-weight: 500; letter-spacing: .12em; }
+    h1 { margin: 0 0 1rem; font-size: clamp(32px, 6vw, 48px); font-weight: 600; line-height: 1.1; letter-spacing: -.035em; }
+    p { margin: 0; color: #aaa69f; font-size: 15px; line-height: 1.6; }
+    a { display: inline-block; margin-top: 2rem; padding-bottom: 5px; color: #ecd078; font-size: 13px; text-decoration: none; border-bottom: 1px solid #ecd07855; }
+    a:focus-visible { outline: 1px solid currentColor; outline-offset: 6px; }
+    @media (prefers-color-scheme: light) {
+      :root { color-scheme: light; background: #f5f0e8; color: #1a1a18; }
+      p { color: #68645e; }
+      .code, a { color: #8c6a1d; }
+      a { border-bottom-color: #8c6a1d55; }
+    }
+  </style>
 </head>
-<body></body>
+<body>
+  <main>
+    <p class="code">404</p>
+    <h1>This page isn’t here.</h1>
+    <p id="status" role="status">Taking you back to the site.</p>
+    <a id="home" href="/index.html?v=d">Return to the site ↗</a>
+  </main>
+  <script>
+    (() => {
+      ['contextmenu', 'dragstart', 'dragover', 'drop'].forEach(type => {
+        document.addEventListener(type, event => event.preventDefault(), { capture: true });
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10')) event.preventDefault();
+      }, { capture: true });
+
+      const parts = location.pathname.split('/').filter(Boolean);
+      if (parts.length && /\.[^/]+$/.test(parts.at(-1))) parts.pop();
+      const bases = Array.from({ length: parts.length + 1 }, (_, index) => {
+        const prefix = parts.slice(0, parts.length - index).join('/');
+        return prefix ? '/' + prefix + '/' : '/';
+      });
+      const controllers = [];
+      const checks = bases.map(async base => {
+        const controller = new AbortController();
+        controllers.push(controller);
+        const timeout = setTimeout(() => controller.abort(), 1800);
+        try {
+          const url = new URL(base + 'index.html', location.origin);
+          const response = await fetch(url, { signal: controller.signal, credentials: 'same-origin' });
+          if (!response.ok || new URL(response.url).origin !== location.origin) return null;
+          const source = await response.text();
+          const page = new DOMParser().parseFromString(source, 'text/html');
+          if (!page.querySelector('meta[name="dhc-site-root"][content="true"]')) return null;
+          const home = new URL(response.url);
+          if (!home.pathname.endsWith('/index.html')) home.pathname = home.pathname.replace(/\/?$/, '/') + 'index.html';
+          home.search = '?v=d';
+          home.hash = '';
+          return home;
+        } catch {
+          return null;
+        } finally {
+          clearTimeout(timeout);
+        }
+      });
+
+      (async () => {
+        for (const check of checks) {
+          const home = await check;
+          if (!home) continue;
+          controllers.forEach(controller => controller.abort());
+          document.getElementById('home').href = home.href;
+          if (location.pathname !== home.pathname) location.replace(home.href);
+          else document.getElementById('status').textContent = 'The homepage is unavailable. Please try again shortly.';
+          return;
+        }
+        document.getElementById('status').textContent = 'The site could not be reached. Use the link below to try again.';
+      })();
+    })();
+  </script>
+</body>
 </html>

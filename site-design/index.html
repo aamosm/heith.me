@@ -1,584 +1,754 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>// portfolio</title>
-
-    <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-    <link rel="preload" as="image" href="../assets/favicon.png" fetchpriority="high">
-    <script src="../favicon.js" defer></script>
-    <!-- system capability check -->
-    <script src="../system-check.js"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="script.js" as="script">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../crt.css">
-</head>
-<body>
-
-    <div id="loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-
-    <div class="crt-overlay">
-        <div class="scanlines"></div>
-        <div class="crt-refresh-line"></div>
-    </div>
-
-    <header class="top-nav glass-panel">
-        <a href="../" class="nav-item nav-item--back">&lt;&lt; return to root</a>
-        <div class="brand allow-select">DHC</div>
-    </header>
-
-    <div id="app-layout">
-
-        <aside id="sidebar-left">
-            <div class="tracker-header">INDEX</div>
-            <div id="tracker-list">
-                <div id="tracker-indicator">&gt;</div>
-            </div>
-        </aside>
-
-        <main id="stage-container">
-            <div id="doc">
-
-                <!-- PAGE 01 — COVER -->
-                <section class="doc-page doc-cover"
-                    data-name="DHC_SELECTED_WORKS"
-                    data-title="DHC — Selected Works"
-                    data-desc="An interdisciplinary case study covering the concept, process, and interaction design behind the DHC site, plus three companion projects.">
-                    <div class="doc-cover-image">
-                        <img src="../assets/portfolio/cover.png" alt="Cover image" loading="eager">
-                    </div>
-                    <div class="doc-cover-content">
-                        <div></div>
-                        <div>
-                            <div class="doc-cover-mark allow-select">DHC</div>
-                            <div class="doc-cover-sub">Selected Works</div>
-                        </div>
-                        <div class="doc-cover-tag">Inter-<br>disciplinary<br>Student</div>
-                    </div>
-                </section>
-
-                <!-- PAGE 02 — CHASING AWWWARDS -->
-                <section class="doc-page"
-                    data-name="CHASING_AWWWARDS"
-                    data-title="Chasing Awwwards"
-                    data-desc="Project 01: Concept. Chasing the complexity of award-winning developer portfolios as a personal test of ability.">
-                    <div class="doc-head">
-                        <div class="doc-meta">Project 01: Concept</div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 02 / 11</div>
-                        </div>
-                    </div>
-
-                    <div class="doc-massive" style="margin-bottom: 18px;">Chasing<br>Awwwards</div>
-                    <p class="doc-body" style="max-width: 560px; margin-bottom: 32px;">
-                        I spend a lot of time looking at <a href="https://www.awwwards.com/" target="_blank" class="doc-link">Awwwards</a> recognized sites. I've always admired those incredibly complex, award-winning developer portfolios, and I wanted to know if I could actually build one myself. This project was a personal test: how much could I make? What are my limits compared to the people winning these big awards?
-                    </p>
-
-                    <div class="doc-row" style="flex-direction: column; gap: 20px;">
-                        <div class="doc-img-frame">
-                            <div class="doc-img" style="aspect-ratio: 16/10;">
-                                <img src="../assets/portfolio/landing.jpg" alt="Website preview — landing" style="object-position: top;">
-                            </div>
-                        </div>
-                        <div class="doc-img-frame">
-                            <div class="doc-img" style="aspect-ratio: 16/10;">
-                                <img src="../assets/portfolio/fullscroll.jpg" alt="Website preview — full scroll" style="object-position: bottom;">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PAGE 03 — DRAFTING THE LANDING -->
-                <section class="doc-page"
-                    data-name="DRAFTING_THE_LANDING"
-                    data-title="Drafting the Landing"
-                    data-desc="Process, sketches, and rejected directions — and how the paper-and-CRT contrast came together.">
-                    <div class="doc-head">
-                        <div class="doc-title">Drafting the Landing</div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 03 / 11</div>
-                        </div>
-                    </div>
-
-                    <p class="doc-body" style="max-width: 560px; margin-bottom: 24px;">
-                        Designing the landing page took a lot more time than I thought it would. I tried entirely different layouts, aesthetics, and color palettes. It felt like the average modern website design. Going too abstract or raw made it look janky, and making it modern made it look bleak. Compared to this, the other pages were easier since by the time the landing page was done, I had the exact idea of what I wanted to do.
-                    </p>
-
-                    <div class="doc-grid-3" style="margin-bottom: 24px;">
-                        <div class="doc-img"><img src="../assets/portfolio/pg3_1.png" alt="Process sketch 1"></div>
-                        <div class="doc-img"><img src="../assets/portfolio/pg3_2.png" alt="Process sketch 2"></div>
-                        <div class="doc-img"><img src="../assets/portfolio/pg3_3.png" alt="Process sketch 3"></div>
-                        <div class="doc-img"><img src="../assets/portfolio/pg3_4.png" alt="Process sketch 4"></div>
-                        <div class="doc-img"><img src="../assets/portfolio/pg3_5.png" alt="Process sketch 5"></div>
-                        <div class="doc-img"><img src="../assets/portfolio/pg3_6.png" alt="Process sketch 6"></div>
-                    </div>
-
-                    <div class="doc-divider"></div>
-
-                    <div class="doc-row" style="align-items: center;">
-                        <div class="doc-col" style="flex-basis: 320px;">
-                            <div class="doc-img contain" style="aspect-ratio: 4/3; padding: 10px; border: none;">
-                                <img src="../assets/portfolio/pg3_7.png" alt="Rejected, safer design direction">
-                            </div>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-label">Finding the Core Theme</div>
-                            <p class="doc-body">I knew I wanted the landing page to have two very different sides to it. The video reveal was part of the idea from the start. Instead of having a normal expanding window, I tried making the paper itself tear open and reveal the video underneath.</p>
-                            <p class="doc-body">The final version ended up being paper on top and CRT underneath,with an Escher-like loop for the paper panels. The texts on the panels are like ink on paper and move along with it.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PAGE 04 — INTERACTION DETAILS -->
-                <section class="doc-page"
-                    data-name="INTERACTION_DETAILS"
-                    data-title="Interaction Details"
-                    data-desc="The favicon-to-browser illusion, and how the DHC brand mark is choreographed across the scroll.">
-                    <div class="doc-head">
-                        <div class="doc-title">Interaction Details</div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 04 / 11</div>
-                        </div>
-                    </div>
-
-                    <div class="doc-row" style="align-items: center; margin-bottom: 24px;">
-                        <div class="doc-col">
-                            <div class="doc-eyebrow" style="margin-bottom: 10px;">Bridging the Browser</div>
-                            <p class="doc-body">The opening animation is meant to mess with the browser a little. At first the tab has no favicon because I put a transparent pixel in its place. The glass favicon appears inside the loading screen, moves upward, and ends up sitting in the browser tab where the empty space was.</p>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-img" style="aspect-ratio: 4/3; border-radius: 12px; border: 3.5px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
-                                <img src="../assets/portfolio/root_landing.png" alt="Root landing view">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="doc-divider"></div>
-
-                    <div class="doc-row" style="align-items: center;">
-                        <div class="doc-col">
-                            <div class="doc-img" style="aspect-ratio: 4/3; border-radius: 12px; border: 3.5px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.12);">
-                                <img src="../assets/portfolio/dhc_reveal.png" alt="DHC brand reveal">
-                            </div>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-eyebrow" style="margin-bottom: 10px;">Controlling the Focus</div>
-                            <p class="doc-body">The DHC brand is the one piece of text I left selectable. Everything else on the site has selection disabled.</p>
-                            <p class="doc-body">I also wanted the brand to feel like one object instead of two copies. It starts underneath the left paper panel. As the page moves, that version slides away at the same time the one in the navigation comes into view.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PAGE 05 — INTERACTIVE DESIGN -->
-                <section class="doc-page"
-                    data-name="INTERACTIVE_DESIGN"
-                    data-title="Interactive Design"
-                    data-desc="Difference-blended nav text, and the tactile paper-panel scroll interaction underneath it.">
-                    <div class="doc-head">
-                        <div class="doc-title">Interactive Design</div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 05 / 11</div>
-                        </div>
-                    </div>
-
-                    <div class="doc-row">
-                        <div class="doc-col">
-                            <div class="doc-label">The Disco Texts</div>
-                            <p class="doc-body">The central navigation isn't static. The "S-Text" elements (Design, Devlogs, Projects) are suspended over the video layer, utilizing <span class="doc-code">mix-blend-mode: difference</span>.</p>
-                            <p class="doc-body">Difference blending subtracts the text color from the background. If the video frame changes, the text color changes wildly. This made the text look funky but also caused issues: let's say on inverting 10 it becomes 1, inverting 2 becomes 9, 3 would then become 8, and 7 would become 4. But colors close to each other, like gray and other muddy colors, would produce colors similar to each other.</p>
-
-                            <div style="margin: 16px 0; padding-left: 10px; border-left: 2px solid #e5e5e5; display: flex; flex-direction: column; gap: 8px;">
-                                <div style="display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px;">
-                                    <span style="width: 45px; color: #888;">10 - 1</span>
-                                    <div style="flex-grow: 1; height: 10px; background: linear-gradient(90deg, #fff 50%, #111 50%); border: 1px solid #ddd; border-radius: 2px;"></div>
-                                    <span style="width: 10px; text-align: center; color: #888;">=</span>
-                                    <div style="width: 20px; height: 10px; background: #eee; border: 1px solid #ddd; border-radius: 2px;"></div>
-                                    <span style="width: 55px; color: #111;">9 (Clear)</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px;">
-                                    <span style="width: 45px; color: #888;">5 - 4</span>
-                                    <div style="flex-grow: 1; height: 10px; background: linear-gradient(90deg, #888 50%, #666 50%); border: 1px solid #ddd; border-radius: 2px;"></div>
-                                    <span style="width: 10px; text-align: center; color: #888;">=</span>
-                                    <div style="width: 20px; height: 10px; background: #1a1a1a; border: 1px solid #ddd; border-radius: 2px;"></div>
-                                    <span style="width: 55px; color: #111;">1 (Muddy)</span>
-                                </div>
-                            </div>
-
-                            <p class="doc-body">So I stopped trying to pick one text colour that worked everywhere. I read the video colours and worked backwards from it to find the CSS colour the text needs at specific seconds.</p>
-                            <p class="doc-body">The same thing is done for the little colour ghosts around the text. Their colours are updated with the video too.</p>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-label">Cursor and Scroll</div>
-                            <p class="doc-body">The paper panels aren't just sitting there as decoration. They move backward as you scroll and uncover the CRT footage underneath them.</p>
-                            <p class="doc-body" style="margin-bottom: 16px;">The cursor follows the mouse with lerped movement, stretches as it moves, and changes when it hits something interactive. Clicking the window can also push the scroll transition all the way through.</p>
-                            <div class="doc-img" style="aspect-ratio: 3/4; border-radius: 4px; border: 2px solid #111; box-shadow: -4px 4px 0px rgba(0,0,0,0.1); padding: 4px; box-sizing: border-box;">
-                                <img src="../assets/portfolio/pg5.png" alt="Landing page — scroll interaction" style="border-radius: 2px;">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PAGE 06 — COLOR & DISPARITY -->
-                <section class="doc-page"
-                    data-name="COLOR_AND_DISPARITY"
-                    data-title="Color & Disparity"
-                    data-desc="How color is assigned practical jobs across the site — and the page-by-page convergence running through this document.">
-                    <div class="doc-head">
-                        <div class="doc-title">Color &amp; Disparity</div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 06 / 11</div>
-                        </div>
-                    </div>
-
-                    <p class="doc-body" style="max-width: 560px; margin: 0 auto 24px; text-align: center;">
-                        I pulled a lot of the colour direction from Wes Anderson. One thing I liked in one of his work was keeping most of a scene close together and then letting one colour be noticeably louder.
-                    </p>
-
-                    <div class="doc-row" style="align-items: center; margin-bottom: 28px;">
-                        <div class="doc-img contain" style="flex: 0 0 220px; aspect-ratio: 10/7; border: none;">
-                            <img src="../assets/portfolio/wes-anderson-ref.jpg" alt="Reference: symmetrical red palace with a muted mauve-and-gold palette and one saturated red outlier">
-                        </div>
-                        <p class="doc-body" style="flex: 1 1 280px;">The reference here is one I found on Tumblr. The yellows, greys, and muddy colours sit together, while the red is allowed to stick out and the purple feeling outwardly alien. I used the same idea on the site while the panel colors vary they also have an earthly side, then the video brings in neon colours without changing the rest of the page.</p>
-                    </div>
-
-                    <div style="margin-bottom: 28px;">
-                        <div class="doc-label">The Colors of this Document <span style="opacity: 0.6; font-weight: 400; text-transform: none;">(see below)</span></div>
-                        <div id="convergence-strip"></div>
-                    </div>
-
-                    <div class="doc-row">
-                        <div class="doc-col">
-                            <div class="doc-label">Functional Use of Colors</div>
-                            <p class="doc-body" style="margin-bottom: 16px;">The colours also have jobs outside of looking nice. The right panel on the root site uses <span class="doc-code">#0D1117</span>, which is GitHub's dark background. When that panel opens, the real GitHub interface slides into it, so the two already match. The other panel colours are used in the same way on the other sites.</p>
-                            <div class="doc-img" style="width: 100%; height: 60px; margin-top: 10px;">
-                                <img src="../assets/portfolio/pg6_1.png" alt="" style="object-position: right;">
-                            </div>
-                            <div class="doc-img" style="width: 100%; height: 60px; margin-top: 4px;">
-                                <img src="../assets/portfolio/pg6_2.png" alt="">
-                            </div>
-                            <div class="doc-meta" style="margin-top: 16px; margin-bottom: 8px; font-size: 10px; opacity: 0.7;">↳ Website Colors</div>
-                            <div class="doc-swatch-row">
-                                <div class="doc-swatch"><div class="doc-swatch-chip" style="background:#7A6656;"></div><div class="doc-meta" style="font-size:8px;">#7A6656</div></div>
-                                <div class="doc-swatch"><div class="doc-swatch-chip" style="background:#4A3752;"></div><div class="doc-meta" style="font-size:8px;">#4A3752</div></div>
-                                <div class="doc-swatch"><div class="doc-swatch-chip" style="background:#3C4A3E;"></div><div class="doc-meta" style="font-size:8px;">#3C4A3E</div></div>
-                                <div class="doc-swatch"><div class="doc-swatch-chip" style="background:#0D1117;"></div><div class="doc-meta" style="font-size:8px;">#0D1117</div></div>
-                            </div>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-label">Converging and Meaning <span style="opacity: 0.6; font-weight: 400; text-transform: none;">(see strip above)</span></div>
-                            <p class="doc-body">This document follows the same colour idea. Odd pages start white. Even pages start black. As the document goes on, those two tracks get closer together through perceptual OKLCH colour space until they meet at the same vermilion red on the last page.</p>
-                            <p class="doc-body">That is why the pages look so different at the start and much closer together at the end. The project and the site are full of things that don't normally belong together: paper UI, CRT footage, GitHub, a fake OS, alien generators, a game. Still, a site can really just be there to do one thing: disseminate information. The implementation can change completely and the purpose stays the same. They are all parts of the same portfolio — the same vermilion red.</p>
-                            <div class="doc-img" style="width: 100%; height: 60px; margin-top: 26px;">
-                                <img src="../assets/portfolio/pg6_3.png" alt="">
-                            </div>
-                            <div class="doc-img" style="width: 100%; height: 60px; margin-top: 4px;">
-                                <img src="../assets/portfolio/pg6_4.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PAGE 07 — PERFORMANCE & CAPABILITY -->
-                <section class="doc-page"
-                    data-name="PERFORMANCE_CHECK"
-                    data-title="Performance & Capability"
-                    data-desc="Hardware detection and the Lite fallback that keeps low-end devices from stuttering.">
-                    <div class="doc-head">
-                        <div>
-                            <div class="doc-title" style="margin-bottom: 6px;">Performance &amp; Capability</div>
-                            <div class="doc-eyebrow">Hardware Check</div>
-                        </div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 07 / 11</div>
-                        </div>
-                    </div>
-
-                    <div class="doc-row">
-                        <div class="doc-col">
-                            <p class="doc-body" style="margin-bottom: 20px;">The full version is heavy on hardware. There are CRT scanlines, the four-layer paper transition, WebGL blending and a lot of things moving at once.</p>
-                            <div class="doc-label">system-check.js</div>
-                            <p class="doc-body" style="margin-bottom: 20px;">I didn't want the site to just assume every device could handle that. So there is a check in the <span class="doc-code">&lt;head&gt;</span> that runs before the first paint. It checks the WebGL renderer, <span class="doc-code">deviceMemory</span>, <span class="doc-code">hardwareConcurrency</span> and the browser's <span class="doc-code">saveData</span> setting.</p>
-                            <div class="doc-label">The Lite Fallback</div>
-                            <p class="doc-body">When the check says the machine probably shouldn't be running the full version, the site switches to Lite mode instead. The scanlines disappear. The paper layout is removed. The S-text ghosts are removed. The page becomes a much simpler static version instead of trying to keep all the effects running and turning the experience into a slideshow while still presenting the same information.</p>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-img contain" style="aspect-ratio: 3/4;">
-                                <img src="../assets/portfolio/pg7.png" alt="Responsive / lite layout">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PAGE 08 — TYPOGRAPHY SYSTEM -->
-                <section class="doc-page"
-                    data-name="TYPOGRAPHY_SYSTEM"
-                    data-title="Typography System"
-                    data-desc="Big Shoulders Display and IBM Plex Sans on the root site; Manrope and JetBrains Mono in this document.">
-                    <div class="doc-head">
-                        <div>
-                            <div class="doc-title" style="margin-bottom: 6px;">Typography System</div>
-                            <div class="doc-eyebrow">Voices and Architecture</div>
-                        </div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 08 / 11</div>
-                        </div>
-                    </div>
-
-                    <div class="doc-row">
-                        <div class="doc-col">
-                            <div class="doc-label">The Root Display</div>
-                            <p class="doc-body" style="margin-bottom: 20px;">The main site uses <strong>Big Shoulders Display</strong> for the huge headings and gateway links. I liked how narrow and tall it was, especially when the text gets really big. It makes the links feel more like parts of the layout than normal website headings.</p>
-                            <p class="doc-body" style="margin-bottom: 20px;"><strong>IBM Plex Sans</strong> handles the smaller text and UI because it is easier to read at normal sizes.</p>
-                            <div class="doc-label">The Document Aesthetic</div>
-                            <p class="doc-body">This case study requires a different voice. It mimics a physical printed document. <strong>Manrope</strong> serves as the geometric, cleanly readable body typeface. <strong>JetBrains Mono</strong> is used for meta-labels, dimensions, and structural annotations, treating the page like a blueprint.</p>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-specimen">
-                                <div class="doc-specimen-item">
-                                    <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 38px; line-height: 0.95; letter-spacing: -0.5px; color: #111;">GATEWAY</div>
-                                    <div class="doc-specimen-label">Big Shoulders Display — root headlines</div>
-                                </div>
-                                <div class="doc-specimen-item">
-                                    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; line-height: 1.3; color: #111;">Easy to read at normal UI sizes.</div>
-                                    <div class="doc-specimen-label">IBM Plex Sans — root body / UI</div>
-                                </div>
-                                <div class="doc-specimen-item">
-                                    <div style="font-family: 'Manrope', sans-serif; font-size: 15px; line-height: 1.3; color: #111;">Main body type for the portfolio.</div>
-                                    <div class="doc-specimen-label">Manrope — case study body copy</div>
-                                </div>
-                                <div class="doc-specimen-item">
-                                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.5px; color: #111;">FIG. 08 — TYPE SYSTEM — SCALE 1:1</div>
-                                    <div class="doc-specimen-label">JetBrains Mono — meta / structural labels</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PAGE 09 — THIS ALIEN DOESN'T EXIST -->
-                <section class="doc-page"
-                    data-name="ALIEN_GENERATOR"
-                    data-title="This Alien Doesn't Exist"
-                    data-desc="Project 02. A seeded PRNG turns arbitrary text into deterministic alien anatomy, rendered live to canvas.">
-                    <div class="doc-head">
-                        <div>
-                            <div class="doc-title" style="margin-bottom: 6px;">This Alien Doesn't Exist</div>
-                            <div class="doc-meta">Project 02: Generative Rules &amp; Speculative Biology</div>
-                        </div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 09 / 11</div>
-                        </div>
-                    </div>
-
-                    <div class="doc-tags" style="margin-bottom: 24px;">
-                        <span class="doc-tag">Vanilla JavaScript</span>
-                        <span class="doc-tag">HTML5 Canvas API</span>
-                        <span class="doc-tag">Mulberry32 PRNG</span>
-                        <span class="doc-tag">Procedural Generation</span>
-                        <span class="doc-tag"><a href="https://thisaliendoesnotexist.app" target="_blank">Live Page</a></span>
-                        <span class="doc-tag"><a href="https://github.com/aamosm/This-Alien-Does-Not-Exist" target="_blank">GitHub</a></span>
-                    </div>
-
-                    <div class="doc-row">
-                        <div class="doc-col">
-                            <p class="doc-body" style="margin-bottom: 20px;">This is a creature generator where the input is a PRNG number. You type something in and that number becomes the seed. Mulberry32 uses that seed to decide what the creature looks like. The same seed creates the same alien. with over 4 billion unique ones.</p>
-                            <div class="doc-label">The Pipeline</div>
-                            <p class="doc-body" style="margin-bottom: 16px;">The number becomes the creature's seed. Mulberry32 turns it into a repeatable sequence of numbers, which I use to choose the anatomy, colours, textures and other traits. I put rules around those choices so the result doesn't just become a pile of unrelated random parts, all of the categorization and taxonomy are related to each other and the numbers and can be reproduced with the same seed.</p>
-                            <div class="doc-label">Canvas Construction</div>
-                            <p class="doc-body" style="margin-bottom: 20px;">The creature is drawn directly onto an HTML5 canvas. The textures, gradients and appendages are generated from the same seed.</p>
-                            <div class="doc-divider"></div>
-                            <p class="doc-body"><span class="doc-eyebrow">Determinism:</span> Pure randomness does not exist natively in CS, and that is used to our advantage with a fairly easy to predict number generator. With the seeded generator, the same seed will always give you the same result every time you run it. Change the seed and you get a different creature.</p>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-img" style="aspect-ratio: 4/3.4; margin-bottom: 16px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: #111;">
-                                <img src="../assets/portfolio/pg9_1.png" alt="Alien generator interface">
-                            </div>
-                            <div class="doc-img" style="aspect-ratio: 4/2.6; border-radius: 4px; box-shadow: 0 6px 20px rgba(0,0,0,0.08);">
-                                <img src="../assets/portfolio/pg9_2.png" alt="Projects page listing">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PAGE 10 — VOYAGEROS -->
-                <section class="doc-page"
-                    data-name="VOYAGER_OS"
-                    data-title="VoyagerOS"
-                    data-desc="Project 03. A fictional spacecraft's desktop OS, built out with windows, a terminal, and a mission archive.">
-                    <div class="doc-head">
-                        <div>
-                            <div class="doc-title" style="margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; letter-spacing: -1px; font-size: 26px;">VoyagerOS</div>
-                            <div class="doc-meta">Project 03: Browser OS &amp; Worldbuilding</div>
-                        </div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 10 / 11</div>
-                        </div>
-                    </div>
-
-                    <div class="doc-row">
-                        <div class="doc-col narrow">
-                            <div class="doc-label">The Point</div>
-                            <p class="doc-body" style="margin-bottom: 18px;">VoyagerOS started as a silly idea: what if the website was not a website at all? What if it was the computer running on a ship that has been travelling for far too long?</p>
-                            <p class="doc-body" style="margin-bottom: 20px;">So instead of building a fake desktop and stopping there, I built the boring stuff too: boot screens, windows, files, a terminal, processes, an archive and a whole fake filesystem. It is basically a tiny computer for a spacecraft that does not exist.</p>
-                            <div class="doc-label">The Story</div>
-                            <p class="doc-body" style="margin-bottom: 16px;">The important part is what the OS hides.</p>
-                            <p class="doc-body" style="margin-bottom: 24px;">Mission files, logs and strange little bits of data turn the interface into a place to discover the Voyager-9 story. The Alien Registry connects it to the creatures being found outside the ship, with <span class="doc-code">.alr</span> packages making those discoveries feel like actual files from the mission.</p>
-
-                            <div class="doc-meta" style="margin-bottom: 8px;">HTML / CSS / JS · Canvas · LocalStorage</div>
-                            <div class="doc-links">
-                                <a class="doc-link" href="https://aamosm.github.io/VoyagerOS" target="_blank">Enter the OS → Live</a>
-                                <a class="doc-link" href="https://github.com/aamosm/VoyagerOS" target="_blank">Read the files → GitHub</a>
-                                <a class="doc-link" href="https://stardance.hackclub.com/projects/31884" target="_blank">Read the devlog → Stardance</a>
-                                <a class="doc-link" href="https://thisaliendoesnotexist.app" target="_blank">Meet the aliens → TADE</a>
-                            </div>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-img" style="aspect-ratio: 16/8.4; margin-bottom: 6px;">
-                                <img src="../assets/portfolio/voyager_desktop.png" alt="VoyagerOS desktop interface">
-                            </div>
-                            <div class="doc-caption">VoyagerOS / main desktop</div>
-
-                            <div class="doc-row tight" style="margin-top: 20px;">
-                                <div class="doc-col" style="flex-basis: 45%;">
-                                    <div class="doc-img" style="aspect-ratio: 4/3;">
-                                        <img src="../assets/portfolio/voyager_login.png" alt="VoyagerOS login">
-                                    </div>
-                                    <div class="doc-caption">Login / authentication</div>
-                                </div>
-                                <div class="doc-col" style="flex-basis: 45%;">
-                                    <div class="doc-img" style="aspect-ratio: 4/3;">
-                                        <img src="../assets/portfolio/alien.webp" alt="VoyagerOS alien registry">
-                                    </div>
-                                    <div class="doc-caption">Alien Registry / field archive</div>
-                                </div>
-                            </div>
-
-                            <div class="doc-row tight" style="margin-top: 16px;">
-                                <div class="doc-img" style="flex: 1 1 45%; aspect-ratio: 1.45/1;">
-                                    <img src="../assets/portfolio/archive.webp" alt="VoyagerOS archive viewer">
-                                </div>
-                                <div class="doc-img" style="flex: 1 1 45%; aspect-ratio: 1.45/1;">
-                                    <img src="../assets/portfolio/desktop.webp" alt="VoyagerOS windows">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PAGE 11 — SEVEN MINUTE SHADOW & OUTRO -->
-                <section class="doc-page"
-                    data-name="SEVEN_MINUTE_SHADOW"
-                    data-title="Seven Minute Shadow"
-                    data-desc="Project 04. A scrappy collection of fast, rule-shifting microgames built in Godot.">
-                    <div class="doc-head">
-                        <div>
-                            <div class="doc-title" style="margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; letter-spacing: -1px; font-size: 26px;">Seven Minute Shadow</div>
-                            <div class="doc-meta">Project 04: Designing with Constraints</div>
-                        </div>
-                        <div class="doc-head-right">
-                            <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a"></span><span class="sync-line"></span><span class="sync-dot sync-dot-b"></span></div>
-                            <div class="doc-meta">Page 11 / 11</div>
-                        </div>
-                    </div>
-
-                    <div class="doc-row">
-                        <div class="doc-col narrow">
-                            <div class="doc-label">The Idea</div>
-                            <p class="doc-body" style="margin-bottom: 18px;">Seven Minute Shadow is a tiny collection of fast, weird little games. Every few seconds the rules change, so the real challenge is figuring out what you are supposed to do before the game decides you have had enough.</p>
-                            <p class="doc-body" style="margin-bottom: 20px;">I wanted it to feel deliberately scrappy and playful rather than like a huge polished game. Short rounds, quick reactions, pixel art, chunky 3D bits and increasingly questionable ideas.</p>
-                            <div class="doc-label">Making It</div>
-                            <p class="doc-body" style="margin-bottom: 24px;">The whole thing lives in Godot, with GDScript handling the game logic. Aseprite handles the 2D art and animation, while Blender covers the little 3D pieces. The result is a pile of small experiments that somehow became a game — still a demo.</p>
-
-                            <div class="doc-meta" style="margin-bottom: 8px;">Godot / GDScript · Aseprite · Blender</div>
-                            <div class="doc-links">
-                                <a class="doc-link" href="https://aamosm.itch.io/seven-minute-shadow" target="_blank">Play demo → itch.io</a>
-                                <a class="doc-link" href="https://github.com/aamosm/SevenMinuteShadow" target="_blank">View the mess → GitHub</a>
-                                <a class="doc-link" href="https://stardance.hackclub.com/projects/29189" target="_blank">Devlog → Stardance</a>
-                            </div>
-                        </div>
-                        <div class="doc-col">
-                            <div class="doc-img" style="aspect-ratio: 16/9; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-                                <img src="../assets/portfolio/sms.png" alt="Seven Minute Shadow gameplay">
-                            </div>
-                            <div class="doc-caption">Seven Minute Shadow / gameplay</div>
-
-                            <div class="doc-row tight" style="margin-top: 20px;">
-                                <div class="doc-col" style="flex-basis: 45%;">
-                                    <div class="doc-img" style="aspect-ratio: 4/3; border: 1px solid #333;">
-                                        <img src="../assets/portfolio/radio.webp" alt="Seven Minute Shadow detail" style="object-position: left;">
-                                    </div>
-                                    <div class="doc-caption">Microgame / one of many</div>
-                                </div>
-                                <div class="doc-col" style="flex-basis: 45%;">
-                                    <div class="doc-img" style="aspect-ratio: 4/3; border: 1px solid #333;">
-                                        <img src="../assets/portfolio/tile.webp" alt="Seven Minute Shadow world" style="object-position: right;">
-                                    </div>
-                                    <div class="doc-caption">Art / pixels + 3D</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="doc-foot">
-                        <div class="doc-foot-eof">E O F</div>
-                        <div class="doc-foot-links">
-                            <a href="mailto:write@heith.me">write@heith.me</a>
-                            <span>|</span>
-                            <a href="https://github.com/aamosm" target="_blank">github.com/aamosm</a>
-                            <span>|</span>
-                            <a href="https://heith.me" target="_blank" style="display:inline-flex; align-items:center;">
-                                <img src="../assets/favicon.png" alt="heith" style="height: 48px; width: auto; opacity: 1; mix-blend-mode: multiply; display: inline-block; vertical-align: middle;">.me
-                            </a>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-        </main>
-
-        <aside id="sidebar-right">
-            <div>
-                <h2 class="meta-title" id="meta-title">TITLE</h2>
-                <div class="meta-desc" id="meta-desc">Description text.</div>
-            </div>
-            <div class="meta-footer">
-                <span style="color: var(--text-muted)"><a href="portfolio.html" class="portfolio-link" target="_blank" rel="noopener">GO TO PORTFOLIO</a></span>
-                <span id="meta-count" style="color: var(--text-main);">01 / 11</span>
-            </div>
-        </aside>
-
-    </div>
-
-    <script src="script.js" defer></script>
-    <script src="../cursor-blob.js" defer></script>
+  <meta charset="UTF-8">
+    <style>
+      html, body { background: #4A3752; }
+      html[data-design-fonts="loading"] [data-design-font-reveal],
+      html[data-fonts="loading"] [data-font-reveal] { opacity: 0; visibility: hidden; }
+      html[data-page-entry="quiet"] #intro-card[data-entry-intro] { display: none !important; }
+      #intro-card[data-entry-intro] .intro-content,
+      #intro-card[data-entry-intro] .intro-dots { visibility: hidden; }
+      html[data-page-entry] #glass-loader { background: transparent; pointer-events: none; }
+    </style>
     <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      if (window.DHCMark && window.DHCMark.ready) {
-        window.DHCMark.ready.then(function(loaded){
-          if (!loaded) return;
-          window.DHCMark.updateFavicon(window.matchMedia('(prefers-color-scheme: dark)').matches);
-        });
-      }
-    });
+      document.documentElement.dataset.pageEntry = new URLSearchParams(location.search).get('v') === 'd' ? 'quiet' : 'direct';
+      document.documentElement.dataset.fonts = 'loading';
+      document.documentElement.dataset.designFonts = 'loading';
     </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Design and selected work by DHC.">
+  <title>// design</title>
+  <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+  <link rel="preload" as="image" href="../assets/favicon.png">
+  <link rel="preload" href="../fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/kalam-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/kalam-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../site-shared.css">
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../crt.css">
+    <link rel="stylesheet" href="../glass-loader.css">
+    <script src="../favicon.js" defer></script>
+  <script src="../site-shared.js" defer></script>
+  <script src="../glass-loader.js" defer></script>
+    <script src="../intro-overlay.js" defer></script><script src="script.js" defer></script>
+  <script src="../cursor-blob.js" defer></script>
+  <script src="../corner-menu.js" defer></script>
+  <link rel="stylesheet" href="../corner-menu.css">
+  <link rel="stylesheet" href="../brand-hover.css">
+  <link rel="stylesheet" href="../intro-card.css">
+</head>
+<body data-view="viewer">
+<div id="intro-card" data-entry-intro inert aria-label="Introduction">
+    <div class="intro-dots" id="introDots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="intro-content">
+      <h1 class="intro-name">Dhruv Heith Chheda</h1>
+      <p class="intro-sub">Mauritian · Interdisciplinary student</p>
+      <div class="intro-body">
+        <p>I'm interested in games and the tools people use to make them. I enjoy programming, and I'd like a hand in the writing, visual decisions and coordination behind a project too. Working with a team appeals to me because there's more than one way to contribute.</p>
+        <p>I grew up playing GBA games on a laptop, and older games and emulation remain personal interests. I also like films that say a lot through simple choices. That's something I'd like to explore in my own work.</p>
+        <p>I'm usually up for a project or a competition, especially with teammates. Some of my projects started with someone around me needing something; others were ideas I wanted to try. I've worked independently, with school teams and during a robotics internship at IIT Gandhinagar.</p>
+        <p class="intro-tools-heading">Some of the tools I've worked with</p>
+        <ul class="intro-tools">
+          <li><strong>Games:</strong> Godot and GDScript; currently learning Unity and C#.</li>
+          <li><strong>Visual work:</strong> Blender, Aseprite and After Effects.</li>
+          <li><strong>Programming:</strong> Python, C++ and JavaScript, with Git/GitHub for managing projects.</li>
+          <li><strong>CAD:</strong> SolidWorks.</li>
+        </ul>
+        <p>I'm open to internships and collaborations across programming, design and game production. You're always welcome to contact me for a detailed CV, more about my work, or a project you'd like to discuss.</p>
+      </div>
+      <div class="intro-footer">
+        <div class="intro-links">
+          <span class="intro-link copyable-email">write@heith.me</span>
+          <a href="https://github.com/aamosm" target="_blank" rel="noopener" class="intro-link">github/aamosm</a>
+        </div>
+        <div class="intro-actions">
+          <button class="intro-skip" type="button" aria-label="Enter site">Enter &darr;</button>
+          <div class="intro-hint">any key to continue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="top-gradient" aria-hidden="true"></div>
+  <header class="top-nav" data-font-reveal>
+    <div style="justify-self: start; display: flex; align-items: center;"><button class="nav-item close-btn" style="background:none;border:none;cursor:pointer;font-family: 'IBM Plex Sans', system-ui, sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.04em; color: inherit; padding: 4px 8px; margin-left: -8px;">Close</button></div>
+    <div class="brand allow-select" id="navBrand" role="button" aria-label="Show introduction" aria-hidden="true" tabindex="-1">DHC</div>
+    <div class="nav-actions">
+    <button class="zoom-toggle" id="zoom-toggle" type="button" aria-label="Zoom in" aria-pressed="false" title="Zoom in (Z)">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6M6.5 10h7"/><path class="zoom-plus" d="M10 6.5v7"/></svg>
+    </button>
+      <button class="nav-item corner-menu-trigger" type="button" aria-label="Menu" aria-expanded="false">Menu</button>
+    </div>
+  </header>
+  <div class="crt-overlay" aria-hidden="true"><div class="scanlines"></div><div class="crt-refresh-line"></div></div>
+  <div id="app-layout">
+    <aside id="sidebar-left" aria-label="Portfolio navigation" data-font-reveal>
+      <div class="tracker-header"><span>Selected work</span><span class="doc-meta">DHC / Index</span></div>
+      <nav id="tracker-list" aria-label="Portfolio sections"><a class="tracker-item" href="#selected-work"><span class="idx">01</span><span class="name">Selected Works</span></a>
+<a class="tracker-item" href="#the-brief"><span class="idx">02</span><span class="name">Chasing Awwwards</span></a>
+<a class="tracker-item" href="#finding-the-layout"><span class="idx">03</span><span class="name">Drafting the Landing</span></a>
+<a class="tracker-item" href="#paper-loop"><span class="idx">04</span><span class="name">Making the Overlap Work</span></a>
+<a class="tracker-item" href="#small-transitions"><span class="idx">05</span><span class="name">Interaction Details</span></a>
+<a class="tracker-item" href="#moving-colour"><span class="idx">06</span><span class="name">Interactive Design</span></a>
+<a class="tracker-item" href="#colour"><span class="idx">07</span><span class="name">Color &amp; Disparity</span></a>
+<a class="tracker-item" href="#typography"><span class="idx">08</span><span class="name">Typography System</span></a>
+<a class="tracker-item" href="#creatures"><span class="idx">09</span><span class="name">This Alien Doesn’t Exist</span></a>
+<a class="tracker-item" href="#voyager"><span class="idx">10</span><span class="name">VoyagerOS</span></a>
+<a class="tracker-item" href="#seven-minute-shadow"><span class="idx">11</span><span class="name">Seven Minute Shadow</span></a>
+<a class="tracker-item" href="#end"><span class="idx">12</span><span class="name">Contact</span></a></nav>
+      <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+      <a class="sidebar-open" href="portfolio.html" target="_blank" rel="noopener">Open full document ↗</a>
+    </aside>
+    <main class="viewer-stage" aria-label="Design portfolio">
+      <label class="mobile-index" data-font-reveal>Section<select id="section-select" aria-label="Go to portfolio section"><option value="selected-work">01 / Selected Works</option><option value="the-brief">02 / Chasing Awwwards</option><option value="finding-the-layout">03 / Drafting the Landing</option><option value="paper-loop">04 / Making the Overlap Work</option><option value="small-transitions">05 / Interaction Details</option><option value="moving-colour">06 / Interactive Design</option><option value="colour">07 / Color &amp; Disparity</option><option value="typography">08 / Typography System</option><option value="creatures">09 / This Alien Doesn’t Exist</option><option value="voyager">10 / VoyagerOS</option><option value="seven-minute-shadow">11 / Seven Minute Shadow</option><option value="end">12 / Contact</option></select></label>
+      <div id="stage-container" tabindex="0" role="region" aria-label="Portfolio pages">
+        <article id="doc" class="portfolio-document">
+<div class="page landscape-cover" id="selected-work" data-title="Selected Works" data-desc="Websites, procedural art and games." aria-label="Selected Works" style="background-color:rgb(255, 255, 255);--page-background:rgb(255, 255, 255);--muted:rgb(105, 104, 104);--flag:rgb(133, 79, 74);--page-ink:#000000;--text-main:#000000">
+    <div class="cover-image-wrapper">
+        <img src="../assets/portfolio/cover.png" alt="Cover Image" decoding="async">
+    </div>
+
+    <div class="safe-zone" data-design-font-reveal style="position: relative; z-index: auto; height: 100%; width: 100%;">
+
+        <div class="abs flex-col align-center" style="top: 32px; left: 50%; transform: translateX(-50%); gap: 8px; z-index: 10;">
+            <div class="text-meta" style="color: #000; background: #fff; padding: 4px 12px; border-radius: 20px; font-weight: bold; border: 1px solid rgba(0,0,0,0.1);">Page 01 / 12</div>
+            <div class="sync-meter" aria-hidden="true" style="background: rgba(255,255,255,0.9); padding: 4px 8px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.1);">
+                <span class="sync-dot sync-dot-a" style="background:rgb(255, 255, 255)"></span>
+                <span class="sync-line" style="width:30.0px;background:rgb(105, 104, 104)"></span>
+                <span class="sync-dot sync-dot-b" style="background:rgb(0, 0, 0)"></span>
+            </div>
+        </div>
+
+        <div class="abs flex-col align-center justify-center" style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1;">
+            <div style="color: #000; text-align: center; font-family: 'Big Shoulders Display', sans-serif; font-size: 135px; font-weight: 900; letter-spacing: 12px; line-height: 0.85; text-shadow: 0 0 70px rgba(255,255,255,0.9), 0 0 40px rgba(255,255,255,0.85), 0 0 20px rgba(255,255,255,0.8), 0 0 8px rgba(255,255,255,0.9);;font-family:Arial, sans-serif;" data-cover-brand class="brand-inline allow-select" role="button" tabindex="0" aria-label="Show introduction">DHC</div>
+            <div class="text-meta" style="color: #000; margin-top: 8px; letter-spacing: 8px; font-size: 16px; font-weight: bold; text-shadow: 0 0 14px rgba(255,255,255,0.85), 0 0 6px rgba(255,255,255,0.9);">SELECTED WORKS</div>
+        </div>
+
+
+        <div class="abs" style="bottom: 45px; right: 35px; width: auto; text-align: right;">
+            <div class="text-meta" style="color: #000; text-transform: uppercase; font-size: 14px; font-weight: bold; line-height: 1.3; letter-spacing: 1px; text-shadow: 0 0 8px rgba(255,255,255,0.85), 0 0 4px rgba(255,255,255,0.9);">
+                INTER-<br>DISCIPLINARY<br>STUDENT
+            </div>
+        </div>
+
+    <div class="abs" style="bottom:45px;left:35px;color:#000;font-size:10px;line-height:1.7;letter-spacing:.3px;text-shadow:0 0 8px #fff;">Dhruv Heith Chheda<br>Websites, procedural art and games<br><a href="https://heith.me" style="color:inherit;text-decoration:none;" target="_blank" rel="noopener">heith.me</a></div></div>
+</div>
+    <div class="page dark-page" id="the-brief" data-title="Chasing Awwwards" data-desc="Project 01: heith.me." aria-label="Chasing Awwwards" style="background-color:rgb(0, 0, 0);--page-background:rgb(0, 0, 0);--muted:rgb(131, 131, 131);--flag:rgb(188, 128, 123);--page-ink:#ffffff;--text-main:#ffffff">
+        <div class="safe-zone flex-col h-full" data-design-font-reveal>
+            
+            <div class="flex-row justify-between w-full" style="margin-bottom: 40px;">
+                <div class="text-meta">Project 01: heith.me / Design &amp; Development</div>
+                <div class="flex-col align-end" style="gap: 6px;">
+                    <div class="sync-meter" aria-hidden="true">
+                        <span class="sync-dot sync-dot-a" style="background:rgb(255, 255, 255)"></span>
+                        <span class="sync-line" style="width:30.0px;background:rgb(131, 131, 131)"></span>
+                        <span class="sync-dot sync-dot-b" style="background:rgb(0, 0, 0)"></span>
+                    </div>
+                    <div class="text-meta text-right">Page 02 / 12</div>
+                </div>
+            </div>
+
+            <div class="flex-col" style="gap: 15px; margin-bottom: 40px; max-width: 650px;">
+                <div class="text-massive" style="font-size: 80px; letter-spacing: -3px;">Chasing<br>Awwwards</div>
+                <p class="text-body" style="font-size: 13px; max-width: 550px; margin-top: 15px;">I spend a lot of time looking at Awwwards-recognised portfolios. I wanted to see how close I could get to the work I admire, and find out which parts I could build myself. This became heith.me, the site where I collect my design work, code and games. The landing page opens through overlapping paper panels, with a video reel beneath them. I wanted exploring the site to be part of seeing the work.</p>
+            </div>
+
+            <div class="flex-col justify-center" style="gap: 30px; flex-grow: 1; width: 100%;">
+                <div style="flex-grow: 1; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1.5px solid #000; border-radius: 12px; background: #fff; padding: 10px; box-sizing: border-box; display: flex;">
+                    <div class="image-wrapper" style="width: 100%; height: 100%; border: none; border-radius: 4px;">
+                        <img src="../assets/portfolio/landing.jpg" alt="Website Preview 1 - Landing" style="object-position: top;" decoding="async">
+                    </div>
+                </div>
+                <div style="flex-grow: 1; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1.5px solid #000; border-radius: 12px; background: #fff; padding: 10px; box-sizing: border-box; display: flex;">
+                    <div class="image-wrapper" style="width: 100%; height: 100%; border: none; border-radius: 4px;">
+                        <img src="../assets/portfolio/fullscroll.jpg" alt="Website Preview 2 - Full Scroll" style="object-position: bottom;" decoding="async">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="page" id="finding-the-layout" data-title="Drafting the Landing" data-desc="Studies for the paper layout and video reveal." aria-label="Drafting the Landing" style="background-color:rgb(255, 253, 253);--page-background:rgb(255, 253, 253);--muted:rgb(104, 104, 103);--flag:rgb(133, 78, 74);--page-ink:#000000;--text-main:#000000">
+    <div class="safe-zone flex-col h-full" data-design-font-reveal>
+        <div class="flex-row justify-between w-full" style="margin-bottom: 22px;">
+            <div class="text-large">Drafting the Landing</div>
+            <div class="flex-col align-end" style="gap: 6px;">
+                <div class="sync-meter" aria-hidden="true">
+                    <span class="sync-dot sync-dot-a" style="background:rgb(255, 253, 253)"></span>
+                    <span class="sync-line" style="width:29.9px;background:rgb(104, 104, 103)"></span>
+                    <span class="sync-dot sync-dot-b" style="background:rgb(0, 0, 0)"></span>
+                </div>
+                <div class="text-meta text-right">Page 03 / 12</div>
+            </div>
+        </div>
+
+        <p class="text-body" style="max-width: 520px; margin-bottom: 20px; font-size: 12px; line-height: 1.5;">Designing the landing page took much longer than I expected. I kept swinging between versions that felt bleak and versions that were too janky to use. These studies helped me settle on the overlapping paper panels. Their edges gave me a way to divide the screen, place the large links and control how the video would be revealed.</p>
+
+        <div class="grid-6" style="flex-grow: 1; min-height: 0;">
+            <div class="image-wrapper" style="border: 2px solid #111;"><img src="../assets/portfolio/pg3_1.png" alt="Process 1" decoding="async" loading="lazy"></div>
+            <div class="image-wrapper" style="border: 2px solid #111;"><img src="../assets/portfolio/pg3_2.png" alt="Process 2" decoding="async" loading="lazy"></div>
+            <div class="image-wrapper" style="border: 2px solid #111;"><img src="../assets/portfolio/pg3_3.png" alt="Process 3" decoding="async" loading="lazy"></div>
+            <div class="image-wrapper" style="border: 2px solid #111;"><img src="../assets/portfolio/pg3_4.png" alt="Process 4" decoding="async" loading="lazy"></div>
+            <div class="image-wrapper" style="border: 2px solid #111;"><img src="../assets/portfolio/pg3_5.png" alt="Process 5" decoding="async" loading="lazy"></div>
+            <div class="image-wrapper" style="border: 2px solid #111;"><img src="../assets/portfolio/pg3_6.png" alt="Process 6" decoding="async" loading="lazy"></div>
+        </div>
+
+        <div style="width: 100%; height: 1px; background: #eee; margin: 20px 0;"></div>
+
+        <div class="flex-row justify-between align-center" style="gap: 36px; margin-bottom: 10px; height: 210px;">
+            <div style="width: 50%; height: 100%; position: relative;">
+                <div class="image-wrapper" style="height: 100%; width: 100%; padding: 10px; box-sizing: border-box; border: 0px solid #111;">
+                    <img src="../assets/portfolio/pg3_7.png" alt="Rejected Design" style="position: static; width: 100%; height: 100%; object-fit: contain;" decoding="async" loading="lazy">
+                </div>
+            </div>
+            
+            <div class="flex-col justify-center" style="width: 46%; height: 100%;">
+                <div class="text-meta" style="margin-bottom: 12px; border-bottom: 1px solid #111; padding-bottom: 4px; display: inline-block;">Finding the Core Theme</div>
+                <p class="text-body" style="max-width: 100%; margin-bottom: 12px; font-size: 11px; line-height: 1.5;">I knew I wanted the landing page to have two very different sides to it. The video reveal was part of the idea from the start. I tried making the paper itself tear open, with the footage sitting underneath.</p>
+                <p class="text-body" style="max-width: 100%; font-size: 11px; line-height: 1.5;">The final version has paper on top and grainy footage with television scanlines underneath. I wanted the paper to weave over and under itself in an Escher-like loop. Making that overlap work in the browser became its own problem.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page dark-page" id="paper-loop" data-title="Making the Overlap Work" data-desc="How two clipped pieces make one panel appear both above and below its neighbours." aria-label="Making the Overlap Work" style="background-color:rgb(0, 0, 0);--page-background:rgb(0, 0, 0);--muted:rgb(131, 131, 130);--flag:rgb(188, 128, 123);--page-ink:#ffffff;--text-main:#ffffff"><div class="safe-zone flex-col h-full" data-design-font-reveal>
+ <div class="flex-row justify-between w-full" style="margin-bottom:28px;"><div class="text-large">Making the<br>Overlap Work</div><div class="flex-col align-end" style="gap:6px;"><div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a" style="background:rgb(255, 253, 253)"></span><span class="sync-line" style="width:29.8px;background:rgb(131, 131, 130)"></span><span class="sync-dot sync-dot-b" style="background:rgb(0, 0, 0)"></span></div><div class="text-meta text-right page-number">Page 04 / 12</div></div></div>
+ <p class="text-body" style="max-width:100%;font-size:12px;margin-bottom:14px;">I wanted the top panel to cover the right, the right to cover the bottom, the bottom to cover the left, and the left to cover the top. Each strip would pass over one neighbour and under the other.</p>
+ <p class="text-body" style="max-width:100%;font-size:12px;">CSS controls these panels’ front-to-back positions with a number called z-index. A single stack cannot make that loop: if A sits above B, B above C and C above D, D cannot also sit above A.</p>
+ <figure class="overlap-figure" style="margin:26px 0 24px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 604 288" role="img" aria-labelledby="loop-title loop-desc">
+  <title id="loop-title">Four visible panels made from five layers</title>
+  <desc id="loop-desc">The top panel covers the upper right panel, the left covers the top, the bottom covers the left, and a second lower right piece covers the bottom. The right panel is split into two matching pieces at the dashed line. The five layers are shown alongside from front to back.</desc>
+  <rect width="604" height="288" fill="#faf9f6"></rect>
+  <g font-family="Manrope, Arial, sans-serif" font-size="11" fill="#222">
+    <text x="24" y="26">The visible overlap</text>
+    <text x="330" y="26">The layers behind it</text>
+  </g>
+  
+  <g>
+    <rect x="214" y="50" width="46" height="123" fill="#0d1117"></rect>
+    <rect x="42" y="50" width="218" height="44" fill="#4a3752"></rect>
+    <rect x="42" y="50" width="46" height="194" fill="#7a6656"></rect>
+    <rect x="42" y="200" width="218" height="44" fill="#3c4a3e"></rect>
+    <rect x="214" y="173" width="46" height="71" fill="#0d1117"></rect>
+    <path d="M210 173H267" stroke="#ecd078" stroke-width="1.3" stroke-dasharray="3 3"></path>
+  </g>
+  <g font-family="Manrope, Arial, sans-serif" font-size="10" fill="#fff" text-anchor="middle">
+    <text x="154" y="77">TOP</text>
+    <text x="65" y="153" transform="rotate(-90 65 153)">LEFT</text>
+    <text x="148" y="227">BOTTOM</text>
+    <text x="237" y="148" transform="rotate(90 237 148)">RIGHT</text>
+  </g>
+  <text x="151" y="150" font-family="Manrope, Arial, sans-serif" font-size="11" fill="#777" text-anchor="middle">Video</text>
+  <g font-family="Manrope, Arial, sans-serif" font-size="10" fill="#fff">
+    <rect x="330" y="62" width="248" height="28" fill="#0d1117"></rect><text x="342" y="80">Right / lower part</text><text x="562" y="80" text-anchor="end">60</text>
+    <rect x="330" y="99" width="248" height="28" fill="#3c4a3e"></rect><text x="342" y="117">Bottom</text><text x="562" y="117" text-anchor="end">50</text>
+    <rect x="330" y="136" width="248" height="28" fill="#7a6656"></rect><text x="342" y="154">Left</text><text x="562" y="154" text-anchor="end">40</text>
+    <rect x="330" y="173" width="248" height="28" fill="#4a3752"></rect><text x="342" y="191">Top</text><text x="562" y="191" text-anchor="end">30</text>
+    <rect x="330" y="210" width="248" height="28" fill="#0d1117"></rect><text x="342" y="228">Right / upper part</text><text x="562" y="228" text-anchor="end">20</text>
+  </g>
+  <g font-family="Manrope, Arial, sans-serif" font-size="9" fill="#555">
+    <text x="330" y="53">Front</text><text x="578" y="53" text-anchor="end">z-index</text>
+    <text x="330" y="253">Back</text>
+    <text x="42" y="269">Dashed line: where the two right pieces meet</text>
+  </g>
+</svg></figure>
+ <p class="text-body" style="max-width:100%;font-size:12px;margin-bottom:14px;">I split the right-hand panel into two matching copies. Clipping hides everything outside a chosen part of each copy. The visible upper part sits behind the stack, under the top panel. The visible lower part sits in front of the stack, over the bottom panel. That closes the loop.</p>
+ <p class="text-body" style="max-width:100%;font-size:12px;">Both copies have the same width, torn edge and paper texture. They meet at one cut line, so they read as a single piece. I recalculate that line as the panels move, keeping the join together throughout the opening.</p>
+</div></div><div class="page" id="small-transitions" data-title="Interaction Details" data-desc="The favicon flight and the DHC mark." aria-label="Interaction Details" style="background-color:rgb(253, 242, 241);--page-background:rgb(253, 242, 241);--muted:rgb(101, 98, 97);--flag:rgb(127, 73, 69);--page-ink:#000000;--text-main:#000000">
+    <div class="safe-zone flex-col h-full" data-design-font-reveal>
+        <div class="flex-row justify-between w-full" style="margin-bottom: 20px;">
+            <div class="text-large">Interaction Details</div>
+            <div class="flex-col align-end" style="gap: 6px;">
+                <div class="sync-meter" aria-hidden="true">
+                    <span class="sync-dot sync-dot-a" style="background:rgb(253, 242, 241)"></span>
+                    <span class="sync-line" style="width:29.0px;background:rgb(101, 98, 97)"></span>
+                    <span class="sync-dot sync-dot-b" style="background:rgb(0, 0, 0)"></span>
+                </div>
+                <div class="text-meta text-right">Page 05 / 12</div>
+            </div>
+        </div>
+
+        <div class="flex-row justify-between align-center w-full" style="flex: 1; gap: 30px; min-height: 0;">
+            <div class="flex-col justify-center" style="width: 45%;">
+                <div class="text-meta tag-problem" style="margin-bottom: 12px; border-bottom: 1px solid #111; padding-bottom: 4px; display: inline-block; color: #9b9595;">Bridging the Browser</div>
+                <p class="text-body" style="font-size: 11px; line-height: 1.5;">The opening animation is meant to mess with the browser a little. The tab starts with a transparent favicon. A glass version appears inside the loading screen and moves towards the tab. At the end, the real favicon appears. The timing makes the two feel like the same object.</p>
+            </div>
+            <div style="width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                <img src="../assets/portfolio/root_landing.png" alt="Root Landing View" style="max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; border: 3.5px solid #fff; border-radius: 12px; box-sizing: border-box; box-shadow: 0 8px 20px rgba(0,0,0,0.12);" decoding="async" loading="lazy">
+            </div>
+        </div>
+
+        <div style="width: 100%; height: 1px; background: #eee; margin: 20px 0;"></div>
+
+        <div class="flex-row justify-between align-center w-full" style="flex: 1; gap: 30px; min-height: 0; margin-bottom: 10px;">
+            <div style="width: 52%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                <img src="../assets/portfolio/dhc_reveal.png" alt="DHC Brand Reveal" style="max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; border: 3.5px solid #fff; border-radius: 12px; box-sizing: border-box; box-shadow: 0 8px 20px rgba(0,0,0,0.12);" decoding="async" loading="lazy">
+            </div>
+            <div class="flex-col justify-center" style="width: 43%;">
+                <div class="text-meta tag-problem" style="margin-bottom: 12px; border-bottom: 1px solid #111; padding-bottom: 4px; display: inline-block; color: #9b9595;">Controlling the Focus</div>
+                <p class="text-body" style="font-size: 11px; line-height: 1.5;">The introduction and the small “scroll” label need to feel printed on the paper. I keep their inner containers at a fixed size and attach them to the moving panel edges. As a panel shrinks, its text moves off screen with it. The torn edge clips anything that should no longer be visible, so the letters keep their shape instead of wrapping into a smaller space.</p>
+                <p class="text-body" style="font-size: 11px; line-height: 1.5;">My initials, DHC, appear in two places: the introduction and the navigation. The left panel covers the navigation’s copy at first. When the paper retracts, the introduction moves away and the other copy is uncovered. The two copies appear to hand the name from the paper to the navigation.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page dark-page" id="moving-colour" data-title="Interactive Design" data-desc="The disco texts, paper movement and cursor." aria-label="Interactive Design" style="background-color:rgb(0, 0, 0);--page-background:rgb(0, 0, 0);--muted:rgb(134, 130, 129);--flag:rgb(188, 128, 123);--page-ink:#ffffff;--text-main:#ffffff">
+    <div class="safe-zone flex-col h-full" data-design-font-reveal>
+        <div class="flex-row justify-between w-full" style="margin-bottom: 40px;">
+            <div class="text-large">Interactive Design</div>
+            <div class="flex-col align-end" style="gap: 6px;">
+                <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a" style="background:rgb(253, 242, 241)"></span><span class="sync-line" style="width:28.2px;background:rgb(134, 130, 129)"></span><span class="sync-dot sync-dot-b" style="background:rgb(0, 0, 0)"></span></div>
+                <div class="text-meta text-right">Page 06 / 12</div>
+            </div>
+        </div>
+        
+        <div class="flex-row justify-between" style="gap: 40px; flex-grow: 1; min-height: 0; margin-bottom: 10px;">
+            <div class="flex-col" style="width: 48%; height: 100%;">
+                <div class="text-meta" style="margin-bottom: 16px; border-bottom: 1px solid #000; padding-bottom: 8px;">The Disco Texts</div>
+                
+                <p class="text-body" style="margin-bottom: 12px; font-size: 12px;">The large links labelled Design, Devlogs and Projects sit over the video. They lead to this portfolio, my development notes and the other projects. Their colours change with the footage through the CSS effect mix-blend-mode: difference.</p>
+                
+                <p class="text-body" style="margin-bottom: 14px; font-size: 12px;">This effect compares the red, green and blue values of the letters with the footage behind them and displays the difference. White lettering inverts the footage. Similar input colours produce a dark result, which made some frames look muddy.</p>
+
+                <p class="text-code" style="font-size:8px;margin-bottom:6px;">One colour channel, on a scale from 0 to 255:</p><div style="margin: 0 0 16px 0; padding-left: 10px; border-left: 2px solid #e5e5e5; display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px; font-family: monospace; font-size: 10px;">
+                        <span style="width: 45px; color: #888;;width:62px;flex-shrink:0;">255 - 0</span>
+                        <div style="flex-grow: 1; height: 10px; background: linear-gradient(90deg, #fff 50%, #111 50%); border: 1px solid #ddd; border-radius: 2px;;background:linear-gradient(90deg,#fff 50%,#000 50%);"></div>
+                        <span style="width: 10px; text-align: center; color: #888;">=</span>
+                        <div style="width: 20px; height: 10px; background: #eee; border: 1px solid #ddd; border-radius: 2px;;background:#fff;"></div>
+                        <span style="width: 45px; color: #111;;width:22px;color:var(--muted);">255</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; font-family: monospace; font-size: 10px;">
+                        <span style="width: 45px; color: #888;;width:62px;flex-shrink:0;">128 - 120</span>
+                        <div style="flex-grow: 1; height: 10px; background: linear-gradient(90deg, #888 50%, #666 50%); border: 1px solid #ddd; border-radius: 2px;;background:linear-gradient(90deg,#808080 50%,#787878 50%);"></div>
+                        <span style="width: 10px; text-align: center; color: #888;">=</span>
+                        <div style="width: 20px; height: 10px; background: #1a1a1a; border: 1px solid #ddd; border-radius: 2px;;background:#080808;"></div>
+                        <span style="width: 45px; color: #111;;width:22px;color:var(--muted);">8</span>
+                    </div>
+                </div>
+
+                <p class="text-body" style="margin-bottom: 12px; font-size: 12px;">I chose a sequence of text colours against particular moments in the footage and timed the changes to video playback. That gave me more control over the result than one fixed colour.</p>
+                
+                <p class="text-body" style="font-size: 12px;">Two coloured outlines sit slightly to either side of each letter. They change colour at the same points in the video, keeping the offset lettering and the footage in step.</p>
+            </div>
+            
+            <div class="flex-col" style="width: 48%; height: 100%;">
+                <div class="text-meta" style="margin-bottom: 16px; border-bottom: 1px solid #000; padding-bottom: 8px;">Cursor and Scroll</div>
+                
+                <p class="text-body" style="margin-bottom: 14px; font-size: 12px;">The paper panels move back as you scroll and uncover the footage with its television scanlines. Clicking the video window can carry the opening all the way through.</p>
+                
+                <p class="text-body" style="font-size: 12px; margin-bottom: 20px;">The cursor trails behind the pointer, stretches with its movement and changes over links and controls. I adapted the blob-shaped cursor from Xenobiota, a website by tol-is. I liked how its soft outline looked against the torn paper.</p>
+                
+                <p class="text-body" style="font-size:11px;margin-bottom:16px;">I also reduced repeated work: the paper texture is reused, scroll changes are grouped into animation frames, and the cursor’s movement loop rests when it settles.</p><div class="image-wrapper" style="flex-grow: 1; width: 100%; border-radius: 4px; border: 2px solid #111; overflow: hidden; box-shadow: -4px 4px 0px rgba(0,0,0,0.1); padding: 4px; box-sizing: border-box;">
+                    <img src="../assets/portfolio/pg5.png" alt="Landing Page" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 2px;" decoding="async" loading="lazy">
+                </div>
+            <p class="text-code" style="margin-top:10px;font-size:8px;">Cursor reference: tol-is / Xenobiota<br><a href="https://github.com/tol-is/xenobiota" class="body-link" target="_blank" rel="noopener">github.com/tol-is/xenobiota</a></p></div>
+        </div>
+    </div>
+</div>
+
+<div class="page" id="colour" data-title="Color &amp; Disparity" data-desc="Muted paper, neon footage and the handover to GitHub." aria-label="Color &amp; Disparity" style="background-color:rgb(248, 212, 208);--page-background:rgb(248, 212, 208);--muted:rgb(94, 81, 80);--flag:rgb(111, 59, 55);--page-ink:#000000;--text-main:#000000">
+    <div class="safe-zone flex-col h-full" data-design-font-reveal>
+        <div class="flex-row justify-between w-full" style="margin-bottom: 40px;">
+            <div class="text-large">Color &amp; Disparity</div>
+            <div class="flex-col align-end" style="gap: 6px;">
+                <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a" style="background:rgb(248, 212, 208)"></span><span class="sync-line" style="width:26.2px;background:rgb(94, 81, 80)"></span><span class="sync-dot sync-dot-b" style="background:rgb(0, 0, 0)"></span></div>
+                <div class="text-meta text-right">Page 07 / 12</div>
+            </div>
+        </div>
+        <div class="flex-col align-center text-center w-full" style="margin-bottom: 20px;">
+            <p class="text-body" style="max-width: 500px; font-size: 13px;">I looked at Wes Anderson’s use of colour: muted tones held close together, with one much louder colour interrupting them.</p>
+        </div>
+        <div class="flex-row align-center justify-center" style="gap: 30px; margin-bottom: 30px;">
+            <div class="flex-col" style="gap: 8px; flex-shrink: 0;">
+                <div class="image-wrapper" style="width: 200px; height: 140px; border: none; box-shadow: none; background: none;">
+                    <img src="../assets/portfolio/wes-anderson-ref.jpg" alt="Reference: symmetrical red palace with a muted mauve-and-gold palette and one saturated red outlier" style="width: 100%; height: 100%; object-fit: contain; border: none;" decoding="async" loading="lazy">
+                </div>
+            <div class="text-code" style="max-width:200px;font-size:8px;">Wes Anderson colour reference,<br>found via Tumblr.</div></div>
+            <p class="text-body" style="font-size: 12px; max-width: 320px;">In this reference, the yellows, greys and muddy tones sit together, while the red stands out and the purple feels almost alien. I used earthy brown, mauve and green for the paper panels, then let the video introduce the neon colours.</p>
+        </div>
+        <div class="flex-row justify-between w-full" style="flex-grow: 1; gap: 40px; margin-bottom: 10px;">
+            <div class="flex-col" style="width: 48%; height: 100%;">
+                <div class="text-meta" style="margin-bottom: 12px; border-bottom: 1px solid #555; padding-bottom: 8px; display: inline-block;">Paper and Video</div>
+                <p class="text-body" style="font-size: 12px;">Each paper panel has its own colour, and those colours carry through to the destination pages. Keeping them muted leaves room for the reel’s bright, shifting colours. The large areas of paper hold the composition together while the footage keeps changing.</p>
+                <div class="text-meta" style="margin-top: 16px; margin-bottom: 8px; font-size: 10px; opacity: 0.7;;margin-top:14px;">↳ Website Colors</div>
+                <div class="flex-row" style="gap: 8px;">
+                    <div class="flex-col align-center" style="gap: 4px;">
+                        <div style="width: 38px; height: 38px; background-color: #7A6656; border-radius: 2px;"></div>
+                        <div class="text-meta" style="font-size: 8px;">#7A6656</div>
+                    </div>
+                    <div class="flex-col align-center" style="gap: 4px;">
+                        <div style="width: 38px; height: 38px; background-color: #4A3752; border-radius: 2px;"></div>
+                        <div class="text-meta" style="font-size: 8px;">#4A3752</div>
+                    </div>
+                    <div class="flex-col align-center" style="gap: 4px;">
+                        <div style="width: 38px; height: 38px; background-color: #3C4A3E; border-radius: 2px;"></div>
+                        <div class="text-meta" style="font-size: 8px;">#3C4A3E</div>
+                    </div>
+                    <div class="flex-col align-center" style="gap: 4px;">
+                        <div style="width: 38px; height: 38px; background-color: #0D1117; border-radius: 2px;"></div>
+                        <div class="text-meta" style="font-size: 8px;">#0D1117</div>
+                    </div>
+                </div>
+            <div class="image-wrapper" style="width: 100%; height: 60px; margin-top: 10px;;height:90px;margin-left:0;margin-top:12px;flex-shrink:0;">
+                    <img src="../assets/portfolio/pg6_1.png" style="width: 100%; height: 100%; object-fit: cover; object-position: right;" decoding="async" loading="lazy" alt="Color &amp; Disparity detail">
+                </div>
+                <div class="image-wrapper" style="width: 100%; height: 60px; margin-top: 4px;;height:90px;margin-left:0;margin-top:12px;flex-shrink:0;">
+                    <img src="../assets/portfolio/pg6_2.png" style="width: 100%; height: 100%; object-fit: cover;" decoding="async" loading="lazy" alt="Color &amp; Disparity detail">
+                </div>
+                </div>
+            <div class="flex-col" style="width: 48%; height: 100%;">
+                <div class="text-meta" style="margin-bottom: 12px; border-bottom: 1px solid #555; padding-bottom: 8px; display: inline-block;">Opening the Repository</div>
+                <p class="text-body" style="font-size: 12px;">The right-hand panel uses #0D1117, the dark background colour on GitHub. Clicking “site src”, the source-code link, sends the top, left and bottom panels off screen. Their text goes with them, which makes it look as though the whole paper layout is being pushed away.</p>
+                <p class="text-body" style="font-size:12px;margin-top:12px;">Before those panels finish leaving, the right panel expands across the screen. It reveals a full-size screenshot of the repository, so GitHub appears to slide in on the paper. Once the picture fills the screen, the browser opens the real repository. The matching background colour disguises that handover.</p><div class="image-wrapper" style="width: 100%; height: 60px; margin-top: 26px; margin-left: -45px;;height:90px;margin-left:0;margin-top:12px;flex-shrink:0;">
+                    <img src="../assets/portfolio/pg6_3.png" style="width: 100%; height: 100%; object-fit: cover;" decoding="async" loading="lazy" alt="Color &amp; Disparity detail">
+                </div>
+                <div class="image-wrapper" style="width: 100%; height: 60px; margin-top: 4px; margin-left: -45px;;height:90px;margin-left:0;margin-top:12px;flex-shrink:0;">
+                    <img src="../assets/portfolio/pg6_4.png" style="width: 100%; height: 100%; object-fit: cover;" decoding="async" loading="lazy" alt="Color &amp; Disparity detail">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page dark-page" id="typography" data-title="Typography System" data-desc="Website type, document type and the page colour sequence." aria-label="Typography System" style="background-color:rgb(16, 1, 1);--page-background:rgb(16, 1, 1);--muted:rgb(143, 130, 128);--flag:rgb(190, 130, 125);--page-ink:#ffffff;--text-main:#ffffff">
+    <div class="safe-zone flex-col h-full" data-design-font-reveal>
+        <div class="flex-row justify-between w-full" style="margin-bottom: 30px;">
+            <div>
+                <div class="text-large">Typography System</div>
+                <div class="text-meta tag-problem">Website and Document</div>
+            </div>
+            <div class="flex-col align-end" style="gap: 6px;">
+                <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a" style="background:rgb(248, 212, 208)"></span><span class="sync-line" style="width:24.0px;background:rgb(143, 130, 128)"></span><span class="sync-dot sync-dot-b" style="background:rgb(16, 1, 1)"></span></div>
+                <div class="text-meta text-right">Page 08 / 12</div>
+            </div>
+        </div>
+        <div class="flex-row justify-between w-full" style="flex-grow: 1; gap: 40px; min-height: 0;">
+            <div class="flex-col justify-center" style="width: 45%; height: 100%;">
+                <div class="text-meta" style="border-bottom: 1px solid #111; padding-bottom: 8px;">On the Website</div>
+                <p class="text-body" style="font-size: 12px; margin-top: 15px; margin-bottom: 15px;">The main site uses Big Shoulders Display for the huge headings and gateway links. I liked how narrow and tall it was, especially at that scale. The labels occupy the paper panels and become part of their shape.</p>
+                <p class="text-body" style="font-size: 12px; margin-top: 15px; margin-bottom: 15px;">IBM Plex Sans handles the smaller text and controls because it is easy to read at normal UI sizes.</p>
+                <div class="text-meta" style="border-bottom: 1px solid #111; padding-bottom: 8px; margin-top: 20px;">In This Document</div>
+                <p class="text-body" style="font-size: 12px; margin-top: 15px; margin-bottom: 15px;">This document uses a quieter set of typefaces. Manrope carries the main text, while JetBrains Mono marks the measurements, labels and technical notes. The fixed page size lets me place images and writing together and keep that arrangement when the portfolio is printed.</p>
+                <p class="text-body" style="font-size: 12px; margin-top: 15px; margin-bottom: 15px;">The pages begin by alternating between white and black. The two tracks gradually meet at vermilion red, #C1272D. I blended them in OKLCH, a colour system based on lightness, colour strength and hue. The paired dots in the headers show the tracks getting closer while the projects keep their own imagery.</p>
+            </div>
+            <div class="flex-col" style="width: 50%; height: 100%; justify-content: center; gap: 22px; padding: 20px 24px; box-shadow: 10px 10px 20px rgba(0,0,0,0.08); background: #fff;;box-sizing:border-box;">
+                <div class="flex-col" style="gap: 2px;">
+                    <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 42px; line-height: 0.95; letter-spacing: -0.5px; color: #111;">GATEWAY</div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;">Big Shoulders Display / website headings</div>
+                </div>
+                <div class="flex-col" style="gap: 2px; border-top: 1px solid #ddd; padding-top: 14px;">
+                    <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; line-height: 1.3; color: #111;">Easy to read at normal UI sizes.</div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;">IBM Plex Sans / website text / controls</div>
+                </div>
+                <div class="flex-col" style="gap: 2px; border-top: 1px solid #ddd; padding-top: 14px;">
+                    <div style="font-family: 'Manrope', sans-serif; font-size: 15px; line-height: 1.3; color: #111;">Main body type for the portfolio.</div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;">Manrope / portfolio body copy</div>
+                </div>
+                <div class="flex-col" style="gap: 2px; border-top: 1px solid #ddd; padding-top: 14px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.5px; color: #111;">FIG. 08 / 210×297MM / SCALE 1:1</div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;">JetBrains Mono / page labels / technical notes</div>
+                </div>
+            <div class="document-palette" style="border-top:1px solid #ddd;padding-top:14px;margin-top:4px;">
+            <div class="text-meta" style="margin-bottom: 10px; border-bottom: 1px solid #555; padding-bottom: 8px; display: inline-block;;font-size:8px;color:#555;border-bottom:0;margin-bottom:6px;">Page Colours</div>
+            <div class="flex-row w-full" id="convergence-strip" style="gap: 4px; height: 40px;;height:24px;gap:3px;" aria-label="Portfolio page colours moving from white and black to vermilion"><span style="flex:1;background:rgb(255, 255, 255)" title="Page 01"></span><span style="flex:1;background:rgb(0, 0, 0)" title="Page 02"></span><span style="flex:1;background:rgb(255, 253, 253)" title="Page 03"></span><span style="flex:1;background:rgb(0, 0, 0)" title="Page 04"></span><span style="flex:1;background:rgb(253, 242, 241)" title="Page 05"></span><span style="flex:1;background:rgb(0, 0, 0)" title="Page 06"></span><span style="flex:1;background:rgb(248, 212, 208)" title="Page 07"></span><span style="flex:1;background:rgb(16, 1, 1)" title="Page 08"></span><span style="flex:1;background:rgb(232, 152, 146)" title="Page 09"></span><span style="flex:1;background:rgb(76, 9, 12)" title="Page 10"></span><span style="flex:1;background:rgb(193, 39, 45)" title="Page 11"></span><span style="flex:1;background:rgb(193, 39, 45)" title="Page 12"></span></div>
+        <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:8px;color:#555;margin-top:6px;"><span>White / Black</span><span>#C1272D</span></div></div>
+        </div>
+        </div>
+    </div>
+</div>
+    <div class="page" id="creatures" data-title="This Alien Doesn’t Exist" data-desc="Generative Rules &amp; Speculative Biology." aria-label="This Alien Doesn’t Exist" style="background-color:rgb(232, 152, 146);--page-background:rgb(232, 152, 146);--muted:rgb(73, 45, 43);--flag:rgb(73, 25, 23);--page-ink:#000000;--text-main:#000000">
+        <div class="safe-zone flex-col justify-between h-full" data-design-font-reveal>
+            <div class="flex-row justify-between w-full" style="margin-bottom: 25px;">
+                <div>
+                    <div class="text-large">This Alien Doesn't Exist</div>
+                    <div class="text-meta">Project 02: Generative Rules &amp; Speculative Biology</div>
+                </div>
+                <div class="flex-col align-end" style="gap: 6px;">
+                    <div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a" style="background:rgb(232, 152, 146)"></span><span class="sync-line" style="width:20.1px;background:rgb(73, 45, 43)"></span><span class="sync-dot sync-dot-b" style="background:rgb(16, 1, 1)"></span></div>
+                    <div class="text-meta text-right">Page 09 / 12</div>
+                </div>
+            </div>
+
+            <div class="flex-row" style="gap: 12px; margin-bottom: 25px; flex-wrap: wrap;">
+                <span class="text-meta" style="padding: 4px 10px; border: 1px solid #ccc; border-radius: 3px; font-size: 9px;;padding:0;border:0;border-radius:0;letter-spacing:.5px;font-size:8px;">Vanilla JavaScript</span>
+                <span class="text-meta" style="padding: 4px 10px; border: 1px solid #ccc; border-radius: 3px; font-size: 9px;;padding:0;border:0;border-radius:0;letter-spacing:.5px;font-size:8px;">HTML Canvas drawing</span>
+                <span class="text-meta" style="padding: 4px 10px; border: 1px solid #ccc; border-radius: 3px; font-size: 9px;;padding:0;border:0;border-radius:0;letter-spacing:.5px;font-size:8px;">Seeded number generation</span>
+                <span class="text-meta" style="padding: 4px 10px; border: 1px solid #ccc; border-radius: 3px; font-size: 9px;;padding:0;border:0;border-radius:0;letter-spacing:.5px;font-size:8px;">Procedural Generation</span>
+                <span class="text-meta" style="padding: 4px 10px; border: 1px solid #ccc; border-radius: 3px; font-size: 9px;;padding:0;border:0;border-radius:0;letter-spacing:.5px;font-size:8px;"><a href="https://thisaliendoesnotexist.app" style=";color:inherit;text-transform:none;letter-spacing:0;text-decoration:underline;overflow-wrap:anywhere;" target="_blank" rel="noopener">thisaliendoesnotexist.app</a></span>
+                <span class="text-meta" style="padding: 4px 10px; border: 1px solid #ccc; border-radius: 3px; font-size: 9px;;padding:0;border:0;border-radius:0;letter-spacing:.5px;font-size:8px;"><a href="https://github.com/aamosm/This-Alien-Does-Not-Exist" style=";color:inherit;text-transform:none;letter-spacing:0;text-decoration:underline;overflow-wrap:anywhere;" target="_blank" rel="noopener">Source: github.com/aamosm/This-Alien-Does-Not-Exist</a></span>
+            </div>
+
+            <div class="flex-row justify-between align-start" style="width: 100%; gap: 35px; flex-grow: 1;">
+                <div class="flex-col justify-between" style="flex: 1; height: 100%;">
+                    <div>
+                        <p class="text-body" style="font-size: 13px; margin-bottom: 20px;">The number you enter into this creature generator is its seed. I use a number generator called Mulberry32 to turn that starting value into a repeatable sequence. The sequence determines the alien, so entering the same seed brings it back. I wanted to see how much variety I could get from rules I could control.</p>
+
+                        <div class="text-meta" style="margin-bottom: 10px; border-bottom: 1px solid #111; padding-bottom: 5px;">The Pipeline</div>
+                        <p class="text-body" style="font-size: 12px; margin-bottom: 15px;">I had to decide which traits could vary on their own and which needed to stay connected. The rules choose the anatomy, colours, textures and other traits, and link those choices to the creature’s classification. That gives the variation some structure: a creature should look as though its parts belong together.</p>
+
+                        <div class="text-meta" style="margin-bottom: 10px; border-bottom: 1px solid #111; padding-bottom: 5px;">Canvas Construction</div>
+                        <p class="text-body" style="font-size: 12px; margin-bottom: 15px;">I draw the creature on an HTML canvas, a drawing surface in the browser. Generated limbs and other appendages establish its outline; gradients and textures describe its surface. I can adjust the drawing rules and compare the results using the same seed.</p>
+                    </div>
+
+                    <p class="text-body" style="margin-top: auto; padding-top: 20px; border-top: 1px solid #eee;">The observations still need work. I want them to say something believable about the creature being shown. Making the anatomy and its description agree is the next problem I want to solve.</p>
+                </div>
+
+                <div class="flex-col" style="flex: 1.2; height: 100%; gap: 20px;">
+                    <div class="image-wrapper" style="flex-grow: 2; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 4px; background: #111;">
+                        <img src="../assets/portfolio/pg9_1.png" alt="Alien Generator Interface" decoding="async" loading="lazy">
+                    </div>
+                    <div class="image-wrapper" style="flex-grow: 1; width: 100%; box-shadow: 0 6px 20px rgba(0,0,0,0.08); border-radius: 4px;">
+                        <img src="../assets/portfolio/pg9_2.png" alt="Projects Page Listing" decoding="async" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="page dark-page" id="voyager" data-title="VoyagerOS" data-desc="Browser OS &amp; Worldbuilding." aria-label="VoyagerOS" style="background-color:rgb(76, 9, 12);--page-background:rgb(76, 9, 12);--muted:rgb(180, 146, 143);--flag:rgb(214, 153, 147);--page-ink:#ffffff;--text-main:#ffffff">
+    
+
+    <div class="safe-zone flex-col h-full" data-design-font-reveal>
+
+        <div class="flex-row justify-between w-full">
+            <div>
+                <div class="text-large" style="margin-bottom: 5px; font-family: 'JetBrains Mono', monospace; letter-spacing: -2px;">
+                    VoyagerOS
+                </div>
+                <div class="text-meta">Project 03: Browser Operating System &amp; Worldbuilding</div>
+            </div>
+
+            <div class="flex-col align-end" style="gap: 6px;">
+                <div class="sync-meter" aria-hidden="true">
+                    <span class="sync-dot sync-dot-a" style="background:rgb(232, 152, 146)"></span>
+                    <span class="sync-line" style="width:15.7px;background:rgb(180, 146, 143)"></span>
+                    <span class="sync-dot sync-dot-b" style="background:rgb(76, 9, 12)"></span>
+                </div>
+                <div class="text-meta text-right">Page 10 / 12</div>
+            </div>
+        </div>
+
+        <div class="flex-row justify-between w-full" style="flex-grow: 1; gap: 42px; margin-top: 42px;">
+
+            <div class="flex-col" style="width: 38%; padding-top: 14px;;width:auto;flex:38 1 0;min-width:0;">
+
+                <div>
+                    <div class="text-meta" style="margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 5px;">
+                        The Point
+                    </div>
+
+                    <p class="text-body" style="margin-bottom: 20px;">VoyagerOS started as a silly idea: a website that behaves like the computer on a ship that has been travelling for far too long.</p>
+
+                    <p class="text-body" style="margin-bottom: 22px;">I built the boring stuff too: boot screens, windows, files, a terminal, processes, an archive and a whole fake filesystem. It is basically a tiny computer for a spacecraft that does not exist.</p>
+
+                    <div class="text-meta" style="margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 5px;">
+                        The Story
+                    </div>
+
+                    <p class="text-body">Mission files, logs and strange little bits of data reveal the story of Voyager-9, the fictional mission behind the computer. I put that story inside the things a visitor would normally open or read on a computer. I wanted people to find it by poking around, with each file adding a little more.</p>
+                <p class="text-body" style="margin-top:16px;">The Alien Registry is the computer’s creature archive. It connects this project to my alien generator. Discoveries are stored as .alr files, the archive’s own file type, so each creature becomes a record from the mission.</p></div>
+
+                <div style="margin-top: 150px;;margin-top:auto;padding-top:26px;">
+                    <div class="text-meta" style="margin-bottom: 10px;">
+                        HTML / CSS / JS · Canvas ·
+                    </div>
+                    <div class="text-meta" style="margin-bottom: 10px;">Browser storage</div>
+
+                    <div class="text-meta">
+                        <a href="https://aamosm.github.io/VoyagerOS" target="_blank" style="color: inherit; text-decoration: underline;;font-size:8px;line-height:1.5;letter-spacing:0;text-transform:none;overflow-wrap:anywhere;" rel="noopener">aamosm.github.io/VoyagerOS</a>
+                    </div>
+
+                    <div class="text-meta" style="margin-top: 8px;">
+                        <a href="https://github.com/aamosm/VoyagerOS" target="_blank" style="color: inherit; text-decoration: underline;;font-size:8px;line-height:1.5;letter-spacing:0;text-transform:none;overflow-wrap:anywhere;" rel="noopener">github.com/aamosm/VoyagerOS</a>
+                    </div>
+
+                    <div class="text-meta" style="margin-top: 8px;">
+                        <a href="https://stardance.hackclub.com/projects/31884" target="_blank" style="color: inherit; text-decoration: underline;;font-size:8px;line-height:1.5;letter-spacing:0;text-transform:none;overflow-wrap:anywhere;" rel="noopener">stardance.hackclub.com/projects/31884</a>
+                    </div>
+
+                    <div class="text-meta" style="margin-top: 8px;">
+                        <a href="https://thisaliendoesnotexist.app" target="_blank" style="color: inherit; text-decoration: underline;;font-size:8px;line-height:1.5;letter-spacing:0;text-transform:none;overflow-wrap:anywhere;" rel="noopener">thisaliendoesnotexist.app</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex-col" style="width: 57%; padding-top: 46px;;width:auto;flex:57 1 0;min-width:0;">
+
+                <div class="image-wrapper voyager-box" style="width: 100%; aspect-ratio: 16 / 8.4;">
+                    <img src="../assets/portfolio/voyager_desktop.png" alt="VoyagerOS desktop interface" style="object-position: center;" decoding="async" loading="lazy">
+                </div>
+
+                <div class="voyager-caption" style="margin-top: 9px;">
+                    VoyagerOS / main desktop
+                </div>
+                <div class="flex-row" style="gap: 16px; width: 100%; margin-top: 30px;">
+
+                    <div style="width: 50%;;width:auto;flex:1 1 0;min-width:0;">
+                        <div class="image-wrapper voyager-box" style="width: 100%; aspect-ratio: 4 / 3;">
+                            <img src="../assets/portfolio/voyager_login.png" alt="VoyagerOS login" decoding="async" loading="lazy">
+                        </div>
+
+                        <div class="voyager-caption">
+                            Login / authentication
+                        </div>
+                    </div>
+
+                    <div style="width: 50%;;width:auto;flex:1 1 0;min-width:0;">
+                        <div class="image-wrapper voyager-box" style="width: 100%; aspect-ratio: 4 / 3;">
+                            <img src="../assets/portfolio/alien.webp" alt="VoyagerOS Alien Registry" decoding="async" loading="lazy">
+                        </div>
+
+                        <div class="voyager-caption">
+                            Alien Registry / field archive
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flex-row" style="gap: 16px; width: 100%; margin-top: 26px;">
+
+
+                    <div class="image-wrapper voyager-box" style="width: 33.33%; aspect-ratio: 1.45 / 1;">
+                        <img src="../assets/portfolio/archive.webp" alt="VoyagerOS archive viewer" decoding="async" loading="lazy">
+                    </div>
+
+                    <div class="image-wrapper voyager-box" style="width: 33.33%; aspect-ratio: 1.45 / 1;">
+                        <img src="../assets/portfolio/desktop.webp" alt="VoyagerOS windows" decoding="async" loading="lazy">
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page dark-page" id="seven-minute-shadow" data-title="Seven Minute Shadow" data-desc="Designing with Constraints." aria-label="Seven Minute Shadow" style="background-color:rgb(193, 39, 45);--page-background:rgb(193, 39, 45);--muted:rgb(255, 255, 255);--flag:rgb(255, 255, 255);--page-ink:#ffffff;--text-main:#ffffff">
+    <div class="safe-zone flex-col justify-between h-full" data-design-font-reveal>
+
+        <div class="flex-row justify-between w-full">
+            <div>
+                <div class="text-large" style="font-family: 'JetBrains Mono', monospace; letter-spacing: -2px;">
+                    Seven Minute Shadow
+                </div>
+                <div class="text-meta">Project 04: Designing with Constraints</div>
+            </div>
+
+            <div class="flex-col align-end" style="gap: 6px;">
+                <div class="sync-meter" aria-hidden="true">
+                    <span class="sync-dot sync-dot-a" style="background:rgb(193, 39, 45)"></span>
+                    <span class="sync-line" style="width:9.7px;background:rgb(255, 255, 255)"></span>
+                    <span class="sync-dot sync-dot-b" style="background:rgb(76, 9, 12)"></span>
+                </div>
+                <div class="text-meta text-right">Page 11 / 12</div>
+            </div>
+        </div>
+
+        <div class="flex-row justify-between w-full" style="flex-grow: 1; gap: 42px; margin-top: 38px;">
+
+            <div class="flex-col" style="width: 38%; padding-top: 20px;;width:auto;flex:38 1 0;min-width:0;">
+
+                <div>
+                    <div class="text-meta" style="margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 5px;">
+                        The Idea
+                    </div>
+
+                    <p class="text-body" style="margin-bottom: 20px;">
+                        Seven Minute Shadow is a tiny collection of fast, weird little games.
+                        Every few seconds the rules change, so the real challenge is figuring out
+                        what you are supposed to do before the game decides you have had enough.
+                    </p>
+
+                    <p class="text-body" style="margin-bottom: 22px;">I wanted it to feel deliberately scrappy and playful. Short rounds, quick reactions, pixel art, chunky 3D bits and increasingly questionable ideas. The different art styles are part of that feeling, but each round still needs to make its action readable quickly.</p>
+
+                    <div class="text-meta" style="margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 5px;">
+                        Making It
+                    </div>
+
+                    <p class="text-body">I built the game in the Godot engine and wrote its logic in GDScript, Godot’s programming language. I use Aseprite for the pixel art and animation, and Blender for the 3D pieces. Short rounds let me try an idea on a small scale and see whether it is worth taking further. It is still a demo.</p>
+                </div>
+
+                <div style="margin-top: 115px;;margin-top:auto;padding-top:26px;">
+                    <div class="text-meta" style="margin-bottom: 10px;">
+                        GODOT / GDSCRIPT · ASEPRITE · BLENDER
+                    </div>
+
+                    <div class="text-meta" style="margin-bottom: 8px;">
+                        <a href="https://aamosm.itch.io/seven-minute-shadow" target="_blank" style="color: inherit; text-decoration: underline;;font-size:8px;line-height:1.5;letter-spacing:0;text-transform:none;overflow-wrap:anywhere;" rel="noopener">aamosm.itch.io/seven-minute-shadow</a>
+                    </div>
+
+                    <div class="text-meta">
+                        <a href="https://github.com/aamosm/SevenMinuteShadow" target="_blank" style="color: inherit; text-decoration: underline;;font-size:8px;line-height:1.5;letter-spacing:0;text-transform:none;overflow-wrap:anywhere;" rel="noopener">github.com/aamosm/SevenMinuteShadow</a>
+                    </div>
+
+                    <div class="text-meta" style="margin-top: 8px;">
+                        <a href="https://stardance.hackclub.com/projects/29189" target="_blank" style="color: inherit; text-decoration: underline;;font-size:8px;line-height:1.5;letter-spacing:0;text-transform:none;overflow-wrap:anywhere;" rel="noopener">stardance.hackclub.com/projects/29189</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex-col" style="width: 57%; padding-top: 48px;;width:auto;flex:57 1 0;min-width:0;">
+
+                <div class="image-wrapper" style="width: 100%; aspect-ratio: 16 / 9; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-radius: 4px;">
+                    <img src="../assets/portfolio/sms.png" alt="Seven Minute Shadow" style="width: 100%; height: 100%; object-fit: cover;" decoding="async" loading="lazy">
+                </div>
+
+                <div class="text-meta" style="margin-top: 10px;">
+                    SEVEN MINUTE SHADOW / GAMEPLAY
+                </div>
+
+                <div class="flex-row" style="gap: 16px; margin-top: 30px; width: 100%;">
+
+                    <div style="width: 50%;;width:auto;flex:1 1 0;min-width:0;">
+                        <div class="image-wrapper" style="width: 100%; aspect-ratio: 4 / 3; border: 1px solid #333; overflow: hidden;">
+                            <img src="../assets/portfolio/radio.webp" alt="Seven Minute Shadow detail" style="width: 100%; height: 100%; object-fit: cover; object-position: left;" decoding="async" loading="lazy">
+                        </div>
+
+                        <div class="text-meta" style="margin-top: 7px;">
+                            MICROGAME / ONE OF MANY
+                        </div>
+                    </div>
+
+                    <div style="width: 50%;;width:auto;flex:1 1 0;min-width:0;">
+                        <div class="image-wrapper" style="width: 100%; aspect-ratio: 4 / 3; border: 1px solid #333; overflow: hidden;">
+                            <img src="../assets/portfolio/tile.webp" alt="Seven Minute Shadow world" style="width: 100%; height: 100%; object-fit: cover; object-position: right;" decoding="async" loading="lazy">
+                        </div>
+
+                        <div class="text-meta" style="margin-top: 7px;">
+                            ART / PIXELS + 3D
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+</div>
+    <div class="page closing-page dark-page" id="end" data-title="Contact" data-desc="Dhruv Heith Chheda. Contact details." aria-label="Contact" style="background-color:rgb(193, 39, 45);--page-background:rgb(193, 39, 45);--muted:rgb(255, 255, 255);--flag:rgb(255, 255, 255);--page-ink:#ffffff;--text-main:#ffffff"><div class="safe-zone flex-col justify-between h-full" data-design-font-reveal>
+ <div class="flex-row justify-between w-full"><div class="text-meta">Contact</div><div class="flex-col align-end" style="gap:6px;"><div class="sync-meter" aria-hidden="true"><span class="sync-dot sync-dot-a" style="background:rgb(193, 39, 45)"></span><span class="sync-line" style="width:2.0px;background:rgb(255, 255, 255)"></span><span class="sync-dot sync-dot-b" style="background:rgb(193, 39, 45)"></span></div><div class="text-meta text-right page-number">Page 12 / 12</div></div></div>
+ <div class="closing-name">Dhruv Heith Chheda</div>
+ <div class="closing-contact-row">
+  <div class="closing-addresses"><a href="mailto:write@heith.me">write@heith.me</a><a href="https://github.com/aamosm" target="_blank" rel="noopener">github.com/aamosm</a></div>
+  <a class="closing-wordmark" href="https://heith.me" aria-label="heith.me" target="_blank" rel="noopener"><img src="../assets/favicon.png" alt="heith" decoding="async" loading="lazy"><span>.me</span></a>
+ </div>
+</div></div>
+        </article>
+      </div>
+      <button id="viewer-scroll-hint" class="scroll-hint" type="button" aria-label="Scroll to the next page" data-font-reveal>
+        <span>Scroll</span><svg viewBox="0 0 12 19" aria-hidden="true"><path d="M6 1v16M1 12l5 5 5-5"/></svg>
+      </button>
+    </main>
+    <aside id="sidebar-right" aria-label="Current section" data-font-reveal>
+      <div><span class="meta-eyebrow">In this section</span><h2 class="meta-title" id="meta-title">Selected work</h2><p class="meta-desc" id="meta-desc">Websites, creatures and games.</p></div>
+      <div class="meta-footer"><span id="meta-count">01 / 12</span></div>
+    </aside>
+  </div>
 </body>
 </html>

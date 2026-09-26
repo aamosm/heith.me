@@ -1,0 +1,94 @@
+.project-embed-block {
+    margin: 4rem auto 0;
+    padding-top: 3rem;
+    border-top: 1px solid var(--grid-line);
+    max-width: 1200px;
+    width: 100%;
+}
+
+.project-embed-label {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+}
+
+.itch-card {
+    display: grid;
+    grid-template-columns: minmax(180px, 32%) 1fr;
+    overflow: hidden;
+    border: 1px solid var(--grid-line);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, .18);
+    color: var(--ink);
+    transition: border-color .2s ease, background .2s ease;
+}
+
+.itch-card:hover, .itch-card:focus-visible {
+    border-color: var(--accent);
+    background: rgba(0, 0, 0, .28);
+}
+
+.itch-card:focus-visible { outline: 1px solid var(--accent); outline-offset: 5px; }
+
+.itch-card-cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-right: 1px solid var(--grid-line);
+}
+
+.itch-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(24px, 4vw, 48px);
+}
+
+.itch-card-byline {
+    font-size: 12px;
+    letter-spacing: .08em;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+.itch-card-title {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 3.5vw, 46px);
+    font-weight: 700;
+    line-height: 1.05;
+    margin: 0 0 14px;
+}
+
+.itch-card-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0 0 28px;
+}
+
+.itch-card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    padding-bottom: 6px;
+}
+
+.itch-card-action span { transition: transform .2s ease; }
+.itch-card:hover .itch-card-action span { transform: translate(2px, -2px); }
+
+@media (max-width: 600px) {
+    .itch-card { grid-template-columns: 1fr; }
+    .itch-card-cover { height: auto; border-right: 0; border-bottom: 1px solid var(--grid-line); }
+}

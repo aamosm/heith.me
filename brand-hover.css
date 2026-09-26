@@ -1,0 +1,27 @@
+.brand, .brand-inline { position: relative; cursor: pointer; }
+.brand:hover, .brand-inline:hover { color: color-mix(in srgb, var(--accent, #ecd078) 20%, var(--ink, #f4f6f8)); }
+
+.brand::after,
+.brand-inline::after {
+  content: '';
+  position: absolute;
+  left: calc(100% + 5px);
+  top: 50%;
+  width: 0.65em;
+  height: 0.65em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ecd078' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'/%3E%3Cpath d='M3 3v5h5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.5) rotate(-90deg);
+  transform-origin: center center;
+  transition: opacity 0.22s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+.brand:hover::after,
+.brand-inline:hover::after,
+.brand:focus-visible::after,
+.brand-inline:focus-visible::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1) rotate(0deg);
+}

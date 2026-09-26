@@ -1,441 +1,443 @@
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('keydown', e => {
-    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) { e.preventDefault(); }
-});
+(() => {
+  const root = document.documentElement;
+  const site = window.DHCSite = window.DHCSite || {};
+  site.designFontsReady = document.fonts ? Promise.allSettled([
+    site.fontsReady,
+    document.fonts.load('300 14px "Manrope"'),
+    document.fonts.load('400 14px "Manrope"'),
+    document.fonts.load('500 14px "Manrope"'),
+    document.fonts.load('600 14px "Manrope"'),
+    document.fonts.load('800 32px "Manrope"'),
+    document.fonts.load('100 12px "JetBrains Mono"'),
+    document.fonts.load('400 12px "JetBrains Mono"'),
+    document.fonts.load('500 12px "JetBrains Mono"'),
+    document.fonts.load('400 14px "Kalam"'),
+    document.fonts.load('700 14px "Kalam"')
+  ]).then(() => document.fonts.ready) : Promise.resolve();
+  site.designFontsReady.then(() => { root.dataset.designFonts = 'ready'; });
+})();
 
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const l = document.getElementById('loader');
-        if (l) { l.classList.add('done'); setTimeout(() => l.remove(), 500); }
-    }, 400);
-});
-
-const clamp01 = (v) => Math.max(0, Math.min(1, v));
-
-function hexToRgb01(hex) {
-    const h = hex.replace('#', '');
-    return [
-        parseInt(h.substring(0, 2), 16) / 255,
-        parseInt(h.substring(2, 4), 16) / 255,
-        parseInt(h.substring(4, 6), 16) / 255
-    ];
-}
-
-function srgbToLinear(c) {
-    return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-}
-
-function linearToSrgb(c) {
-    c = clamp01(c);
-    return c <= 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 1 / 2.4) - 0.055;
-}
-
-// Björn Ottosson's OKLab matrices — linear sRGB -> LMS -> OKLab
-function linearRgbToOklab(r, g, b) {
-    const l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b;
-    const m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b;
-    const s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b;
-    const l_ = Math.cbrt(l), m_ = Math.cbrt(m), s_ = Math.cbrt(s);
-    return [
-        0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_,
-        1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_,
-        0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_
-    ];
-}
-
-function oklabToLinearRgb(L, a, b) {
-    const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
-    const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-    const s_ = L - 0.0894841775 * a - 1.2914855480 * b;
-    const l = l_ ** 3, m = m_ ** 3, s = s_ ** 3;
-    return [
-        +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
-        -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
-        -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s
-    ];
-}
-
-function hexToOklch(hex) {
-    const [r, g, b] = hexToRgb01(hex);
-    const [L, a, bb] = linearRgbToOklab(srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));
-    const C = Math.sqrt(a * a + bb * bb);
-    let H = Math.atan2(bb, a) * 180 / Math.PI;
-    if (H < 0) H += 360;
-    return { L, C, H };
-}
-
-function oklchToRgb255(L, C, H) {
-    const hRad = H * Math.PI / 180;
-    const a = C * Math.cos(hRad);
-    const b = C * Math.sin(hRad);
-    const [rl, gl, bl] = oklabToLinearRgb(L, a, b);
-    return [
-        Math.round(linearToSrgb(rl) * 255),
-        Math.round(linearToSrgb(gl) * 255),
-        Math.round(linearToSrgb(bl) * 255)
-    ];
-}
-
-function lerpHue(h1, h2, t) {
-    const diff = ((((h2 - h1) % 360) + 540) % 360) - 180;
-    return (h1 + diff * t + 360) % 360;
-}
-
-
-function mixOklch(hexFrom, hexTo, t) {
-    const from = hexToOklch(hexFrom);
-    const to = hexToOklch(hexTo);
-    const CHROMA_EPSILON = 0.0001;
-    const fromHue = from.C < CHROMA_EPSILON ? to.H : from.H;
-    const toHue = to.C < CHROMA_EPSILON ? from.H : to.H;
-    const L = from.L + (to.L - from.L) * t;
-    const C = from.C + (to.C - from.C) * t;
-    const H = lerpHue(fromHue, toHue, t);
-    const [r, g, b] = oklchToRgb255(L, C, H);
-    return { rgb: `rgb(${r}, ${g}, ${b})`, rgbArr: [r, g, b], L, C, H };
-}
-
-function hexToRgbCss(hex) {
-    const [r, g, b] = hexToRgb01(hex).map((c) => Math.round(c * 255));
-    return `rgb(${r}, ${g}, ${b})`;
-}
-
-function relativeLuminance255([r, g, b]) {
-    const lin = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
-    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
-}
-function contrastRatio255(rgbA, rgbB) {
-    const a = relativeLuminance255(rgbA), b = relativeLuminance255(rgbB);
-    const lighter = Math.max(a, b), darker = Math.min(a, b);
-    return (lighter + 0.05) / (darker + 0.05);
-}
-
-function solveTextColor(bgL, bgRgbArr, hue, chroma, targetContrast, direction) {
-    let lo = direction === 'darker' ? 0 : bgL;
-    let hi = direction === 'darker' ? bgL : 1;
-    let best = direction === 'darker' ? [0, 0, 0] : [255, 255, 255];
-    for (let i = 0; i < 24; i++) {
-        const mid = (lo + hi) / 2;
-        const candidate = oklchToRgb255(mid, chroma, hue);
-        const cr = contrastRatio255(candidate, bgRgbArr);
-        if (cr >= targetContrast) {
-            best = candidate;
-            if (direction === 'darker') lo = mid; else hi = mid;
-        } else {
-            if (direction === 'darker') hi = mid; else lo = mid;
-        }
-    }
-    return `rgb(${best[0]}, ${best[1]}, ${best[2]})`;
-}
-
-function oklabDelta(colorA, colorB) {
-    const a1 = colorA.C * Math.cos(colorA.H * Math.PI / 180);
-    const b1 = colorA.C * Math.sin(colorA.H * Math.PI / 180);
-    const a2 = colorB.C * Math.cos(colorB.H * Math.PI / 180);
-    const b2 = colorB.C * Math.sin(colorB.H * Math.PI / 180);
-    return Math.sqrt((colorA.L - colorB.L) ** 2 + (a1 - a2) ** 2 + (b1 - b2) ** 2);
-}
-
-
-const SINGULARITY = {
-    trackA: '#ffffff',
-    trackB: '#000000',
-    convergeColor: '#c1272d'
-};
-
-const EASE_POWER = 3;
-const INK_CHROMA_FACTOR = 0.42;
-const INK_TARGET_CONTRAST = 5.5;
-const FLAG_CHROMA_FACTOR = 0.75;
-const FLAG_CHROMA_FLOOR = 0.10;
-const FLAG_TARGET_CONTRAST = 6.5;
-
-function applySingularityBackgrounds() {
-    const pages = document.querySelectorAll('.doc-page');
-    if (!pages.length) return;
-
-    const trackACount = Math.ceil(pages.length / 2);
-    const trackBCount = Math.floor(pages.length / 2);
-    let aSeen = 0, bSeen = 0;
-    const sequenceColors = [];
-
-    let lastA = { rgb: hexToRgbCss(SINGULARITY.trackA), ...hexToOklch(SINGULARITY.trackA) };
-    let lastB = { rgb: hexToRgbCss(SINGULARITY.trackB), ...hexToOklch(SINGULARITY.trackB) };
-    const maxDelta = oklabDelta(lastA, lastB) || 1;
-
-    pages.forEach((page, i) => {
-        const onTrackA = i % 2 === 0;
-        const count = onTrackA ? trackACount : trackBCount;
-        const index = onTrackA ? aSeen++ : bSeen++;
-        const tLinear = count > 1 ? index / (count - 1) : 1;
-        const t = Math.pow(tLinear, EASE_POWER);
-        const start = onTrackA ? SINGULARITY.trackA : SINGULARITY.trackB;
-        const direction = onTrackA ? 'darker' : 'lighter';
-
-        const { rgb, rgbArr, L, C, H } = mixOklch(start, SINGULARITY.convergeColor, t);
-
-        page.style.setProperty('background-color', rgb);
-        page.classList.toggle('dark-page', !onTrackA);
-
-        const inkChroma = C * INK_CHROMA_FACTOR;
-        const ink = solveTextColor(L, rgbArr, H, inkChroma, INK_TARGET_CONTRAST, direction);
-        page.style.setProperty('--muted', ink);
-
-        const flagChroma = Math.max(C, FLAG_CHROMA_FLOOR) * FLAG_CHROMA_FACTOR;
-        const flag = solveTextColor(L, rgbArr, H, flagChroma, FLAG_TARGET_CONTRAST, direction);
-        page.style.setProperty('--flag', flag);
-        page.style.setProperty('--page-ink', onTrackA ? '#000000' : '#ffffff');
-
-        const thisColor = { rgb, L, C, H };
-        if (onTrackA) lastA = thisColor; else lastB = thisColor;
-        sequenceColors.push(rgb);
-
-        const dotA = page.querySelector('.sync-dot-a');
-        const dotB = page.querySelector('.sync-dot-b');
-        const line = page.querySelector('.sync-line');
-        if (dotA) dotA.style.background = lastA.rgb;
-        if (dotB) dotB.style.background = lastB.rgb;
-        if (line) {
-            const frac = clamp01(oklabDelta(lastA, lastB) / maxDelta);
-            line.style.width = `${(2 + frac * 28).toFixed(1)}px`;
-            line.style.background = ink;
-        }
-    });
-
-    const strip = document.getElementById('convergence-strip');
-    if (strip) {
-        strip.innerHTML = '';
-        sequenceColors.forEach((rgb) => {
-            const swatch = document.createElement('span');
-            swatch.style.background = rgb;
-            strip.appendChild(swatch);
+(function () {
+    if (document.body.dataset.view !== 'viewer') return;
+    const quiet = document.documentElement.dataset.pageEntry === 'quiet';
+    const params = new URLSearchParams(location.search);
+    if (quiet) {
+        document.getElementById('intro-card')?.remove();
+        params.delete('v');
+        const query = params.toString();
+        history.replaceState(history.state, '', location.pathname + (query ? '?' + query : '') + location.hash);
+        if (window.DHCMark) window.DHCMark.ready.then(function (loaded) {
+            if (loaded) window.DHCMark.updateFavicon(matchMedia('(prefers-color-scheme: dark)').matches);
         });
+        return;
     }
-}
+    let resolveAnimation;
+    let animationFinished = false;
+    let imageWait;
+    const animationDone = new Promise(resolve => { resolveAnimation = resolve; });
+    const card = window.showIntroOverlay ? window.showIntroOverlay(false, animationDone) : document.getElementById('intro-card');
 
+    function finishAnimation() {
+        if (animationFinished) return;
+        animationFinished = true;
+        clearTimeout(imageWait);
+        resolveAnimation();
+        if (!window.showIntroOverlay && card) {
+            card.removeAttribute('data-entry-intro');
+            card.inert = false;
+            card.classList.add('text-ready');
+        }
+    }
 
-function initDocNavigation() {
+    if (!window.DHCMark || !window.DHCGlassLoader) {
+        finishAnimation();
+        if (window.DHCMark) window.DHCMark.ready.then(function (loaded) {
+            if (loaded) window.DHCMark.updateFavicon(matchMedia('(prefers-color-scheme: dark)').matches);
+        });
+        return;
+    }
+
+    imageWait = setTimeout(finishAnimation, 700);
+    window.DHCMark.ready.then(function (loaded) {
+        clearTimeout(imageWait);
+        if (!loaded) { finishAnimation(); return; }
+        if (animationFinished || !card?.isConnected || card.classList.contains('exit')) {
+            window.DHCMark.updateFavicon(matchMedia('(prefers-color-scheme: dark)').matches);
+            finishAnimation();
+            return;
+        }
+        window.DHCGlassLoader.play(finishAnimation);
+    }).catch(finishAnimation);
+})();
+
+(() => {
+  'use strict';
+
+  function init() {
     const stage = document.getElementById('stage-container');
-    const trackerList = document.getElementById('tracker-list');
-    const sections = Array.from(document.querySelectorAll('.doc-page'));
-    if (!stage || !trackerList || !sections.length) return;
+    const doc = document.getElementById('doc');
+    if (document.body.dataset.view !== 'viewer' || !stage || !doc) return;
 
-    trackerList.querySelectorAll('.tracker-item').forEach(el => el.remove());
-    const indicator = document.getElementById('tracker-indicator');
-
-    const items = sections.map((sec, i) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'tracker-item';
-        btn.id = `track-${i}`;
-        btn.innerHTML = `<span class="idx">/ 0${i + 1} /</span><span class="name">${sec.dataset.name || sec.dataset.title || ''}</span>`;
-        btn.addEventListener('click', () => {
-            if (window.__lenis) {
-                window.__lenis.scrollTo(sec, { offset: -24 });
-            } else {
-                sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-        trackerList.appendChild(btn);
-        return btn;
-    });
-
+    const pages = Array.from(doc.children).filter(node => node.classList.contains('page'));
+    if (!pages.length) return;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const brand = document.getElementById('navBrand');
+    const coverBrand = doc.querySelector('[data-cover-brand]');
+    const links = Array.from(document.querySelectorAll('#tracker-list .tracker-item'));
+    const select = document.getElementById('section-select');
+    const zoomButton = document.getElementById('zoom-toggle');
+    const progress = document.getElementById('reading-progress');
+    const scrollHint = document.getElementById('viewer-scroll-hint');
     const metaTitle = document.getElementById('meta-title');
     const metaDesc = document.getElementById('meta-desc');
     const metaCount = document.getElementById('meta-count');
+    const ns = 'http://www.w3.org/2000/svg';
+    let scale = 1;
+    let expanded = false;
+    let active = -1;
+    let frame = 0;
+    let zoomFrame = 0;
+    let zoomPulse = 0;
+    let printing = false;
+    let resizeWidth = 0;
+    let resizeHeight = 0;
+    let clearingSelection = false;
 
-    let activeIndex = -1;
-    function setActive(i) {
-        if (i === activeIndex) return;
-        activeIndex = i;
-        items.forEach((el, idx) => el.classList.toggle('active', idx === i));
-        const sec = sections[i];
-        if (!sec) return;
-        if (metaTitle) metaTitle.innerText = sec.dataset.title || '';
-        if (metaDesc) metaDesc.innerText = sec.dataset.desc || '';
-        if (metaCount) metaCount.innerText = `0${i + 1} / 0${sections.length}`;
-    }
+    const clamp = (n, min = 0, max = 1) => Math.min(max, Math.max(min, n));
+    const pad = n => String(n).padStart(2, '0');
+    const svg = (name, attrs = {}) => {
+      const node = document.createElementNS(ns, name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+      return node;
+    };
+    const filterHost = svg('svg', { class: 'pixel-filters', 'aria-hidden': 'true', focusable: 'false' });
+    const defs = svg('defs');
+    filterHost.appendChild(defs);
+    document.body.appendChild(filterHost);
 
-    function update() {
-        const stageRect = stage.getBoundingClientRect();
-        const probe = stageRect.top + stageRect.height * 0.3;
-
-        let current = 0;
-        for (let i = 0; i < sections.length; i++) {
-            const r = sections[i].getBoundingClientRect();
-            if (r.top <= probe) current = i;
-        }
-        setActive(current);
-
-        const maxScroll = stage.scrollHeight - stage.clientHeight;
-        const frac = maxScroll > 0 ? clamp01(stage.scrollTop / maxScroll) : 0;
-        if (indicator) {
-            const listHeight = trackerList.clientHeight;
-            indicator.style.transform = `translateY(${frac * (listHeight - 24)}px)`;
-        }
-    }
-
-    stage.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-}
-
-
-function initSmoothScroll() {
-    const stage = document.getElementById('stage-container');
-    const content = document.getElementById('doc');
-    if (!window.Lenis || !stage || !content) return;
-
-    const lenis = new window.Lenis({
-        wrapper: stage,
-        content: content,
-        duration: 1.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-    });
-    window.__lenis = lenis;
-
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-}
-
-
-const PIXELATE_BAND_HEIGHT = 180; 
-const PIXELATE_STRIPS = 6;     
-const PIXELATE_MIN_BLOCK = 2;  
-const PIXELATE_MAX_BLOCK = 34; 
-const PIXELATE_LEAD = PIXELATE_BAND_HEIGHT * 2;
-
-function initPixelateExit() {
-    const stage = document.getElementById('stage-container');
-    const pages = Array.from(document.querySelectorAll('.doc-page'));
-    if (!stage || !pages.length || typeof html2canvas === 'undefined') return;
-
-    const entries = pages.map((page) => {
-        const canvas = document.createElement('canvas');
-        canvas.className = 'doc-page-pixelate';
-        page.appendChild(canvas);
-
-        const small = document.createElement('canvas'); // offscreen mosaic buffer
-
-        return {
-            page, canvas,
-            ctx: canvas.getContext('2d'),
-            small, smallCtx: small.getContext('2d'),
-            snapshot: null, capturing: false
-        };
+    const entries = pages.map((page, index) => {
+      const width = page.offsetWidth;
+      const height = page.offsetHeight;
+      const slot = document.createElement('div');
+      const fit = document.createElement('div');
+      slot.className = 'page-slot';
+      fit.className = 'page-fit';
+      slot.style.width = `${width}px`;
+      slot.style.height = `${height}px`;
+      fit.style.width = `${width}px`;
+      fit.style.height = `${height}px`;
+      page.before(slot);
+      slot.appendChild(fit);
+      fit.appendChild(page);
+      return { page, slot, fit, width, height, index, effect: null };
     });
 
-    function capture(entry) {
-        if (entry.snapshot || entry.capturing) return;
-        entry.capturing = true;
-        html2canvas(entry.page, {
-            backgroundColor: null,
-            scale: Math.min(1.5, window.devicePixelRatio || 1),
-            ignoreElements: (el) => el === entry.canvas
-        }).then((snap) => {
-            entry.snapshot = snap;
-            entry.capturing = false;
-        }).catch(() => { entry.capturing = false; });
+    function createEffect(entry) {
+      const { width, height, index } = entry;
+      const id = `page-pixels-${index}`;
+      const filter = svg('filter', {
+        id, x: 0, y: 0, width, height,
+        filterUnits: 'userSpaceOnUse', primitiveUnits: 'userSpaceOnUse',
+        'color-interpolation-filters': 'sRGB'
+      });
+      const bands = [];
+      for (let i = 0; i < 4; i++) {
+        const prefix = `b${i}`;
+        const dot = svg('feFlood', { x: 0, y: 0, width: 1, height: 1, 'flood-color': 'white', result: `${prefix}dot` });
+        const cell = svg('feComposite', { in: `${prefix}dot`, in2: `${prefix}dot`, operator: 'over', x: 0, y: 0, width: 4, height: 4, result: `${prefix}cell` });
+        const tile = svg('feTile', { in: `${prefix}cell`, x: 0, y: 0, width, height, result: `${prefix}grid` });
+        const samples = svg('feComposite', { in: 'SourceGraphic', in2: `${prefix}grid`, operator: 'in', result: `${prefix}samples` });
+        const dilate = svg('feMorphology', { in: `${prefix}samples`, operator: 'dilate', radius: 2, result: `${prefix}pixels` });
+        const mask = svg('feFlood', { x: 0, y: 0, width, height: 0, 'flood-color': 'white', result: `${prefix}mask` });
+        const pixels = svg('feComposite', { in: `${prefix}pixels`, in2: `${prefix}mask`, operator: 'in', result: `${prefix}band` });
+        filter.append(dot, cell, tile, samples, dilate, mask, pixels);
+        bands.push({ dot, cell, tile, samples, dilate, mask, block: 0, y: -1, height: -1 });
+      }
+      const output = svg('feMerge');
+      output.appendChild(svg('feMergeNode', { in: 'SourceGraphic' }));
+      bands.forEach((_, i) => output.appendChild(svg('feMergeNode', { in: `b${i}band` })));
+      filter.appendChild(output);
+      defs.appendChild(filter);
+      return { id, bands };
     }
-    function paintBand(entry, localTop, pageW, pageH) {
-        const { canvas, ctx, small, smallCtx, snapshot } = entry;
-        const bandTop = Math.max(0, localTop);
-        const bandBottom = Math.min(pageH, localTop + PIXELATE_BAND_HEIGHT);
-        const bandH = bandBottom - bandTop;
-        if (bandH <= 0) { canvas.style.opacity = '0'; return; }
 
-        const w = Math.max(1, Math.round(pageW));
-        const h = Math.max(1, Math.round(bandH));
-        canvas.style.top = `${bandTop}px`;
-        canvas.style.height = `${h}px`;
-        if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
-        ctx.clearRect(0, 0, w, h);
-
-        if (!snapshot) { canvas.style.opacity = '0'; return; }
-        canvas.style.opacity = '1';
-
-        const scaleY = snapshot.height / pageH;
-
-        for (let i = 0; i < PIXELATE_STRIPS; i++) {
-            const stripTop = localTop + (PIXELATE_BAND_HEIGHT * i) / PIXELATE_STRIPS;
-            const stripBottom = localTop + (PIXELATE_BAND_HEIGHT * (i + 1)) / PIXELATE_STRIPS;
-            const y0 = Math.max(bandTop, stripTop);
-            const y1 = Math.min(bandBottom, stripBottom);
-            if (y1 <= y0) continue;
-
-            const block = Math.max(1, Math.round(
-                PIXELATE_MAX_BLOCK - ((PIXELATE_MAX_BLOCK - PIXELATE_MIN_BLOCK) * i) / (PIXELATE_STRIPS - 1)
-            ));
-
-            const srcY0 = y0 * scaleY;
-            const srcH = Math.max(1, (y1 - y0) * scaleY);
-            const smallW = Math.max(1, Math.round(w / block));
-            const smallH = Math.max(1, Math.round((y1 - y0) / block));
-            if (small.width !== smallW || small.height !== smallH) {
-                small.width = smallW; small.height = smallH;
-            }
-            smallCtx.imageSmoothingEnabled = true;
-            smallCtx.clearRect(0, 0, smallW, smallH);
-            smallCtx.drawImage(snapshot, 0, srcY0, snapshot.width, srcH, 0, 0, smallW, smallH);
-
-            ctx.imageSmoothingEnabled = false;
-            ctx.drawImage(small, 0, 0, smallW, smallH, 0, y0 - bandTop, w, y1 - y0);
+    function setBand(band, block, top, height) {
+      block = clamp(Math.round(block), 2, 20);
+      top = Math.round(top);
+      height = Math.max(0, Math.ceil(height));
+      if (block !== band.block) {
+        band.dot.setAttribute('x', Math.floor(block / 2));
+        band.dot.setAttribute('y', Math.floor(block / 2));
+        band.cell.setAttribute('width', block);
+        band.cell.setAttribute('height', block);
+        band.dilate.setAttribute('radius', block / 2);
+        band.block = block;
+      }
+      if (top !== band.y) { band.mask.setAttribute('y', top); band.y = top; }
+      if (height !== band.height) { band.mask.setAttribute('height', height); band.height = height; }
+      const regionY = Math.max(0, top - block);
+      const regionHeight = height ? height + block * 2 : 0;
+      if (regionY !== band.regionY || regionHeight !== band.regionHeight) {
+        for (const node of [band.tile, band.samples, band.dilate]) {
+          node.setAttribute('x', 0);
+          node.setAttribute('y', regionY);
+          node.setAttribute('width', band.mask.getAttribute('width'));
+          node.setAttribute('height', regionHeight);
         }
+        band.regionY = regionY;
+        band.regionHeight = regionHeight;
+      }
     }
 
-    function update() {
-        const stageTop = stage.getBoundingClientRect().top;
-        entries.forEach((entry) => {
-            const pageRect = entry.page.getBoundingClientRect();
-            const pageH = entry.page.offsetHeight;
-            const localTop = stageTop - pageRect.top; 
-
-            if (localTop > -PIXELATE_LEAD && localTop < pageH && !entry.snapshot) {
-                capture(entry);
-            }
-
-            if (localTop < 0 || localTop >= pageH) {
-                entry.canvas.style.opacity = '0';
-                return;
-            }
-            paintBand(entry, localTop, pageRect.width, pageH);
+    function paintEffect(entry, rect, viewport) {
+      const page = entry.page;
+      const visible = rect.bottom > viewport.top && rect.top < viewport.bottom;
+      const bandSize = Math.min(110, stage.clientHeight * .16, rect.height * .24);
+      const leaving = rect.top < viewport.top - 1;
+      const entering = rect.top > viewport.bottom - bandSize && rect.top < viewport.bottom;
+      if (printing || motion.matches || !visible || (!leaving && !entering && zoomPulse < .01)) {
+        page.style.removeProperty('filter');
+        return;
+      }
+      const effect = entry.effect || (entry.effect = createEffect(entry));
+      if (zoomPulse > .01) {
+        setBand(effect.bands[0], (2 + 18 * zoomPulse) / scale, 0, entry.height);
+        effect.bands.slice(1).forEach(band => setBand(band, 2, 0, 0));
+      } else {
+        const top = leaving ? (viewport.top - rect.top) / scale : (viewport.bottom - bandSize - rect.top) / scale;
+        const size = bandSize / scale / 4;
+        const blocks = leaving ? [24, 14, 7, 3] : [3, 7, 14, 24];
+        effect.bands.forEach((band, i) => {
+          const y = Math.max(0, top + i * size);
+          const bottom = Math.min(entry.height, top + (i + 1) * size);
+          setBand(band, blocks[i] / scale, y, Math.max(0, bottom - y));
         });
+      }
+      const value = `url(#${effect.id})`;
+      if (page.style.filter !== value) page.style.filter = value;
     }
 
-    stage.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', () => {
-        entries.forEach((entry) => { entry.snapshot = null; });
-        update();
-    });
-    update();
-}
-
-function initBrandReveal() {
-    const stage = document.getElementById('stage-container');
-    const brand = document.querySelector('header.top-nav .brand');
-    const coverMark = document.querySelector('.doc-cover-mark');
-    if (!brand) return;
-    if (!stage || !coverMark) { brand.classList.add('visible'); return; }
+    function setActive(index) {
+      if (index === active) return;
+      active = index;
+      links.forEach((link, i) => {
+        link.classList.toggle('active', i === index);
+        if (i === index) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+      const page = entries[index].page;
+      if (metaTitle) metaTitle.textContent = page.dataset.title || '';
+      if (metaDesc) metaDesc.textContent = page.dataset.desc || '';
+      if (metaCount) metaCount.textContent = `${pad(index + 1)} / ${pad(entries.length)}`;
+      if (select) select.value = page.id;
+    }
 
     function update() {
-        const stageTop = stage.getBoundingClientRect().top;
-        const markBottom = coverMark.getBoundingClientRect().bottom;
-        brand.classList.toggle('visible', markBottom <= stageTop);
+      frame = 0;
+      if (printing) return;
+      const viewport = stage.getBoundingClientRect();
+      const rects = entries.map(entry => entry.slot.getBoundingClientRect());
+      const probe = viewport.top + stage.clientHeight * .3;
+      let current = 0;
+      rects.forEach((rect, i) => { if (rect.top <= probe) current = i; });
+      const maxScroll = stage.scrollHeight - stage.clientHeight;
+      if (maxScroll > 0 && stage.scrollTop >= maxScroll - 2) current = entries.length - 1;
+      setActive(current);
+      if (progress) progress.style.transform = `scaleX(${maxScroll > 0 ? clamp(stage.scrollTop / maxScroll) : 0})`;
+      if (scrollHint) {
+        const hidden = stage.scrollTop > 80 || maxScroll <= 2;
+        const viewer = stage.parentElement.getBoundingClientRect();
+        const nextTop = rects[1]?.top ?? rects[0].bottom + 64;
+        const top = (rects[0].bottom + nextTop) / 2 - viewer.top - scrollHint.offsetHeight / 2;
+        const betweenPages = top >= 0 && top + scrollHint.offsetHeight + 8 < viewer.height;
+        scrollHint.classList.toggle('at-cover-end', betweenPages);
+        scrollHint.style.top = betweenPages ? `${top}px` : '';
+        scrollHint.classList.toggle('is-hidden', hidden);
+        scrollHint.setAttribute('aria-hidden', String(hidden));
+        scrollHint.tabIndex = hidden ? -1 : 0;
+      }
+      entries.forEach((entry, i) => paintEffect(entry, rects[i], viewport));
+
+      if (brand && coverBrand) {
+        const mark = coverBrand.getBoundingClientRect();
+        const cover = rects[0];
+        const band = Math.min(110, stage.clientHeight * .16, cover.height * .24);
+        const pixelated = !motion.matches && cover.top < viewport.top && mark.top + mark.height / 2 <= viewport.top + band * .5;
+        const visible = pixelated || mark.bottom <= viewport.top || cover.bottom <= viewport.top;
+        brand.classList.toggle('visible', visible);
+        brand.setAttribute('aria-hidden', String(!visible));
+        brand.tabIndex = visible ? 0 : -1;
+      }
     }
 
-    stage.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-}
+    function scheduleUpdate() {
+      if (!frame) frame = requestAnimationFrame(update);
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
-    applySingularityBackgrounds();
-    initDocNavigation();
-    initSmoothScroll();
-    initPixelateExit();
-    initBrandReveal();
-});
+    function anchorAtViewport() {
+      const viewport = stage.getBoundingClientRect();
+      const y = viewport.top + stage.clientHeight * .35;
+      let entry = entries[0];
+      for (const candidate of entries) {
+        if (candidate.slot.getBoundingClientRect().top <= y) entry = candidate;
+        else break;
+      }
+      const rect = entry.slot.getBoundingClientRect();
+      return { entry, fraction: (y - rect.top) / Math.max(1, rect.height), screenY: stage.clientHeight * .35, atTop: stage.scrollTop < 1 };
+    }
+
+    function applyScale(next, anchor) {
+      scale = next;
+      const padding = parseFloat(getComputedStyle(doc).paddingLeft);
+      const width = entries[0].width * scale;
+      doc.style.width = `${Math.max(stage.clientWidth, width + padding * 2)}px`;
+      entries.forEach(entry => {
+        entry.slot.style.width = `${entry.width * scale}px`;
+        entry.slot.style.height = `${entry.height * scale}px`;
+        entry.fit.style.transform = `scale(${scale})`;
+      });
+      if (anchor) {
+        const viewport = stage.getBoundingClientRect();
+        const rect = anchor.entry.slot.getBoundingClientRect();
+        stage.scrollTop = anchor.atTop ? 0 : stage.scrollTop + rect.top - viewport.top + rect.height * anchor.fraction - anchor.screenY;
+      }
+      stage.scrollLeft = Math.max(0, (stage.scrollWidth - stage.clientWidth) / 2);
+      scheduleUpdate();
+    }
+
+    function targetScale() {
+      const padding = parseFloat(getComputedStyle(doc).paddingLeft);
+      const fitted = clamp((stage.clientWidth - padding * 2) / entries[0].width, .1, 1);
+      return expanded ? Math.max(.95, fitted * 1.4) : fitted * 0.9;
+    }
+
+    function fit() {
+      if (printing) return;
+      cancelAnimationFrame(zoomFrame);
+      zoomFrame = 0;
+      zoomPulse = 0;
+      applyScale(targetScale(), anchorAtViewport());
+    }
+
+    function toggleZoom() {
+      const intro = document.getElementById('intro-card');
+      if (printing || (intro && !intro.classList.contains('exit'))) return;
+      cancelAnimationFrame(zoomFrame);
+      expanded = !expanded;
+      const label = expanded ? 'Zoom out' : 'Zoom in';
+      if (zoomButton) {
+        zoomButton.setAttribute('aria-label', label);
+        zoomButton.setAttribute('aria-pressed', String(expanded));
+        zoomButton.title = `${label} (Z)`;
+      }
+      const anchor = anchorAtViewport();
+      const from = scale;
+      const to = targetScale();
+      const start = performance.now();
+      function animate(now) {
+        const t = motion.matches ? 1 : clamp((now - start) / 320);
+        const eased = t * t * (3 - 2 * t);
+        zoomPulse = motion.matches ? 0 : Math.sin(t * Math.PI);
+        applyScale(from + (to - from) * eased, anchor);
+        if (t < 1) zoomFrame = requestAnimationFrame(animate);
+        else { zoomFrame = 0; zoomPulse = 0; scheduleUpdate(); }
+      }
+      zoomFrame = requestAnimationFrame(animate);
+    }
+
+    function navigate(id, smooth = true, remember = true) {
+      const entry = entries.find(item => item.page.id === id);
+      if (!entry) return;
+      if (zoomFrame) {
+        cancelAnimationFrame(zoomFrame);
+        zoomFrame = 0;
+        zoomPulse = 0;
+        applyScale(targetScale(), anchorAtViewport());
+      }
+      const top = stage.scrollTop + entry.slot.getBoundingClientRect().top - stage.getBoundingClientRect().top - 24;
+      stage.scrollTo({ top: Math.max(0, top), behavior: smooth && !motion.matches ? 'smooth' : 'auto' });
+      if (remember) {
+        try { history.replaceState(null, '', `#${encodeURIComponent(id)}`); } catch (_) {  }
+      }
+      scheduleUpdate();
+    }
+
+    links.forEach(link => link.addEventListener('click', event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      navigate(decodeURIComponent(link.hash.slice(1)));
+    }));
+    if (select) select.addEventListener('change', () => navigate(select.value));
+    if (zoomButton) zoomButton.addEventListener('click', toggleZoom);
+    if (scrollHint) scrollHint.addEventListener('click', () => navigate(entries[1]?.page.id || entries[0].page.id));
+    window.addEventListener('pointerdown', () => {
+      const selection = window.getSelection();
+      clearingSelection = !!selection && !selection.isCollapsed;
+    }, { capture: true, passive: true });
+    stage.addEventListener('click', event => {
+      if (clearingSelection || event.target.closest('a, button, input, select, textarea, [role="button"], .allow-select')) return;
+      if (event.target.closest('.page, .page-fit')) { event.preventDefault(); toggleZoom(); }
+    });
+    document.addEventListener('keydown', event => {
+      const intro = document.getElementById('intro-card');
+      if (intro && !intro.classList.contains('exit')) return;
+      if (event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
+      if (event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+      if (event.key.toLowerCase() === 'z' || (event.key === 'Escape' && expanded)) {
+        event.preventDefault();
+        toggleZoom();
+      }
+    });
+    stage.addEventListener('scroll', scheduleUpdate, { passive: true });
+    const observer = new ResizeObserver(() => {
+      const rect = stage.getBoundingClientRect();
+      if (rect.width === resizeWidth && rect.height === resizeHeight) return;
+      resizeWidth = rect.width;
+      resizeHeight = rect.height;
+      fit();
+    });
+    observer.observe(stage);
+    motion.addEventListener('change', fit);
+    window.addEventListener('hashchange', () => navigate(location.hash.slice(1), false, false));
+    window.addEventListener('pageshow', scheduleUpdate);
+    window.DHCSite.designFontsReady.then(scheduleUpdate);
+    const close = document.querySelector('.close-btn');
+    if (close) close.addEventListener('click', () => {
+      window.close();
+      setTimeout(() => location.assign('../'), 150);
+    });
+
+    let printPosition;
+    const makeImagesEager = () => Array.from(doc.querySelectorAll('img')).map(image => { image.loading = 'eager'; return image; });
+    window.exportPortfolioToPdf = window.downloadPortfolioPDF = async () => {
+      const images = makeImagesEager();
+      await Promise.allSettled(images.map(image => image.decode()));
+      await window.DHCSite.designFontsReady;
+      if (images.some(image => !image.naturalWidth)) throw new Error('Portfolio images must load before exporting.');
+      window.print();
+    };
+    window.addEventListener('beforeprint', () => {
+      printPosition = { top: stage.scrollTop, left: stage.scrollLeft };
+      printing = true;
+      cancelAnimationFrame(zoomFrame);
+      zoomPulse = 0;
+      makeImagesEager();
+    });
+    window.addEventListener('afterprint', () => {
+      printing = false;
+      fit();
+      if (printPosition) stage.scrollTo(printPosition);
+      scheduleUpdate();
+    });
+
+    fit();
+    if (location.hash) navigate(decodeURIComponent(location.hash.slice(1)), false, false);
+    update();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
+})();
+
+
+
