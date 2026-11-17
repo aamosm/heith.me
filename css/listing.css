@@ -39,19 +39,32 @@
   z-index: 20;
   padding: clamp(56px, 9vh, 104px) var(--gutter) 28px;
 }
-/* Only the torn top is filtered for its shadow. The sheet itself can be any height. */
+/* The paper runs up past the top of the sheet and is torn there, so the tear and the page are one surface. */
+.sheet::before {
+  content: '';
+  position: absolute;
+  inset: -46px 0 0;
+  z-index: -1;
+  background-color: var(--bg);
+  background-image: var(--grain);
+  background-blend-mode: multiply;
+  background-size: 350px 350px;
+  clip-path: var(--tear-top);
+}
+/* Behind it, a short strip carries the fray and casts the shadow. Only this strip is filtered, so the sheet can be any height. */
 .sheet-edge {
   position: absolute;
   right: 0;
-  bottom: calc(100% - 1px);
+  bottom: 100%;
   left: 0;
+  z-index: -2;
   height: 46px;
   pointer-events: none;
   filter: drop-shadow(0 -8px 13px rgba(0, 0, 0, .55));
 }
 .sheet-edge span { position: absolute; inset: 0; }
 .sheet-edge .fray { clip-path: var(--tear-top-fray); }
-.sheet-edge .paper { clip-path: var(--tear-top); background-position: bottom left; }
+.sheet-edge .shade { background: var(--bg); clip-path: var(--tear-top); }
 .sheet-inner { max-width: 1180px; margin: 0 auto; }
 
 .entries { margin: 0; padding: 0; list-style: none; counter-reset: entry; }
@@ -216,7 +229,8 @@ html.reveals [data-reveal].is-in { opacity: 1; transform: none; }
 }
 .gallery-track:nth-child(2) { animation-duration: 58s; animation-direction: reverse; }
 .gallery-track:nth-child(3) { animation-duration: 51s; }
-.gallery.is-paused .gallery-track { animation-play-state: paused; }
+.gallery.is-paused .gallery-track,
+html.intro-open .gallery-track { animation-play-state: paused; }
 .gallery img {
   display: block;
   width: 100%;

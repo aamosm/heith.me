@@ -32,6 +32,9 @@
   to { transform: translate3d(0, 150vh, 0); }
 }
 
+/* Nothing needs to move behind the introduction. */
+html.intro-open .crt-refresh-line { animation-play-state: paused; }
+
 @media (prefers-reduced-motion: reduce) {
   .crt-refresh-line { display: none; }
 }

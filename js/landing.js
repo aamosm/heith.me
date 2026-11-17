@@ -456,6 +456,18 @@
   video.addEventListener('volumechange', () => { if (!muting) syncControls(); });
   syncControls();
 
+  // The reel holds still while the introduction is open over it.
+  let heldForIntro = false;
+  document.addEventListener('dhc:intro', event => {
+    if (event.detail.open) {
+      heldForIntro = !video.paused;
+      video.pause();
+    } else if (heldForIntro) {
+      heldForIntro = false;
+      video.play().catch(() => {});
+    }
+  });
+
   let wasPlaying = false;
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {

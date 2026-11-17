@@ -55,7 +55,6 @@ body.mobile-mode .desktop-only { display: none; }
   contain: layout style;
   touch-action: pan-y;
   transform: translateZ(0);
-  will-change: width, height;
 }
 html.panel-anim .panel { transition: width .9s var(--ease-out), height .9s var(--ease-out); }
 .panel > .fray, .panel > .paper { position: absolute; inset: 0; }

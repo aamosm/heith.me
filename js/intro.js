@@ -95,6 +95,9 @@
     const overflow = page.style.overflow;
     page.style.overflow = 'hidden';
     DHC.scroller?.stop();
+    // The page behind stops its loops and its video until the sheet is gone.
+    page.classList.add('intro-open');
+    document.dispatchEvent(new CustomEvent('dhc:intro', { detail: { open: true } }));
 
     const enter = card.querySelector('.intro-enter');
     const mail = card.querySelector('.intro-mail');
@@ -119,6 +122,8 @@
       page.style.overflow = overflow;
       DHC.scroller?.start();
       card.remove();
+      page.classList.remove('intro-open');
+      document.dispatchEvent(new CustomEvent('dhc:intro', { detail: { open: false } }));
     }
 
     async function dismiss() {

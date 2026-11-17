@@ -11,16 +11,18 @@
   });
   DHC.enter();
 
-  const rows = document.querySelectorAll('[data-reveal]');
+  const rows = Array.from(document.querySelectorAll('[data-reveal]'));
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (rows.length && 'IntersectionObserver' in window && !calm) {
     document.documentElement.classList.add('reveals');
+    let shown = 0;
     const seen = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-in');
-        seen.unobserve(entry.target);
-      });
+      // Reaching a row also shows every row before it, so a jump down the page leaves none hidden.
+      const reached = Math.max(...entries.filter(entry => entry.isIntersecting).map(entry => rows.indexOf(entry.target)));
+      for (; shown <= reached; shown++) {
+        rows[shown].classList.add('is-in');
+        seen.unobserve(rows[shown]);
+      }
     }, { rootMargin: '0px 0px -8% 0px' });
     rows.forEach(row => seen.observe(row));
     // Printing skips the observer, so show everything first.
