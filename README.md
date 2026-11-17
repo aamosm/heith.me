@@ -48,6 +48,8 @@ Internal links and assets remain relative. `404.html` finds the homepage by chec
 
 The repository transition keeps the current page URL until it leaves for GitHub, so refresh and Back do not encounter fabricated local paths. Put these files at the existing site's publishing root. Configure the custom domain and DNS in GitHub Pages separately.
 
+Stylesheet and script links end in `?r=5`. Raise that number in every page whenever CSS or JS changes, so a browser never pairs a new page with an old cached file.
+
 ### The Custom Cursor
 
 The cursor is a blob that replaces the normal pointer. It trails behind the mouse with some lag and stretches in the direction it is moving based on its velocity.
