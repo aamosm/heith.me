@@ -1,0 +1,100 @@
+.corner-menu {
+  --sheet: min(470px, max(320px, 31vw), calc(100vw - 20px), calc(100dvh - 20px));
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: var(--sheet);
+  height: var(--sheet);
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0s .62s;
+}
+.corner-menu.is-open { visibility: visible; transition-delay: 0s; }
+
+/* Each sheet hangs above the corner and swings down around its bottom edge. */
+.menu-sheet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: calc(var(--sheet) * 2.8);
+  height: calc(var(--sheet) * 1.8);
+  color: var(--ink);
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  transform: translate3d(50%, -100%, 0) rotate(var(--angle)) translateY(-80px);
+  transition: transform .6s var(--ease-out);
+}
+.menu-sheet--wide { --angle: 24deg; --front-angle: 22deg; --label-shift: calc(var(--sheet) * -.32); z-index: 1; }
+.menu-sheet--tall { --angle: 66deg; --front-angle: 68deg; --label-shift: calc(var(--sheet) * .35); z-index: 2; }
+.menu-sheet.is-front { z-index: 3; }
+
+.corner-menu.is-open .menu-sheet {
+  transform: translate3d(50%, -100%, 0) rotate(var(--angle)) translateY(calc(var(--sheet) * .43));
+}
+.corner-menu.is-open .menu-sheet.is-front {
+  transform: translate3d(50%, -100%, 0) rotate(var(--front-angle)) translateY(calc(var(--sheet) * .43 + 8px));
+}
+.corner-menu.is-open .menu-sheet.is-lifting {
+  transform: translate3d(50%, -100%, 0) rotate(var(--front-angle)) translateY(calc(var(--sheet) * .43 + 35px));
+  transition-duration: .24s;
+}
+
+.menu-sheet-body,
+.menu-sheet .fray,
+.menu-sheet .paper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.menu-sheet-body {
+  filter: drop-shadow(-2px 3px 2px rgba(0, 0, 0, .34)) drop-shadow(-5px 8px 12px rgba(0, 0, 0, .4));
+  transition: filter .3s ease;
+}
+.menu-sheet.is-lifting .menu-sheet-body {
+  filter: drop-shadow(-8px 16px 5px rgba(0, 0, 0, .22)) drop-shadow(-13px 24px 22px rgba(0, 0, 0, .38));
+}
+.menu-sheet .fray { clip-path: var(--fray-edge); }
+.menu-sheet .paper { clip-path: var(--paper-edge); }
+/* Only the visible paper takes clicks, not the sheet's empty corners. */
+.corner-menu.is-open .fray { pointer-events: auto; cursor: pointer; }
+
+.menu-sheet-label {
+  position: absolute;
+  left: calc(50% + var(--label-shift));
+  bottom: 56px;
+  transform: translateX(-50%);
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: .86;
+  transition: opacity .2s ease;
+}
+.menu-sheet-label::before {
+  content: '';
+  position: absolute;
+  left: -13px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  transform: translateY(-50%) scale(.4);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.menu-sheet:hover .menu-sheet-label,
+.menu-sheet:focus-visible .menu-sheet-label { opacity: 1; }
+.menu-sheet:hover .menu-sheet-label::before,
+.menu-sheet:focus-visible .menu-sheet-label::before { opacity: 1; transform: translateY(-50%) scale(1); }
+
+.menu-sheet:focus-visible { outline: none; }
+.menu-sheet:focus-visible .menu-sheet-label { text-decoration: underline; text-underline-offset: 5px; }
+
+@media print {
+  .corner-menu { display: none; }
+}

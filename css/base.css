@@ -1,0 +1,230 @@
+@font-face {
+  font-family: 'Big Shoulders Display';
+  font-style: normal;
+  font-weight: 700 900;
+  font-display: swap;
+  src: url('../fonts/big-shoulders-display-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../fonts/ibm-plex-sans-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/ibm-plex-serif-400-latin.woff2') format('woff2');
+}
+
+:root {
+  --ink: #f4f6f8;
+  --muted: rgba(244, 246, 248, .58);
+  --accent: #ecd078;
+  --rule: rgba(244, 246, 248, .16);
+  --fray: #e8e6df;
+
+  --paper-brown: #7a6656;
+  --paper-mauve: #4a3752;
+  --paper-green: #3c4a3e;
+  --paper-night: #0d1117;
+
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --font-text: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-serif: 'IBM Plex Serif', Georgia, serif;
+
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+
+  /* Crumpled-paper shading, multiplied over a flat paper colour. */
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='4' result='n'/%3E%3CfeDiffuseLighting in='n' lighting-color='%23fff' surfaceScale='3'%3E%3CfeDistantLight azimuth='45' elevation='40'/%3E%3C/feDiffuseLighting%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
+  /* Torn-edge fibres. paper.js fills this in. */
+  --fibre: none;
+
+  /* Torn edges, one pair per side: the paper, and the paler fray that shows just beyond it. */
+  --tear-bottom: polygon(0% 0%, 100% 0%, 100% calc(100% - 18px), 93% calc(100% - 32px), 82% calc(100% - 14px), 71% calc(100% - 38px), 60% calc(100% - 20px), 52% calc(100% - 45px), 43% calc(100% - 18px), 32% calc(100% - 34px), 23% calc(100% - 15px), 14% calc(100% - 40px), 5% calc(100% - 22px), 0% calc(100% - 30px));
+  --tear-bottom-fray: polygon(0% 0%, 100% 0%, 100% calc(100% - 8px), 92% calc(100% - 18px), 84% calc(100% - 6px), 73% calc(100% - 24px), 62% calc(100% - 9px), 50% calc(100% - 30px), 41% calc(100% - 10px), 30% calc(100% - 20px), 21% calc(100% - 5px), 12% calc(100% - 26px), 7% calc(100% - 12px), 0% calc(100% - 15px));
+  --tear-top: polygon(0% 100%, 100% 100%, 100% 30px, 92% 16px, 81% 42px, 69% 18px, 60% 36px, 48% 15px, 37% 40px, 28% 20px, 18% 38px, 9% 14px, 0% 28px);
+  --tear-top-fray: polygon(0% 100%, 100% 100%, 100% 15px, 93% 6px, 83% 24px, 70% 8px, 58% 20px, 49% 5px, 39% 22px, 26% 8px, 16% 20px, 10% 6px, 0% 14px);
+  --tear-right: polygon(0% 0%, 0% 100%, calc(100% - 25px) 100%, calc(100% - 42px) 91%, calc(100% - 18px) 80%, calc(100% - 35px) 68%, calc(100% - 15px) 55%, calc(100% - 40px) 43%, calc(100% - 20px) 31%, calc(100% - 38px) 18%, calc(100% - 16px) 8%, calc(100% - 32px) 0%);
+  --tear-right-fray: polygon(0% 0%, 0% 100%, calc(100% - 12px) 100%, calc(100% - 24px) 90%, calc(100% - 8px) 81%, calc(100% - 20px) 69%, calc(100% - 6px) 56%, calc(100% - 25px) 44%, calc(100% - 9px) 32%, calc(100% - 22px) 19%, calc(100% - 7px) 9%, calc(100% - 18px) 0%);
+  --tear-left: polygon(100% 0%, 100% 100%, 26px 100%, 40px 92%, 17px 81%, 38px 69%, 15px 58%, 42px 46%, 19px 34%, 35px 21%, 14px 10%, 28px 0%);
+  --tear-left-fray: polygon(100% 0%, 100% 100%, 12px 100%, 24px 91%, 7px 82%, 22px 70%, 8px 59%, 25px 47%, 10px 35%, 20px 22%, 6px 11%, 15px 0%);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: var(--font-text);
+  -webkit-font-smoothing: antialiased;
+  scrollbar-width: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+* { scrollbar-width: none; }
+*::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+a, button, select { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+
+::selection { background: var(--accent); color: #1a1a18; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.allow-select { user-select: text; -webkit-user-select: text; }
+
+[data-font-reveal] { transition: opacity .18s ease; }
+html[data-fonts="loading"] [data-font-reveal] { opacity: 0; visibility: hidden; }
+/* The placeholder sheet only makes sense once script has decided how this visit starts. */
+html[data-entry="quiet"] #intro-card[data-first],
+html:not([data-entry]) #intro-card { display: none; }
+
+/* The paper surface shared by panels, headers, sheets and the menu. */
+.paper {
+  background-color: var(--bg);
+  background-image: var(--grain);
+  background-blend-mode: multiply;
+  background-size: 350px 350px;
+}
+.fray {
+  background-color: var(--fray);
+  background-image: var(--fibre);
+  background-size: 300px 300px;
+}
+
+.brand, .brand-inline { position: relative; cursor: pointer; transition: color .2s ease; }
+.brand {
+  font-family: var(--font-text);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  -webkit-text-stroke: .6px currentColor;
+}
+.brand.allow-select, .brand-inline.allow-select { padding: 4px 6px; margin: -4px -6px; }
+.brand:hover, .brand-inline:hover { color: color-mix(in srgb, var(--accent) 22%, var(--ink)); }
+
+/* Replay arrow that turns in beside the initials. */
+.brand::after, .brand-inline::after {
+  content: '';
+  position: absolute;
+  left: calc(100% - 1px);
+  top: 50%;
+  width: .65em;
+  height: .65em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ecd078' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'/%3E%3Cpath d='M3 3v5h5'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0;
+  transform: translateY(-50%) scale(.5) rotate(-90deg);
+  transition: opacity .22s ease, transform .35s cubic-bezier(.34, 1.56, .64, 1);
+  pointer-events: none;
+}
+.brand:hover::after, .brand-inline:hover::after,
+.brand:focus-visible::after, .brand-inline:focus-visible::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1) rotate(0deg);
+}
+
+.scroll-hint {
+  position: fixed;
+  left: var(--gutter, 3.5rem);
+  bottom: max(32px, env(safe-area-inset-bottom));
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  padding: 8px 0;
+  background: none;
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .2s ease, opacity .25s ease, visibility .25s;
+}
+.scroll-hint svg {
+  width: 12px;
+  height: 19px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.2;
+  animation: scroll-nudge 2.8s ease-in-out infinite;
+}
+.scroll-hint:hover, .scroll-hint:focus-visible { color: var(--accent); }
+.scroll-hint.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+@keyframes scroll-nudge {
+  0%, 60%, 100% { transform: translateY(0); }
+  75% { transform: translateY(4px); }
+}
+
+/* Copyright and licence line. Each page decides where it sits. */
+.credit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin: 0;
+  color: rgba(244, 246, 248, .38);
+  font-family: var(--font-text);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: .025em;
+  white-space: nowrap;
+}
+.credit a { transition: color .2s ease; }
+.credit a:hover, .credit a:focus-visible { color: rgba(244, 246, 248, .78); }
+
+/* The pointer blob. cursor.js moves it. */
+html.has-cursor, html.has-cursor * { cursor: none !important; }
+#cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 47% 53% 52% 48% / 55% 49% 51% 45%;
+  background: #fff;
+  mix-blend-mode: difference;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
+  transition: width .25s ease, height .25s ease, margin .25s ease;
+  animation: cursor-morph 3.2s ease-in-out infinite paused;
+}
+html.has-cursor #cursor { animation-play-state: running; }
+#cursor.is-hover { width: 28px; height: 28px; margin: -14px 0 0 -14px; }
+
+@keyframes cursor-morph {
+  0%, 100% { border-radius: 47% 53% 52% 48% / 55% 49% 51% 45%; }
+  33% { border-radius: 58% 42% 45% 55% / 42% 58% 42% 58%; }
+  66% { border-radius: 42% 58% 60% 40% / 52% 44% 56% 48%; }
+}
+
+/* Looping animations play once here, so nothing strobes. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  #cursor { display: none; }
+}

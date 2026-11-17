@@ -1,0 +1,66 @@
+#glass-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.glass-shell {
+  position: relative;
+  width: min(30vw, 200px);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(255, 255, 255, .2);
+  border-radius: 34%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .4), rgba(255, 255, 255, .05));
+  box-shadow: inset 0 2px 20px rgba(255, 255, 255, .3), inset 0 -2px 20px rgba(0, 0, 0, .1), 0 20px 40px rgba(0, 0, 0, .15);
+  opacity: 0;
+  transform: scale(.72);
+  transition: transform .6s cubic-bezier(.34, 1.56, .64, 1), opacity .5s ease-out;
+  will-change: transform, opacity;
+}
+
+/* A lit rim, then a soft highlight in the corner. */
+.glass-shell::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .5), rgba(255, 255, 255, 0));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: .8;
+}
+.glass-shell::after {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: -15%;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, .6), transparent 70%);
+  opacity: .9;
+}
+
+.glass-mark {
+  position: relative;
+  z-index: 1;
+  width: 64%;
+  height: 64%;
+  opacity: 0;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .25));
+  transition: opacity .4s ease-out;
+}
+
+#glass-loader.in .glass-shell { opacity: 1; transform: scale(1); }
+#glass-loader.in .glass-mark { opacity: 1; }
+#glass-loader.ascending .glass-shell { transition: none; }
+#glass-loader.ascending .glass-shell::after { opacity: .6; }

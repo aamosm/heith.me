@@ -1,196 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="projects">
 <head>
-    <meta charset="UTF-8">
-    <style>
-      html, body { background: #3C4A3E; }
-      html[data-fonts="loading"] [data-font-reveal] { opacity: 0; visibility: hidden; }
-      html[data-page-entry="quiet"] #intro-card[data-entry-intro] { display: none !important; }
-      #intro-card[data-entry-intro] .intro-content,
-      #intro-card[data-entry-intro] .intro-dots { visibility: hidden; }
-      html[data-page-entry] #glass-loader { background: transparent; pointer-events: none; }
-    </style>
-    <script>
-      document.documentElement.dataset.pageEntry = new URLSearchParams(location.search).get('v') === 'd' ? 'quiet' : 'direct';
-      document.documentElement.dataset.fonts = 'loading';
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-
-    <link rel="preload" as="image" href="../assets/favicon.png" fetchpriority="high">
-
-    <script src="../favicon.js" defer></script>
-
-    <title>// projects</title>
-    <meta name="description" content="Projects by DHC. Procedural art, games, web applications and hardware.">
-    
-    <link rel="preload" href="../fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../site-shared.css">
-    <script src="../site-shared.js" defer></script>
-    <script id="lenis-script" src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js" async></script>
-
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="script.js" as="script">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="embed.css">
-    <link rel="stylesheet" href="../corner-menu.css">
-    <link rel="stylesheet" href="../crt.css">
-    <link rel="stylesheet" href="../glass-loader.css">
-    <link rel="stylesheet" href="../brand-hover.css">
-<link rel="stylesheet" href="../intro-card.css"></head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DHC | Projects</title>
+  <meta name="description" content="Projects by DHC. Procedural art, games, web applications and hardware.">
+  <meta name="theme-color" content="#3C4A3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DHC | Projects">
+  <meta property="og:description" content="Projects by DHC. Procedural art, games, web applications and hardware.">
+  <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+  <script>
+    document.documentElement.dataset.fonts = 'loading';
+    document.documentElement.dataset.entry = new URLSearchParams(location.search).get('v') === 'd' || performance.getEntriesByType('navigation')[0]?.type === 'back_forward' ? 'quiet' : 'intro';
+  </script>
+  <link rel="preload" href="../fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/signature.webp" as="image">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/crt.css">
+  <link rel="stylesheet" href="../css/intro.css">
+  <link rel="stylesheet" href="../css/loader.css">
+  <link rel="stylesheet" href="../css/page.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/listing.css">
+  <script src="../js/vendor/lenis.min.js" defer></script>
+  <script src="../js/site.js" defer></script>
+  <script src="../js/mark.js" defer></script>
+  <script src="../js/loader.js" defer></script>
+  <script src="../js/intro.js" defer></script>
+  <script src="../js/paper.js" defer></script>
+  <script src="../js/cursor.js" defer></script>
+  <script src="../js/menu.js" defer></script>
+  <script src="../js/page.js" defer></script>
+  <script src="../js/projects.js" defer></script>
+</head>
 <body>
+  <div id="intro-card" data-first aria-label="Introduction" inert></div>
 
-<div id="intro-card" data-entry-intro inert aria-label="Introduction">
-    <div class="intro-dots" id="introDots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-    <div class="intro-content">
-      <h1 class="intro-name">Dhruv Heith Chheda</h1>
-      <p class="intro-sub">Mauritian · Interdisciplinary student</p>
-      <div class="intro-body">
-        <p>I'm interested in games and the tools people use to make them. I enjoy programming, and I'd like a hand in the writing, visual decisions and coordination behind a project too. Working with a team appeals to me because there's more than one way to contribute.</p>
-        <p>I grew up playing GBA games on a laptop, and older games and emulation remain personal interests. I also like films that say a lot through simple choices. That's something I'd like to explore in my own work.</p>
-        <p>I'm usually up for a project or a competition, especially with teammates. Some of my projects started with someone around me needing something; others were ideas I wanted to try. I've worked independently, with school teams and during a robotics internship at IIT Gandhinagar.</p>
-        <p class="intro-tools-heading">Some of the tools I've worked with</p>
-        <ul class="intro-tools">
-          <li><strong>Games:</strong> Godot and GDScript; currently learning Unity and C#.</li>
-          <li><strong>Visual work:</strong> Blender, Aseprite and After Effects.</li>
-          <li><strong>Programming:</strong> Python, C++ and JavaScript, with Git/GitHub for managing projects.</li>
-          <li><strong>CAD:</strong> SolidWorks.</li>
-        </ul>
-        <p>I'm open to internships and collaborations across programming, design and game production. You're always welcome to contact me for a detailed CV, more about my work, or a project you'd like to discuss.</p>
-      </div>
-      <div class="intro-footer">
-        <div class="intro-links">
-          <span class="intro-link copyable-email">write@heith.me</span>
-          <a href="https://github.com/aamosm" target="_blank" rel="noopener" class="intro-link">github/aamosm</a>
-        </div>
-        <div class="intro-actions">
-          <button class="intro-skip" type="button" aria-label="Enter site">Enter &darr;</button>
-          <div class="intro-hint">any key to continue</div>
-        </div>
-      </div>
+  <div class="stage" aria-hidden="true">
+    <div class="gallery" id="gallery">
+      <div class="gallery-track"></div>
+      <div class="gallery-track"></div>
+      <div class="gallery-track"></div>
     </div>
   </div>
+  <div class="crt-overlay" aria-hidden="true"><div class="scanlines"></div><div class="crt-refresh-line"></div></div>
 
-    <div class="crt-overlay">
-        <div class="scanlines"></div>
-        <div class="crt-refresh-line"></div>
+  <header class="top-nav" data-font-reveal>
+    <div class="nav-paper" aria-hidden="true"><span class="fray"></span><span class="paper"></span></div>
+    <button class="nav-item close-btn" type="button">Close</button>
+    <div class="nav-center">
+      <a class="home-link" href="../?v=d" aria-label="Home" title="Home">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path class="home-light" d="M8.4 16.6v-4.8h3.2v4.8z"/><path d="M2.4 9.6 10 3l7.6 6.6M4.4 8v8.6h11.2V8M8.4 16.6v-4.8h3.2v4.8M13.4 5.9V3.6h1.8v3.9"/><path class="home-smoke" d="M14.3 2.2c-.9-.8.5-1.3-.3-2.2"/></svg>
+      </a>
+      <span class="brand allow-select" id="navBrand" role="button" tabindex="0" aria-label="Show introduction">DHC</span>
     </div>
-    <div class="blueprint-grid"></div>
+    <button class="nav-item menu-trigger" type="button" aria-expanded="false">Menu</button>
+  </header>
 
-    <div class="scrolling-gallery-container" id="gallery-container" data-font-reveal>
-        <div class="gallery-track track-1" id="track-1"></div>
-        <div class="gallery-track track-2" id="track-2"></div>
-        <div class="gallery-track track-3" id="track-3"></div>
-    </div>
+  <main>
+    <section class="hero" data-font-reveal>
+      <h1 class="hero-title">Projects</h1>
+    </section>
 
-    <div class="ui-layer">
-        
-        <header class="top-nav glass-panel corner-menu-header" data-font-reveal>
-    <div style="justify-self: start; display: flex; align-items: center;"><button class="nav-item close-btn" style="background:none;border:none;cursor:pointer;font-family: 'IBM Plex Sans', system-ui, sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.04em; color: inherit; padding: 4px 8px; margin-left: -8px;">Close</button></div>
-    <div class="brand allow-select" id="navBrand" role="button" tabindex="0" aria-label="Show introduction">DHC</div>
-    <button class="nav-item corner-menu-trigger" type="button" aria-controls="dhc-corner-menu" aria-expanded="false">Menu</button>
-</header>
+    <button class="scroll-hint" type="button" data-scroll-target="#projects-list" data-scroll-gap="64" data-font-reveal aria-label="Scroll to projects">
+      <span>scroll</span><svg viewBox="0 0 12 19" aria-hidden="true"><path d="M6 1v15M1 11l5 5 5-5"/></svg>
+    </button>
 
-        <div class="hero-title-container" data-font-reveal>
-            <h1 class="massive-title">PROJECTS</h1>
-            
-            
-        </div>
-
-        <button class="scroll-hint" type="button" data-scroll-target="#projects-list" data-font-reveal aria-label="Scroll to projects">
-            <span>scroll</span><svg viewBox="0 0 12 19" aria-hidden="true"><path d="M6 1v15M1 11l5 5 5-5"/></svg>
-        </button>
-
-        <section class="content-section" id="projects-list">
-            <div class="projects-grid" data-font-reveal>
-
-                <div class="project-card">
-                    <h2 class="project-title">This Alien Doesn't Exist</h2>
-                    <p class="project-overview">A procedural creature generator that seeds a Mulberry32 PRNG from custom string inputs to mathematically calculate anatomical traits, colors, and textures, rendering unique alien lifeforms straight to the browser canvas.</p>
-                    <div class="project-used"><span class="project-used-label">Used:</span> Vanilla JavaScript, HTML5/CSS3, Canvas API, Mulberry32 PRNG.</div>
-                    <div class="project-links">
-                        <a class="project-link" href="https://github.com/aamosm/This-Alien-Does-Not-Exist" target="_blank" rel="noopener">Source →</a>
-                        <a class="project-link" href="https://thisaliendoesnotexist.app" target="_blank" rel="noopener">Try it ↗</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h2 class="project-title">VoyagerOS (Voyager9)</h2>
-                    <p class="project-overview">A retro-futuristic, narrative-driven WebOS designed for a deep-space exploration ship. Acts as an interactive UI ecosystem that weaves sci-fi lore and procedural data directly into the system interface.</p>
-                    <div class="project-used"><span class="project-used-label">Used:</span> Vanilla JavaScript, CSS3, Web Components, Narrative Design.</div>
-                    <div class="project-links">
-                        <a class="project-link" href="https://github.com/aamosm/VoyagerOS" target="_blank" rel="noopener">Source →</a>
-                        <a class="project-link" href="https://aamosm.github.io/VoyagerOS" target="_blank" rel="noopener">Try it ↗</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h2 class="project-title">Obscure</h2>
-                    <p class="project-overview">A lightweight, high-performance new tab homepage designed for searching across curated and independent search engines without the clutter.</p>
-                    <div class="project-used"><span class="project-used-label">Used:</span> React.js, Vite, CSS.</div>
-                    <a class="project-link" href="https://github.com/aamosm/Obscure" target="_blank" rel="noopener">Source →</a>
-                </div>
-
-                <div class="project-card">
-                    <h2 class="project-title">Seven Minute Shadow</h2>
-                    <p class="project-overview">A fast-paced, WarioWare-style minigame collection built in Godot. Packed with hand-drawn frame-by-frame pixel art and low-poly 3D environmental assets.</p>
-                    <div class="project-used"><span class="project-used-label">Used:</span> Godot (GDScript), Aseprite, Blender.</div>
-                    <div class="project-links">
-                        <a class="project-link" href="https://github.com/aamosm/SevenMinuteShadow" target="_blank" rel="noopener">Source →</a>
-                        <a class="project-link" href="https://aamosm.itch.io/seven-minute-shadow" target="_blank" rel="noopener">Play on itch.io ↗</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <h2 class="project-title">Predictive Grade App &amp; API</h2>
-                    <p class="project-overview">An academic tracking application built for Android that aggregates historic performance metrics to estimate final grades. Features backend AI workflows configured to review, test, and self-patch their own code across multi-step execution tasks.</p>
-                    <div class="project-used"><span class="project-used-label">Used:</span> Android Studio, Java, Python, REST APIs, Autonomous AI Workflows.</div>
-                    <span class="project-link project-link--dead">No Public Link</span>
-                </div>
-
-                <div class="project-card">
-                    <h2 class="project-title">Self-Balancing Beam System</h2>
-                    <p class="project-overview">A hardware-software physical feedback loop built during a competitive research internship at SysIDEA Robotics Lab, IIT Gandhinagar. Runs real-time closed-loop C++ PID algorithms across microcontrollers to maintain physical equilibrium.</p>
-                    <div class="project-used"><span class="project-used-label">Used:</span> C++, PID Control Logic, Microcontrollers, CAD, Rapid Prototyping.</div>
-                    <span class="project-link project-link--dead">No Public Link</span>
-                </div>
-
-                <div class="project-card">
-                    <h2 class="project-title">State-Champion F1 RC Vehicle</h2>
-                    <p class="project-overview">A high-speed RC vehicle engineered from scratch under strict competition deadlines, winning 1st place at Technofest. Handled mechanical chassis design, power distribution, and multi-channel transmitter integration.</p>
-                    <div class="project-used"><span class="project-used-label">Used:</span> Microcontrollers, Multi-Channel Controllers, CAD, Mechanical Assembly.</div>
-                    <a class="project-link" href="https://www.linkedin.com/posts/vijaybhoomi-university_vijaybhoomijuniorcollege-vsis-technofest25-activity-7297563791465009152-bONx" target="_blank" rel="noopener">View Post &rarr;</a>
-                </div>
-
-                <div class="project-card">
-                    <h2 class="project-title">Client Platforms &amp; Student Resource Hub</h2>
-                    <p class="project-overview">Production web builds ranging from a centralized notes repository for school peers to end-to-end full-stack applications built for freelance clients. Focused on fast load times, responsive layouts, and search engine optimization.</p>
-                    <div class="project-used"><span class="project-used-label">Used:</span> TypeScript, React.js, Vite, Vanilla JavaScript, HTML5/CSS3, Git/GitHub, SEO.</div>
-                    <span class="project-link project-link--dead">No Public Link</span>
-                </div>
-
+    <section class="sheet paper" id="projects-list" data-font-reveal>
+      <div class="sheet-edge" aria-hidden="true"><span class="fray"></span><span class="paper"></span></div>
+      <div class="sheet-inner">
+        <ol class="entries">
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title">This Alien Doesn’t Exist</h2>
+              <p class="entry-text">A procedural creature generator that seeds a Mulberry32 PRNG from custom string inputs to mathematically calculate anatomical traits, colors, and textures, rendering unique alien lifeforms straight to the browser canvas.</p>
+              <dl class="entry-meta"><dt>Used</dt><dd>Vanilla JavaScript, HTML5/CSS3, Canvas API, Mulberry32 PRNG.</dd></dl>
             </div>
-            
-            <div class="project-embed-block" data-font-reveal>
-                <div class="project-embed-label">Play</div>
-                <a class="itch-card" href="https://aamosm.itch.io/seven-minute-shadow" target="_blank" rel="noopener" aria-label="Play Seven Minute Shadow on itch.io">
-                    <img class="itch-card-cover" src="../assets/projects/seven-minute-shadow.png" alt="Seven Minute Shadow cover art" loading="lazy" width="1027" height="613">
-                    <div class="itch-card-content">
-                        <span class="itch-card-byline">aamosm / itch.io</span>
-                        <h2 class="itch-card-title">Seven Minute Shadow</h2>
-                        <p>A fast-paced, WarioWare-style minigame collection.</p>
-                        <span class="itch-card-action">Play on itch.io <span aria-hidden="true">↗</span></span>
-                    </div>
-                </a>
+            <div class="entry-links">
+              <a class="text-link" href="https://github.com/aamosm/This-Alien-Does-Not-Exist" target="_blank" rel="noopener">Source</a>
+              <a class="text-link" href="https://thisaliendoesnotexist.app" target="_blank" rel="noopener">Try it</a>
             </div>
-        </section>
+          </li>
 
-    </div>
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title">VoyagerOS (Voyager9)</h2>
+              <p class="entry-text">A retro-futuristic, narrative-driven WebOS designed for a deep-space exploration ship. Acts as an interactive UI ecosystem that weaves sci-fi lore and procedural data directly into the system interface.</p>
+              <dl class="entry-meta"><dt>Used</dt><dd>Vanilla JavaScript, CSS3, Web Components, Narrative Design.</dd></dl>
+            </div>
+            <div class="entry-links">
+              <a class="text-link" href="https://github.com/aamosm/VoyagerOS" target="_blank" rel="noopener">Source</a>
+              <a class="text-link" href="https://aamosm.github.io/VoyagerOS" target="_blank" rel="noopener">Try it</a>
+            </div>
+          </li>
 
-    <script src="../glass-loader.js" defer></script>
-    <script src="../intro-overlay.js" defer></script><script src="script.js" defer></script>
-    <script src="../corner-menu.js" defer></script>
-    <script src="../cursor-blob.js" defer></script>
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title">Obscure</h2>
+              <p class="entry-text">A lightweight, high-performance new tab homepage designed for searching across curated and independent search engines without the clutter.</p>
+              <dl class="entry-meta"><dt>Used</dt><dd>React.js, Vite, CSS.</dd></dl>
+            </div>
+            <div class="entry-links">
+              <a class="text-link" href="https://github.com/aamosm/Obscure" target="_blank" rel="noopener">Source</a>
+            </div>
+          </li>
+
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title">Seven Minute Shadow</h2>
+              <p class="entry-text">A fast-paced, WarioWare-style minigame collection built in Godot. Packed with hand-drawn frame-by-frame pixel art and low-poly 3D environmental assets.</p>
+              <dl class="entry-meta"><dt>Used</dt><dd>Godot (GDScript), Aseprite, Blender.</dd></dl>
+            </div>
+            <div class="entry-links">
+              <a class="text-link" href="https://github.com/aamosm/SevenMinuteShadow" target="_blank" rel="noopener">Source</a>
+              <a class="text-link" href="https://aamosm.itch.io/seven-minute-shadow" target="_blank" rel="noopener">Play on itch.io</a>
+            </div>
+          </li>
+
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title">Predictive Grade App &amp; API</h2>
+              <p class="entry-text">An academic tracking application built for Android that aggregates historic performance metrics to estimate final grades. Features backend AI workflows configured to review, test, and self-patch their own code across multi-step execution tasks.</p>
+              <dl class="entry-meta"><dt>Used</dt><dd>Android Studio, Java, Python, REST APIs, Autonomous AI Workflows.</dd></dl>
+            </div>
+            <div class="entry-links"><span class="text-link text-link--off">No Public Link</span></div>
+          </li>
+
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title">Self-Balancing Beam System</h2>
+              <p class="entry-text">A hardware-software physical feedback loop built during a competitive research internship at SysIDEA Robotics Lab, IIT Gandhinagar. Runs real-time closed-loop C++ PID algorithms across microcontrollers to maintain physical equilibrium.</p>
+              <dl class="entry-meta"><dt>Used</dt><dd>C++, PID Control Logic, Microcontrollers, CAD, Rapid Prototyping.</dd></dl>
+            </div>
+            <div class="entry-links"><span class="text-link text-link--off">No Public Link</span></div>
+          </li>
+
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title">State-Champion F1 RC Vehicle</h2>
+              <p class="entry-text">A high-speed RC vehicle engineered from scratch under strict competition deadlines, winning 1st place at Technofest. Handled mechanical chassis design, power distribution, and multi-channel transmitter integration.</p>
+              <dl class="entry-meta"><dt>Used</dt><dd>Microcontrollers, Multi-Channel Controllers, CAD, Mechanical Assembly.</dd></dl>
+            </div>
+            <div class="entry-links">
+              <a class="text-link" href="https://www.linkedin.com/posts/vijaybhoomi-university_vijaybhoomijuniorcollege-vsis-technofest25-activity-7297563791465009152-bONx" target="_blank" rel="noopener">View Post</a>
+            </div>
+          </li>
+
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title">Client Platforms &amp; Student Resource Hub</h2>
+              <p class="entry-text">Production web builds ranging from a centralized notes repository for school peers to end-to-end full-stack applications built for freelance clients. Focused on fast load times, responsive layouts, and search engine optimization.</p>
+              <dl class="entry-meta"><dt>Used</dt><dd>TypeScript, React.js, Vite, Vanilla JavaScript, HTML5/CSS3, Git/GitHub, SEO.</dd></dl>
+            </div>
+            <div class="entry-links"><span class="text-link text-link--off">No Public Link</span></div>
+          </li>
+        </ol>
+
+        <aside class="feature" data-reveal>
+          <h2 class="feature-label">Play</h2>
+          <a class="feature-card" href="https://aamosm.itch.io/seven-minute-shadow" target="_blank" rel="noopener" aria-label="Play Seven Minute Shadow on itch.io">
+            <img src="../assets/projects/seven-minute-shadow.webp" alt="Seven Minute Shadow cover art" loading="lazy" width="800" height="478">
+            <div class="feature-body">
+              <span class="feature-byline">aamosm / itch.io</span>
+              <h3 class="feature-title">Seven Minute Shadow</h3>
+              <p>A fast-paced, WarioWare-style minigame collection.</p>
+              <span class="text-link">Play on itch.io</span>
+            </div>
+          </a>
+        </aside>
+
+        <footer class="sheet-foot">
+          <p class="credit"><span>© <span data-year>2026</span> Dhruv Heith Chheda</span><a href="https://github.com/aamosm/heith.me?tab=MIT-1-ov-file" target="_blank" rel="noopener">MIT License</a></p>
+        </footer>
+      </div>
+    </section>
+  </main>
 </body>
 </html>

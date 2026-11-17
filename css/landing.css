@@ -1,0 +1,315 @@
+:root {
+  --nav-h: 88px;
+
+  /* Where the panels rest, and where they are right now. landing.js drives the second set. */
+  --rest-left: max(calc(92vw - clamp(320px, 34vw, 620px)), calc(50vw + 36px));
+  --rest-bottom: 20vh;
+  --rest-top: 20vh;
+  --p-top: var(--rest-top);
+  --p-bottom: var(--rest-bottom);
+  --p-left: var(--rest-left);
+  --p-right: calc(100vw - var(--rest-left) - clamp(320px, 34vw, 620px) + 18px);
+  --split-y: 66.666667vh;
+
+  /* Reel link colours. landing.js swaps these on the cuts. */
+  --s-fill-1: #15101f;
+  --s-fill-2: #15101f;
+  --s-fill-3: #15101f;
+  --s-a: #ff4d3d;
+  --s-b: #1fd0e6;
+
+  --loader-bg: #1a1a18;
+  --loader-ink: #f0ebe3;
+}
+@media (prefers-color-scheme: light) {
+  :root { --loader-bg: #f5f0e8; --loader-ink: #1a1a18; }
+}
+
+html, body { background-color: var(--loader-bg); overflow-x: hidden; }
+body.mobile-mode { background-color: var(--paper-brown); }
+
+/* The intro matches the browser's own light or dark, so the signature can fly into the tab. */
+html[data-page="landing"] #intro-card {
+  --ink: var(--loader-ink);
+  --muted: color-mix(in srgb, var(--loader-ink) 58%, transparent);
+  --rule: color-mix(in srgb, var(--loader-ink) 16%, transparent);
+  background: var(--loader-bg);
+}
+@media (prefers-color-scheme: light) {
+  html[data-page="landing"] #intro-card { --accent: #8c6a1d; }
+}
+html[data-page="landing"]:not([data-scene-ready]) [data-font-reveal] { opacity: 0; visibility: hidden; }
+
+#spacer { width: 100%; height: 165vh; }
+@supports (height: 100dvh) {
+  #spacer { height: 165dvh; }
+}
+
+.mobile-only { display: none; }
+body.mobile-mode .mobile-only { display: block; }
+body.mobile-mode .desktop-only { display: none; }
+
+/* Panels */
+.panel {
+  position: fixed;
+  overflow: visible;
+  contain: layout style;
+  touch-action: pan-y;
+  transform: translateZ(0);
+  will-change: width, height;
+}
+html.panel-anim .panel { transition: width .9s var(--ease-out), height .9s var(--ease-out); }
+.panel > .fray, .panel > .paper { position: absolute; inset: 0; }
+
+#panel-top { --bg: var(--paper-mauve); top: 0; right: 0; left: 0; z-index: 30; height: var(--p-top); filter: drop-shadow(0 10px 16px rgba(0, 0, 0, .7)); }
+#panel-left { --bg: var(--paper-brown); top: 0; bottom: 0; left: 0; z-index: 40; width: max(var(--p-left), 0px); filter: drop-shadow(10px 0 16px rgba(0, 0, 0, .7)); }
+#panel-bottom { --bg: var(--paper-green); right: 0; bottom: 0; left: 0; z-index: 50; height: max(var(--p-bottom), 0px); filter: drop-shadow(0 -10px 16px rgba(0, 0, 0, .7)); }
+
+/* The right panel is two copies cut at --split-y: the upper one lies under the stack,
+   the lower one over it. That is what lets each panel overlap the next all the way round. */
+#panel-right-base, #panel-right-fake {
+  --bg: var(--paper-night);
+  top: 0;
+  right: -2px;
+  bottom: 0;
+  width: calc(max(var(--p-right), 0px) + 2px);
+  filter: drop-shadow(-10px 0 16px rgba(0, 0, 0, .7));
+}
+#panel-right-base { z-index: 20; clip-path: inset(0 0 calc(100vh - var(--split-y) - 1px) -30px); }
+#panel-right-fake { z-index: 60; clip-path: inset(var(--split-y) 0 0 -30px); }
+
+#panel-top > .fray { clip-path: var(--tear-bottom-fray); }
+#panel-top > .paper { clip-path: var(--tear-bottom); }
+#panel-bottom > .fray { clip-path: var(--tear-top-fray); }
+#panel-bottom > .paper { clip-path: var(--tear-top); }
+#panel-left > .fray { clip-path: var(--tear-right-fray); }
+#panel-left > .paper { clip-path: var(--tear-right); }
+#panel-right-base > .fray, #panel-right-fake > .fray { clip-path: var(--tear-left-fray); }
+#panel-right-base > .paper, #panel-right-fake > .paper { clip-path: var(--tear-left); }
+
+/* Textures hang from the torn edge, so they stay put while a panel resizes. */
+#panel-top > * { background-position: bottom left; }
+#panel-left > * { background-position: top right; }
+#panel-bottom > *, #panel-right-base > *, #panel-right-fake > * { background-position: top left; }
+
+/* Leaving for the repository: the right panel grows over everything, carrying a screenshot of it. */
+.panel-dest {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100vw + 80px);
+  height: 100vh;
+  clip-path: var(--tear-left);
+}
+.panel-dest img { display: block; width: 100%; height: 100%; object-fit: cover; }
+#panel-right-base.is-taking-over { z-index: 55; clip-path: none; will-change: width; }
+#panel-right-base.is-taking-over .panel-right-label { opacity: 0; pointer-events: none; }
+#panel-right-base.is-taking-over > .paper { background-color: transparent; mix-blend-mode: multiply; }
+#panel-right-base.is-taking-over ~ #panel-right-fake { display: none; }
+
+.paper-left { position: absolute; top: 0; right: 0; bottom: 0; width: var(--rest-left); }
+.paper-bottom { position: absolute; top: 0; right: 0; left: 0; height: var(--rest-bottom); }
+
+/* Small labels with a dot that shows on hover. */
+.panel-right-label, .nav-item--reach-out { position: relative; }
+.panel-right-label::after, .nav-item--reach-out::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity .2s ease, transform .2s ease;
+  pointer-events: none;
+}
+.panel-right-label {
+  position: absolute;
+  top: 50%;
+  left: 48px;
+  z-index: 1;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+  opacity: .85;
+  transition: opacity .2s ease;
+}
+.panel-right-label:hover, .panel-right-label:focus-visible { opacity: 1; }
+.panel-right-label::after { top: -13px; left: 50%; transform: translateX(-50%) scale(.4); }
+.panel-right-label:hover::after { opacity: 1; transform: translateX(-50%) scale(1); }
+.nav-item--reach-out { margin-left: 12px; }
+.nav-item--reach-out::after { top: 50%; left: -13px; transform: translateY(-50%) scale(.4); }
+.nav-item--reach-out:hover::after { opacity: 1; transform: translateY(-50%) scale(1); }
+
+/* Navigation and hero copy */
+.nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  padding: 0 max(32px, env(safe-area-inset-right)) 0 max(32px, env(safe-area-inset-left));
+}
+#panel-top .nav { top: auto; bottom: 24px; display: grid; grid-template-columns: 1fr auto 1fr; }
+#panel-top .nav-item { justify-self: start; }
+#panel-top .brand { justify-self: center; }
+
+.nav-item { font-size: 18px; font-weight: 600; color: var(--ink); }
+.reel-label { font-weight: 600; }
+
+.credit { position: absolute; top: calc(12px + var(--p-top) - var(--rest-top)); right: max(32px, env(safe-area-inset-right)); }
+
+.hero-copy { top: 58%; transform: translateY(-50%); }
+.desktop-only .hero-copy { position: absolute; left: 12%; width: 560px; max-width: 76vw; }
+.eyebrow, .headline { font-family: var(--font-display); font-weight: 700; }
+.eyebrow { margin: 0 0 -.44em; font-size: clamp(26px, 3.6vw, 46px); line-height: .9; color: var(--accent); }
+.headline { margin: 0 0 24px; font-size: clamp(40px, 6vw, 72px); line-height: .95; }
+.headline .brand-inline {
+  font-family: var(--font-text);
+  font-size: 1.4em;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  -webkit-text-stroke: .6px currentColor;
+}
+.sub { max-width: 42ch; margin: 0; font-size: 16px; line-height: 1.55; color: var(--muted); }
+
+.scroll-hint { position: static; padding: 0; }
+.desktop-only .scroll-hint { position: absolute; bottom: 36px; left: 12%; }
+
+/* The reel and what sits on it */
+#layer-bg { position: fixed; inset: 0; z-index: 10; isolation: isolate; }
+.reel { position: absolute; inset: 0; background: var(--paper-night); cursor: pointer; }
+.reel.is-full { cursor: default; }
+.reel > video { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* A solid fill with two offset copies behind it, like a print out of register. */
+.s-text {
+  --s-off: .0625em;
+  width: fit-content;
+  padding: clamp(8px, 1vw, 14px) 0;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: .06em;
+  color: var(--s-fill);
+  transition: color .07s linear;
+}
+.s-text.s1 { --s-fill: var(--s-fill-1); }
+.s-text.s2 { --s-fill: var(--s-fill-2); }
+.s-text.s3 { --s-fill: var(--s-fill-3); }
+.s-text::before, .s-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  white-space: nowrap;
+  transition: color .07s linear, transform .35s var(--ease-out);
+}
+.s-text::before { color: var(--s-a); transform: translate(calc(-50% - var(--s-off)), -50%) translateZ(-4px); }
+.s-text::after { color: var(--s-b); transform: translate(calc(-50% + var(--s-off)), -50%) translateZ(-8px); }
+.s-text:hover, .s-text:focus-visible { --s-off: .115em; }
+
+.desktop-only.s-text { position: absolute; left: 12vw; z-index: 12; }
+.desktop-only.s1 { top: calc(45vh - clamp(60px, 12vh, 100px)); }
+.desktop-only.s2 { top: 45vh; }
+.desktop-only.s3 { top: calc(45vh + clamp(60px, 12vh, 100px)); }
+/* Tilts toward the pointer. The offsets sit a little deeper, so they slide apart as it turns. */
+.desk-s-text {
+  --hx: 0;
+  --hy: 0;
+  transform: perspective(600px) translate3d(calc(var(--hx) * 3px), calc(var(--hy) * 3px), 0) rotateX(calc(var(--hy) * -6deg)) rotateY(calc(var(--hx) * -6deg));
+  transform-style: preserve-3d;
+  transition: color .07s linear, transform .4s cubic-bezier(.2, .8, .2, 1);
+}
+.desk-s-text:hover { transition: color .07s linear, transform .1s linear; }
+
+.reel-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.reel-controls { display: flex; align-items: center; gap: 10px; }
+.reel-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform .2s var(--ease-out);
+}
+.reel-btn:hover { transform: scale(1.12); }
+.reel-btn:active { transform: scale(.92); }
+.reel-btn .icon { position: absolute; width: 17px; height: 17px; transition: opacity .25s ease, transform .3s var(--ease-out); }
+.reel-btn .icon-play { opacity: 0; transform: scale(.5) rotate(-10deg); }
+.reel-btn[data-playing="false"] .icon-pause { opacity: 0; transform: scale(.5) rotate(10deg); }
+.reel-btn[data-playing="false"] .icon-play { opacity: 1; transform: none; }
+.icon-sound .sound-wave, .icon-sound .sound-slash { transition: opacity .18s ease; }
+.icon-sound .sound-slash { opacity: 0; }
+.reel-btn[data-muted="true"] .sound-wave { opacity: 0; }
+.reel-btn[data-muted="true"] .sound-slash { opacity: 1; }
+
+#deskReelLabel { position: absolute; bottom: 40px; left: 6vw; z-index: 12; height: 38px; }
+#deskReelControls { position: absolute; right: 6vw; bottom: 40px; z-index: 15; }
+
+/* Small screens: one column, and the reel opens out of a rounded window. */
+body.mobile-mode #layer-bg { z-index: 2; isolation: auto; }
+body.mobile-mode .reel { position: fixed; contain: paint; will-change: clip-path; }
+body.mobile-mode .reel.is-full { clip-path: none !important; }
+
+.hero-fixed { position: fixed; inset: 0; z-index: 5; pointer-events: none; }
+.hero-fixed a, .hero-fixed button, .hero-fixed [role="button"], .hero-fixed .scroll-hint { pointer-events: auto; }
+.mobile-only .hero-copy {
+  position: fixed;
+  left: max(8vw, env(safe-area-inset-left));
+  z-index: 5;
+  width: min(40vw, 560px);
+}
+.mobile-only .eyebrow { margin-bottom: -2px; }
+.mobile-only .eyebrow::after { content: ''; display: block; width: 34px; height: 3px; margin-top: 8px; background: var(--accent); }
+/* Shares a row with the reel controls, on the far side. */
+.mobile-only .scroll-hint {
+  position: fixed;
+  right: max(40px, calc(env(safe-area-inset-right) + 20px));
+  left: auto;
+  bottom: max(31px, calc(env(safe-area-inset-bottom) + 20px));
+  z-index: 5;
+  color: var(--ink);
+}
+.mobile-only .reel-controls { position: fixed; z-index: 10; padding-top: 10px; border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); opacity: 0; transition: opacity .6s ease; pointer-events: auto; }
+.mobile-only .reel-btn { width: 44px; height: 44px; }
+.mobile-only .reel-btn .icon { width: 15px; height: 15px; }
+.mobile-only .s-text { position: fixed; z-index: 8; opacity: 0; transform: translateY(16px); will-change: transform, opacity; }
+.mobile-only .nav-item, .mobile-only .brand { opacity: 0; animation: nav-in .5s ease forwards; }
+.mobile-only .nav-item { animation-delay: .2s; }
+@keyframes nav-in { to { opacity: 1; } }
+
+@media (max-width: 760px) {
+  .mobile-only .hero-copy { top: calc(var(--nav-h) + 16px); right: max(20px, env(safe-area-inset-right)); left: max(20px, env(safe-area-inset-left)); width: auto; transform: none; }
+  .mobile-only .headline { font-size: clamp(34px, 9vw, 52px); }
+  .mobile-only .eyebrow { font-size: clamp(28px, 8vw, 44px); }
+  .mobile-only .nav { padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); }
+  .mobile-only .s-text { padding: 8px 14px; font-size: clamp(22px, 6vw, 32px); }
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }

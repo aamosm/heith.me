@@ -1,178 +1,142 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="devlogs">
 <head>
-    <meta charset="UTF-8">
-    <style>
-      html, body { background: #7A6656; }
-      html[data-fonts="loading"] [data-font-reveal] { opacity: 0; visibility: hidden; }
-      html[data-page-entry="quiet"] #intro-card[data-entry-intro] { display: none !important; }
-      #intro-card[data-entry-intro] .intro-content,
-      #intro-card[data-entry-intro] .intro-dots { visibility: hidden; }
-      html[data-page-entry] #glass-loader { background: transparent; pointer-events: none; }
-    </style>
-    <script>
-      document.documentElement.dataset.pageEntry = new URLSearchParams(location.search).get('v') === 'd' ? 'quiet' : 'direct';
-      document.documentElement.dataset.fonts = 'loading';
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-
-    <link rel="preload" as="image" href="../assets/favicon.png" fetchpriority="high">
-
-    <script src="../favicon.js" defer></script>
-    <title>// devlogs</title>
-    <meta name="description" content="Development logs and post-mortems by DHC.">
-    
-    <link rel="preload" href="../fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../site-shared.css">
-    <script src="../site-shared.js" defer></script>
-    <script id="lenis-script" src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js" async></script>
-
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="script.js" as="script">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../projects/embed.css">
-    <link rel="stylesheet" href="../corner-menu.css">
-    <link rel="stylesheet" href="../crt.css">
-    <link rel="stylesheet" href="../glass-loader.css">
-    <link rel="stylesheet" href="../brand-hover.css">
-    <link rel="stylesheet" href="../intro-card.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DHC | Devlogs</title>
+  <meta name="description" content="Development logs and post-mortems by DHC.">
+  <meta name="theme-color" content="#7A6656">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DHC | Devlogs">
+  <meta property="og:description" content="Development logs and post-mortems by DHC.">
+  <link rel="icon" type="image/gif" href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+  <script>
+    document.documentElement.dataset.fonts = 'loading';
+    document.documentElement.dataset.entry = new URLSearchParams(location.search).get('v') === 'd' || performance.getEntriesByType('navigation')[0]?.type === 'back_forward' ? 'quiet' : 'intro';
+  </script>
+  <link rel="preload" href="../fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/signature.webp" as="image">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/crt.css">
+  <link rel="stylesheet" href="../css/intro.css">
+  <link rel="stylesheet" href="../css/loader.css">
+  <link rel="stylesheet" href="../css/page.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/listing.css">
+  <script src="../js/vendor/lenis.min.js" defer></script>
+  <script src="../js/site.js" defer></script>
+  <script src="../js/mark.js" defer></script>
+  <script src="../js/loader.js" defer></script>
+  <script src="../js/intro.js" defer></script>
+  <script src="../js/paper.js" defer></script>
+  <script src="../js/cursor.js" defer></script>
+  <script src="../js/menu.js" defer></script>
+  <script src="../js/page.js" defer></script>
 </head>
 <body>
+  <div id="intro-card" data-first aria-label="Introduction" inert></div>
 
-  <div id="intro-card" data-entry-intro inert aria-label="Introduction">
-    <div class="intro-dots" id="introDots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-    <div class="intro-content">
-      <h1 class="intro-name">Dhruv Heith Chheda</h1>
-      <p class="intro-sub">Mauritian Â· Interdisciplinary student</p>
-      <div class="intro-body">
-        <p>I'm interested in games and the tools people use to make them. I enjoy programming, and I'd like a hand in the writing, visual decisions and coordination behind a project too. Working with a team appeals to me because there's more than one way to contribute.</p>
-        <p>I grew up playing GBA games on a laptop, and older games and emulation remain personal interests. I also like films that say a lot through simple choices. That's something I'd like to explore in my own work.</p>
-        <p>I'm usually up for a project or a competition, especially with teammates. Some of my projects started with someone around me needing something; others were ideas I wanted to try. I've worked independently, with school teams and during a robotics internship at IIT Gandhinagar.</p>
-        <p class="intro-tools-heading">Some of the tools I've worked with</p>
-        <ul class="intro-tools">
-          <li><strong>Games:</strong> Godot and GDScript; currently learning Unity and C#.</li>
-          <li><strong>Visual work:</strong> Blender, Aseprite and After Effects.</li>
-          <li><strong>Programming:</strong> Python, C++ and JavaScript, with Git/GitHub for managing projects.</li>
-          <li><strong>CAD:</strong> SolidWorks.</li>
-        </ul>
-        <p>I'm open to internships and collaborations across programming, design and game production. You're always welcome to contact me for a detailed CV, more about my work, or a project you'd like to discuss.</p>
-      </div>
-      <div class="intro-footer">
-        <div class="intro-links">
-          <span class="intro-link copyable-email">write@heith.me</span>
-          <a href="https://github.com/aamosm" target="_blank" rel="noopener" class="intro-link">github/aamosm</a>
-        </div>
-        <div class="intro-actions">
-          <button class="intro-skip" type="button" aria-label="Enter site">Enter &darr;</button>
-          <div class="intro-hint">any key to continue</div>
-        </div>
-      </div>
+  <div class="crt-overlay" aria-hidden="true"><div class="scanlines"></div><div class="crt-refresh-line"></div></div>
+
+  <header class="top-nav" data-font-reveal>
+    <div class="nav-paper" aria-hidden="true"><span class="fray"></span><span class="paper"></span></div>
+    <button class="nav-item close-btn" type="button">Close</button>
+    <div class="nav-center">
+      <a class="home-link" href="../?v=d" aria-label="Home" title="Home">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path class="home-light" d="M8.4 16.6v-4.8h3.2v4.8z"/><path d="M2.4 9.6 10 3l7.6 6.6M4.4 8v8.6h11.2V8M8.4 16.6v-4.8h3.2v4.8M13.4 5.9V3.6h1.8v3.9"/><path class="home-smoke" d="M14.3 2.2c-.9-.8.5-1.3-.3-2.2"/></svg>
+      </a>
+      <span class="brand allow-select" id="navBrand" role="button" tabindex="0" aria-label="Show introduction">DHC</span>
     </div>
-  </div>
+    <button class="nav-item menu-trigger" type="button" aria-expanded="false">Menu</button>
+  </header>
 
-    <div class="crt-overlay">
-        <div class="scanlines"></div>
-        <div class="crt-refresh-line"></div>
-    </div>
-    
-    <div class="ui-layer">
-        
-        <header class="top-nav glass-panel corner-menu-header" data-font-reveal>
-    <div style="justify-self: start; display: flex; align-items: center;"><button class="nav-item close-btn" style="background:none;border:none;cursor:pointer;font-family: 'IBM Plex Sans', system-ui, sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.04em; color: inherit; padding: 4px 8px; margin-left: -8px;">Close</button></div>
-    <div class="brand allow-select" id="navBrand" role="button" tabindex="0" aria-label="Show introduction">DHC</div>
-    <button class="nav-item corner-menu-trigger" type="button" aria-controls="dhc-corner-menu" aria-expanded="false">Menu</button>
-</header>
+  <main>
+    <section class="hero" data-font-reveal>
+      <h1 class="hero-title">Devlogs</h1>
+      <p class="hero-sub">Development logs, system notes, and project post-mortems.</p>
+    </section>
 
-        <button class="scroll-hint" type="button" data-scroll-target="#devlogs-list" data-font-reveal aria-label="Scroll to devlogs">
-            <span>scroll</span><svg viewBox="0 0 12 19" aria-hidden="true"><path d="M6 1v15M1 11l5 5 5-5"/></svg>
-        </button>
+    <button class="scroll-hint" type="button" data-scroll-target="#devlogs-list" data-scroll-gap="64" data-font-reveal aria-label="Scroll to devlogs">
+      <span>scroll</span><svg viewBox="0 0 12 19" aria-hidden="true"><path d="M6 1v15M1 11l5 5 5-5"/></svg>
+    </button>
 
-        <div class="hero-header" data-font-reveal>
-            <h1 class="massive-title">DEVLOGS</h1>
-            <p class="sub-text">Development logs, system notes, and project post-mortems.</p>
-        </div>
-
-        <main class="content-section">
-            <div class="blog-grid" id="devlogs-list" data-font-reveal>
-                <a class="blog-card" href="https://stardance.hackclub.com/projects/29187" target="_blank" rel="noopener">
-                    <h2 class="blog-title">This Alien Does Not Exist</h2>
-                    <p class="blog-excerpt">An Algorithm inspired by This Person Doesn't Exist. Every refresh reveals a procedurally generated alien species that has never been seen before.</p>
-                    <div class="blog-tags">
-                        <span class="tag">#procedural-generation</span>
-                        <span class="tag">#canvas-api</span>
-                    </div>
-                    <div class="blog-link">Read Logs &rarr;</div>
-                </a>
-
-                <div class="blog-card">
-                    <h2 class="blog-title">Seven Minute Shadow</h2>
-                    <p class="blog-excerpt">Seven minutes. Seven minigames. One story. Behind-the-scenes looks at game loop architecture, sprite creation, and Godot engine learnings.</p>
-                    <div class="blog-tags">
-                        <span class="tag">#godot</span>
-                        <span class="tag">#game-dev</span>
-                        <span class="tag">#pixel-art</span>
-                    </div>
-                    <div style="display: flex; gap: 1.5rem; margin-bottom: 2rem;">
-                        <a href="https://aamosm.itch.io/seven-minute-shadow/devlog" target="_blank" rel="noopener" class="blog-link">Itch.io Logs &rarr;</a>
-                    </div>
-                    
-                    <div class="project-embed-block" style="margin-top: 1rem;">
-                        <div class="project-embed-label" style="font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem;">Play</div>
-                        <a class="itch-card" href="https://aamosm.itch.io/seven-minute-shadow" target="_blank" rel="noopener" aria-label="Play Seven Minute Shadow on itch.io">
-                            <img class="itch-card-cover" src="../assets/projects/seven-minute-shadow.png" alt="Seven Minute Shadow cover art" loading="lazy" width="1027" height="613">
-                            <div class="itch-card-content">
-                                <span class="itch-card-byline">aamosm / itch.io</span>
-                                <h2 class="itch-card-title">Seven Minute Shadow</h2>
-                                <p>A fast-paced, WarioWare-style minigame collection.</p>
-                                <span class="itch-card-action">Play on itch.io <span aria-hidden="true">&nearr;</span></span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                
-                <a class="blog-card" href="https://stardance.hackclub.com/projects/31884" target="_blank" rel="noopener">
-                    <h2 class="blog-title">VoyagerOS</h2>
-                    <p class="blog-excerpt">A web-based &amp; terminal-themed operating system for the fictional Voyager-9 deep-space probe. Integrated with my other project "This Alien Doesn't Exist".</p>
-                    <div class="blog-tags">
-                        <span class="tag">#webos</span>
-                        <span class="tag">#ui-design</span>
-                        <span class="tag">#worldbuilding</span>
-                    </div>
-                    <div class="blog-link">Read Logs &rarr;</div>
-                </a>
-
-                <a class="blog-card" href="https://stardance.hackclub.com/projects/43357" target="_blank" rel="noopener">
-                    <h2 class="blog-title">Obscure</h2>
-                    <p class="blog-excerpt">A lightweight homepage for searching across curated and independent search engines. Notes on setup and search integrations.</p>
-                    <div class="blog-tags">
-                        <span class="tag">#react</span>
-                        <span class="tag">#vite</span>
-                        <span class="tag">#productivity</span>
-                    </div>
-                    <div class="blog-link">Read Logs &rarr;</div>
-                </a>
-
-                <div class="blog-card blog-card--disabled">
-                    <h2 class="blog-title">heith.me</h2>
-                    <p class="blog-excerpt">My Portfolio Page. System architecture refactors, analog aesthetics, and building a brutalist web experience.</p>
-                    <div class="blog-tags">
-                        <span class="tag">#frontend</span>
-                        <span class="tag">#design</span>
-                    </div>
-                    <div class="blog-link blog-link--soon">Not linked</div>
-                </div>
+    <section class="sheet paper" id="devlogs-list" data-font-reveal>
+      <div class="sheet-edge" aria-hidden="true"><span class="fray"></span><span class="paper"></span></div>
+      <div class="sheet-inner">
+        <ol class="entries">
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title"><a href="https://stardance.hackclub.com/projects/29187" target="_blank" rel="noopener">This Alien Does Not Exist</a></h2>
+              <p class="entry-text">An Algorithm inspired by This Person Doesn’t Exist. Every refresh reveals a procedurally generated alien species that has never been seen before.</p>
+              <ul class="entry-meta entry-tags"><li>procedural-generation</li><li>canvas-api</li></ul>
             </div>
-        </main>
+            <div class="entry-links">
+              <a class="text-link" href="https://stardance.hackclub.com/projects/29187" target="_blank" rel="noopener">Read Logs</a>
+            </div>
+          </li>
 
-    </div>
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title"><a href="https://aamosm.itch.io/seven-minute-shadow/devlog" target="_blank" rel="noopener">Seven Minute Shadow</a></h2>
+              <p class="entry-text">Seven minutes. Seven minigames. One story. Behind-the-scenes looks at game loop architecture, sprite creation, and Godot engine learnings.</p>
+              <ul class="entry-meta entry-tags"><li>godot</li><li>game-dev</li><li>pixel-art</li></ul>
 
-    <script src="../glass-loader.js" defer></script>
-    <script src="../intro-overlay.js" defer></script><script src="script.js" defer></script>
-    <script src="../corner-menu.js" defer></script>
-    <script src="../cursor-blob.js" defer></script>
+              <aside class="feature">
+                <h3 class="feature-label">Play</h3>
+                <a class="feature-card" href="https://aamosm.itch.io/seven-minute-shadow" target="_blank" rel="noopener" aria-label="Play Seven Minute Shadow on itch.io">
+                  <img src="../assets/projects/seven-minute-shadow.webp" alt="Seven Minute Shadow cover art" loading="lazy" width="800" height="478">
+                  <div class="feature-body">
+                    <span class="feature-byline">aamosm / itch.io</span>
+                    <h4 class="feature-title">Seven Minute Shadow</h4>
+                    <p>A fast-paced, WarioWare-style minigame collection.</p>
+                    <span class="text-link">Play on itch.io</span>
+                  </div>
+                </a>
+              </aside>
+            </div>
+            <div class="entry-links">
+              <a class="text-link" href="https://aamosm.itch.io/seven-minute-shadow/devlog" target="_blank" rel="noopener">Itch.io Logs</a>
+            </div>
+          </li>
 
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title"><a href="https://stardance.hackclub.com/projects/31884" target="_blank" rel="noopener">VoyagerOS</a></h2>
+              <p class="entry-text">A web-based &amp; terminal-themed operating system for the fictional Voyager-9 deep-space probe. Integrated with my other project “This Alien Doesn’t Exist”.</p>
+              <ul class="entry-meta entry-tags"><li>webos</li><li>ui-design</li><li>worldbuilding</li></ul>
+            </div>
+            <div class="entry-links">
+              <a class="text-link" href="https://stardance.hackclub.com/projects/31884" target="_blank" rel="noopener">Read Logs</a>
+            </div>
+          </li>
+
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title"><a href="https://stardance.hackclub.com/projects/43357" target="_blank" rel="noopener">Obscure</a></h2>
+              <p class="entry-text">A lightweight homepage for searching across curated and independent search engines. Notes on setup and search integrations.</p>
+              <ul class="entry-meta entry-tags"><li>react</li><li>vite</li><li>productivity</li></ul>
+            </div>
+            <div class="entry-links">
+              <a class="text-link" href="https://stardance.hackclub.com/projects/43357" target="_blank" rel="noopener">Read Logs</a>
+            </div>
+          </li>
+
+          <li class="entry" data-reveal>
+            <div>
+              <h2 class="entry-title">heith.me</h2>
+              <p class="entry-text">My Portfolio Page. System architecture refactors, analog aesthetics, and building a brutalist web experience.</p>
+              <ul class="entry-meta entry-tags"><li>frontend</li><li>design</li></ul>
+            </div>
+            <div class="entry-links"><span class="text-link text-link--off">Not linked</span></div>
+          </li>
+        </ol>
+
+        <footer class="sheet-foot">
+          <p class="credit"><span>© <span data-year>2026</span> Dhruv Heith Chheda</span><a href="https://github.com/aamosm/heith.me?tab=MIT-1-ov-file" target="_blank" rel="noopener">MIT License</a></p>
+        </footer>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
-
