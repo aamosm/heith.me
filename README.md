@@ -22,7 +22,7 @@ The portfolio is also one of the pieces in the portfolio. It is the site I built
 
 The landing page is made from overlapping paper panels with torn edges and noise textures, with a looping video underneath. As you scroll, the panels peel back and reveal more of the CRT footage underneath.
 
-The Design, Devlogs and Projects links sit directly over the video. Since the video is constantly changing, the text colour changes with it. A sync script selects authored colour keyframes from the video playback time, keeping the text and its coloured outlines in step with the reel. An earlier version relied on `mix-blend-mode: difference`, which turned muddy wherever the footage was mid-toned.
+The Design, Devlogs and Projects links sit directly over the video using `mix-blend-mode: difference`. Since the video is constantly changing, the text colour changes with it. A sync script selects authored colour keyframes from the video playback time, keeping the text and its coloured outlines in step with the reel. A second layer over each word lightens or darkens the result to a set colour, which keeps the mix from turning muddy where the footage is mid-toned.
 
 The right panel is `#0D1117`, the same dark background I use on Github. Clicking "site src" expands the panel and takes you to the repository, with the same colour carrying through.
 
@@ -70,6 +70,7 @@ site-design/          Design: the portfolio viewer (add ?view=document for the p
 404.html
 css/                  base.css is shared; the rest are named for what they style
 js/                   site.js is shared; the rest are named for what they run
+js/intros.js          the introduction texts; `?intro=name` in the address picks one
 js/vendor/            Lenis
 fonts/                self-hosted fonts and their licences
 assets/               reel, gallery, portfolio images, signature

@@ -32,6 +32,7 @@
   <script src="../js/site.js" defer></script>
   <script src="../js/mark.js" defer></script>
   <script src="../js/loader.js" defer></script>
+  <script src="../js/intros.js" defer></script>
   <script src="../js/intro.js" defer></script>
   <script src="../js/paper.js" defer></script>
   <script src="../js/cursor.js" defer></script>
@@ -44,13 +45,8 @@
 
   <header class="top-nav" data-font-reveal>
     <div class="nav-paper" aria-hidden="true"><span class="fray"></span><span class="paper"></span></div>
-    <button class="nav-item close-btn" type="button">Close</button>
-    <div class="nav-center">
-      <a class="home-link" href="../?v=d" aria-label="Home" title="Home">
-        <svg viewBox="0 0 20 20" aria-hidden="true"><path class="home-light" d="M8.4 16.6v-4.8h3.2v4.8z"/><path d="M2.4 9.6 10 3l7.6 6.6M4.4 8v8.6h11.2V8M8.4 16.6v-4.8h3.2v4.8M13.4 5.9V3.6h1.8v3.9"/><path class="home-smoke" d="M14.3 2.2c-.9-.8.5-1.3-.3-2.2"/></svg>
-      </a>
-      <span class="brand allow-select" id="navBrand" role="button" aria-label="Show introduction" aria-hidden="true" tabindex="-1">DHC</span>
-    </div>
+    <a class="nav-item nav-home" href="../?v=d">Home</a>
+    <span class="brand allow-select" id="navBrand" role="button" aria-label="Show introduction" aria-hidden="true" tabindex="-1">DHC</span>
     <div class="nav-actions">
       <button class="zoom-toggle" id="zoom-toggle" type="button" aria-label="Zoom in" aria-pressed="false" title="Zoom in (Z)">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6M6.5 10h7"/><path class="zoom-plus" d="M10 6.5v7"/></svg>
@@ -286,7 +282,7 @@
             <div class="flex-col" style="width: 48%; height: 100%;">
                 <div class="text-meta" style="margin-bottom: 16px; border-bottom: 1px solid #000; padding-bottom: 8px;">The Disco Texts</div>
                 
-                <p class="text-body" style="margin-bottom: 12px; font-size: 12px;">The large links labelled Design, Devlogs and Projects sit over the video. They lead to this portfolio, my development notes and the other projects. Their colours change with the footage. The first version did this through the CSS effect mix-blend-mode: difference.</p>
+                <p class="text-body" style="margin-bottom: 12px; font-size: 12px;">The large links labelled Design, Devlogs and Projects sit over the video. They lead to this portfolio, my development notes and the other projects. Their colours change with the footage through the CSS effect mix-blend-mode: difference.</p>
                 
                 <p class="text-body" style="margin-bottom: 14px; font-size: 12px;">This effect compares the red, green and blue values of the letters with the footage behind them and displays the difference. White lettering inverts the footage. Similar input colours produce a dark result, which made some frames look muddy.</p>
 

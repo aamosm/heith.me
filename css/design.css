@@ -133,10 +133,9 @@ body { display: flex; flex-direction: column; }
 .zoom-toggle:hover, .zoom-toggle:focus-visible { color: var(--accent); border-color: currentColor; }
 .zoom-toggle[aria-pressed="true"] .zoom-plus { display: none; }
 
-/* The initials stay off the bar until the cover's own have scrolled away. Home keeps the centre until then. */
+/* The initials stay off the bar until the cover's own have scrolled away. */
 .top-nav .brand { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .22s ease, visibility .22s; }
 .top-nav .brand.visible { opacity: 1; visibility: visible; pointer-events: auto; }
-.nav-center:has(.brand:not(.visible)) .home-link { transform: translateX(calc(var(--brand-w) / 2 + 29px)); }
 
 #app-layout { position: relative; display: flex; flex: 1; min-height: 0; }
 

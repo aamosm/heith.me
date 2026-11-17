@@ -1,4 +1,4 @@
-// Shared by Projects, Devlogs and Design: entry, smooth scrolling, Close, and rows easing in.
+// Shared by Projects, Devlogs and Design: entry, smooth scrolling, and rows easing in.
 (function () {
   'use strict';
 
@@ -10,15 +10,6 @@
     smoothWheel: true
   });
   DHC.enter();
-
-  // A tab opened from the landing page can close itself. Any other visit is taken home instead.
-  const home = new URL('?v=d', DHC.base).href;
-  document.querySelectorAll('.close-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      window.close();
-      setTimeout(() => { if (!window.closed) location.assign(home); }, 150);
-    });
-  });
 
   const rows = document.querySelectorAll('[data-reveal]');
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;

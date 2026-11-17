@@ -11,12 +11,11 @@
   --p-right: calc(100vw - var(--rest-left) - clamp(320px, 34vw, 620px) + 18px);
   --split-y: 66.666667vh;
 
-  /* Reel link colours. landing.js swaps these on the cuts. */
-  --s-fill-1: #15101f;
-  --s-fill-2: #15101f;
-  --s-fill-3: #15101f;
-  --s-a: #ff4d3d;
-  --s-b: #1fd0e6;
+  /* Reel links: text colour, the blend of the layer above it, and that layer's colour.
+     landing.js swaps these on the cuts. */
+  --s-t-1: #fff; --s-t-2: #fff; --s-t-3: #fff;
+  --s-mode-1: darken; --s-mode-2: darken; --s-mode-3: darken;
+  --s-c-1: #3c14ff; --s-c-2: #3c14ff; --s-c-3: #3c14ff;
 
   --loader-bg: #1a1a18;
   --loader-ink: #f0ebe3;
@@ -190,48 +189,55 @@ html.panel-anim .panel { transition: width .9s var(--ease-out), height .9s var(-
 .reel.is-full { cursor: default; }
 .reel > video { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-/* A solid fill with two offset copies behind it, like a print out of register. */
+/* Each link is two stacked copies of its word, both blended with the footage itself.
+   The lower one takes the difference, so its colour moves with whatever passes behind it.
+   The upper one lightens or darkens to a set colour, which stops the mix going muddy.
+   The link itself must not become a stacking context, or its layers lose sight of the video. */
 .s-text {
   --s-off: .0625em;
+  --s-pad-y: clamp(8px, 1vw, 14px);
+  --s-pad-x: 0px;
+  position: absolute;
+  left: 12vw;
   width: fit-content;
-  padding: clamp(8px, 1vw, 14px) 0;
+  padding: var(--s-pad-y) var(--s-pad-x);
   font-family: var(--font-display);
   font-size: clamp(28px, 3.5vw, 48px);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: .06em;
-  color: var(--s-fill);
-  transition: color .07s linear;
+  color: transparent;
 }
-.s-text.s1 { --s-fill: var(--s-fill-1); }
-.s-text.s2 { --s-fill: var(--s-fill-2); }
-.s-text.s3 { --s-fill: var(--s-fill-3); }
-.s-text::before, .s-text::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  white-space: nowrap;
-  transition: color .07s linear, transform .35s var(--ease-out);
-}
-.s-text::before { color: var(--s-a); transform: translate(calc(-50% - var(--s-off)), -50%) translateZ(-4px); }
-.s-text::after { color: var(--s-b); transform: translate(calc(-50% + var(--s-off)), -50%) translateZ(-8px); }
-.s-text:hover, .s-text:focus-visible { --s-off: .115em; }
+.s-text.s1 { top: calc(45vh - clamp(60px, 12vh, 100px)); --s-t: var(--s-t-1); --s-mode: var(--s-mode-1); --s-c: var(--s-c-1); }
+.s-text.s2 { top: 45vh; --s-t: var(--s-t-2); --s-mode: var(--s-mode-2); --s-c: var(--s-c-2); }
+.s-text.s3 { top: calc(45vh + clamp(60px, 12vh, 100px)); --s-t: var(--s-t-3); --s-mode: var(--s-mode-3); --s-c: var(--s-c-3); }
 
-.desktop-only.s-text { position: absolute; left: 12vw; z-index: 12; }
-.desktop-only.s1 { top: calc(45vh - clamp(60px, 12vh, 100px)); }
-.desktop-only.s2 { top: 45vh; }
-.desktop-only.s3 { top: calc(45vh + clamp(60px, 12vh, 100px)); }
-/* Tilts toward the pointer. The offsets sit a little deeper, so they slide apart as it turns. */
-.desk-s-text {
+/* Both layers tilt toward the pointer together. */
+.s-mix, .s-key {
   --hx: 0;
   --hy: 0;
+  display: block;
+  white-space: nowrap;
+  opacity: var(--o, 1);
+  translate: 0 var(--ty, 0px);
   transform: perspective(600px) translate3d(calc(var(--hx) * 3px), calc(var(--hy) * 3px), 0) rotateX(calc(var(--hy) * -6deg)) rotateY(calc(var(--hx) * -6deg));
-  transform-style: preserve-3d;
-  transition: color .07s linear, transform .4s cubic-bezier(.2, .8, .2, 1);
+  transition: color .07s linear, text-shadow .35s var(--ease-out), transform .4s cubic-bezier(.2, .8, .2, 1);
 }
-.desk-s-text:hover { transition: color .07s linear, transform .1s linear; }
+.s-text:hover .s-mix, .s-text:hover .s-key { transition: color .07s linear, text-shadow .35s var(--ease-out), transform .1s linear; }
+.s-mix {
+  position: relative;
+  mix-blend-mode: difference;
+  color: var(--s-t);
+  text-shadow: calc(var(--s-off) * -1) 0 0 #ff2a4d, var(--s-off) 0 0 #19e0ff;
+}
+.s-key {
+  position: absolute;
+  top: var(--s-pad-y);
+  left: var(--s-pad-x);
+  mix-blend-mode: var(--s-mode);
+  color: var(--s-c);
+}
+.s-text:hover, .s-text:focus-visible { --s-off: .115em; }
 
 .reel-label {
   display: inline-flex;
@@ -297,7 +303,7 @@ body.mobile-mode .reel.is-full { clip-path: none !important; }
 .mobile-only .reel-controls { position: fixed; z-index: 10; padding-top: 10px; border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); opacity: 0; transition: opacity .6s ease; pointer-events: auto; }
 .mobile-only .reel-btn { width: 44px; height: 44px; }
 .mobile-only .reel-btn .icon { width: 15px; height: 15px; }
-.mobile-only .s-text { position: fixed; z-index: 8; opacity: 0; transform: translateY(16px); will-change: transform, opacity; }
+body.mobile-mode .s-text { --o: 0; }
 .mobile-only .nav-item, .mobile-only .brand { opacity: 0; animation: nav-in .5s ease forwards; }
 .mobile-only .nav-item { animation-delay: .2s; }
 @keyframes nav-in { to { opacity: 1; } }
@@ -307,7 +313,7 @@ body.mobile-mode .reel.is-full { clip-path: none !important; }
   .mobile-only .headline { font-size: clamp(34px, 9vw, 52px); }
   .mobile-only .eyebrow { font-size: clamp(28px, 8vw, 44px); }
   .mobile-only .nav { padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); }
-  .mobile-only .s-text { padding: 8px 14px; font-size: clamp(22px, 6vw, 32px); }
+  body.mobile-mode .s-text { --s-pad-y: 8px; --s-pad-x: 14px; font-size: clamp(22px, 6vw, 32px); }
 }
 
 html.lenis, html.lenis body { height: auto; }

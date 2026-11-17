@@ -9,8 +9,7 @@
   const spacer = document.getElementById('spacer');
   const reel = document.getElementById('reel');
   const video = reel.querySelector('video');
-  const deskLinks = Array.from(document.querySelectorAll('.desk-s-text'));
-  const phoneLinks = Array.from(document.querySelectorAll('.mobile-s-text'));
+  const links = Array.from(document.querySelectorAll('.s-text'));
   const phoneHero = document.getElementById('mobileHeroCopy');
   const phoneHint = document.getElementById('mobileScrollHint');
   const phoneControls = document.getElementById('mobileReelControls');
@@ -70,6 +69,7 @@
       openEdges = { top: 0, bottom: 0, left: 0, right: 0 };
     } else {
       reel.style.clipPath = '';
+      links.forEach(link => link.removeAttribute('style'));
       const width = clamp(.34 * vw, 320, 620);
       const height = .6 * vh;
       // The window never slides under the initials in the top panel.
@@ -232,13 +232,14 @@
     const mid = r.top + r.height * .45;
     const gap = clamp(vh * .12, 60, 100);
     const tops = [Math.max(mid - gap, 104), mid, mid + gap];
-    phoneLinks.forEach((link, i) => {
+    links.forEach((link, i) => {
       const [from, to] = LINK_WINDOWS[i];
       const t = clamp((p - from) / (to - from), 0, 1);
       link.style.left = (r.left + 28) + 'px';
       link.style.top = tops[i] + 'px';
-      link.style.opacity = String(t);
-      link.style.transform = `translateY(${16 * (1 - t)}px)`;
+      // Faded through the layers, not the link, so the blend with the footage survives.
+      link.style.setProperty('--o', String(t));
+      link.style.setProperty('--ty', (16 * (1 - t)) + 'px');
       link.style.pointerEvents = t > .02 ? 'auto' : 'none';
     });
   }
@@ -469,32 +470,28 @@
 
   /* Link colours, cut to the reel */
 
-  const INK = '#15101f';
-  const SHEET = '#f5f0e8';
-  const RED = '#ff4d3d';
-  const CYAN = '#1fd0e6';
-  const SUN = '#ffc533';
-  const ICE = '#14e2ff';
+  // [text colour, blend of the layer above, that layer's colour].
+  // "darken" caps the difference at a deep colour, for bright footage. "lighten" lifts it to a bright one, for dark.
+  const BLUE = ['#fff', 'darken', '#3c14ff'];
+  const YELLOW = ['#fff', 'lighten', '#ffd400'];
+  const CYAN = ['#fff', 'lighten', '#00e5ff'];
+  const PINK = ['#fff', 'lighten', '#ff2d6f'];
+  const GOLD = ['#ffe14a', 'lighten', '#ff9a00'];
 
-  // From each time on: the fill of Projects, Design and Devlogs, then the two offset colours.
-  // Ink where the footage behind is light, paper where it is dark.
+  // From each time on. One mix for all three links, or one each for Projects, Design and Devlogs.
   const SCENES = [
-    { t: 0,      fill: [INK, INK, INK],          edges: [RED, CYAN] },          // wide shot, pale sky
-    { t: 6.25,   fill: [SHEET, SHEET, SHEET],    edges: [RED, CYAN] },          // close on the boy, dark
-    { t: 8.2,    fill: [INK, INK, INK],          edges: [SUN, CYAN] },          // running under a lavender sky
-    { t: 13.833, fill: [INK, INK, INK],          edges: [RED, CYAN] },          // wide shot again
-    { t: 16.583, fill: [INK, INK, INK],          edges: [SUN, CYAN] },          // running
-    { t: 21.875, fill: [SHEET, SHEET, SHEET],    edges: [RED, CYAN] },          // stalks against black
-    { t: 22.75,  fill: ['#ecd078', '#ecd078', '#ecd078'], edges: [RED, SHEET] }, // black screen
-    { t: 25.042, fill: ['#fff', '#fff', '#fff'], edges: [ICE, '#2a36ff'] },     // the field burns orange
-    { t: 26.292, fill: [SHEET, SHEET, SHEET],    edges: ['#b9ff3b', ICE] },     // magenta haze
-    { t: 28.708, fill: [INK, SHEET, SHEET],      edges: [RED, CYAN] }           // the two of them: sky above, field below
+    { t: 0,      mix: BLUE },               // wide shot, pale sky
+    { t: 6.25,   mix: YELLOW },             // the chase, then the run under a lavender sky
+    { t: 13.833, mix: BLUE },               // wide shot again
+    { t: 16.583, mix: CYAN },               // running
+    { t: 21.875, mix: PINK },               // stalks against black
+    { t: 22.75,  mix: GOLD },               // black screen
+    { t: 25.042, mix: BLUE },               // the field burns orange
+    { t: 26.292, mix: YELLOW },             // magenta haze
+    { t: 28.708, mix: [BLUE, CYAN, CYAN] }  // the two of them: sky above, field below
   ];
-  // On a phone the links sit over the middle of the frame, where the boy runs past them.
-  const PHONE_SCENES = SCENES.map(scene => (scene.t === 8.2 ? { ...scene, t: 9.25 } : scene)).concat([
-    { t: 18.2, fill: [SHEET, SHEET, SHEET], edges: [SUN, CYAN] },
-    { t: 19.8, fill: [INK, INK, INK], edges: [SUN, CYAN] }
-  ]).sort((a, b) => a.t - b.t);
+  // On a phone the links sit mid-frame, where the burning field is mostly black.
+  const PHONE_SCENES = SCENES.map(scene => (scene.t === 25.042 ? { ...scene, mix: CYAN } : scene));
   // Frame callbacks arrive about a frame late, so cuts are anticipated by that much.
   const LEAD = .03;
 
@@ -508,9 +505,12 @@
     }
     if (scene === sceneKey) return;
     sceneKey = scene;
-    scene.fill.forEach((colour, i) => vars.setProperty(`--s-fill-${i + 1}`, colour));
-    vars.setProperty('--s-a', scene.edges[0]);
-    vars.setProperty('--s-b', scene.edges[1]);
+    const each = Array.isArray(scene.mix[0]) ? scene.mix : [scene.mix, scene.mix, scene.mix];
+    each.forEach(([text, mode, colour], i) => {
+      vars.setProperty(`--s-t-${i + 1}`, text);
+      vars.setProperty(`--s-mode-${i + 1}`, mode);
+      vars.setProperty(`--s-c-${i + 1}`, colour);
+    });
   }
 
   if ('requestVideoFrameCallback' in video) {
@@ -527,7 +527,7 @@
   }
   paintLinks(0);
 
-  deskLinks.forEach(link => {
+  links.forEach(link => {
     link.addEventListener('mousemove', event => {
       const box = link.getBoundingClientRect();
       link.style.setProperty('--hx', String(((event.clientX - box.left) / box.width - .5) * 2));

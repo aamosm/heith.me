@@ -173,6 +173,13 @@
     }
   });
 
+  // The sheets land on top of the button. A click that was meant for it keeps the menu open instead of following a link.
+  menu.addEventListener('click', event => {
+    if (!settling) return;
+    event.preventDefault();
+    pinned = true;
+  });
+
   document.addEventListener('pointerdown', event => {
     if (open && !inside(event.target)) closeMenu();
   }, { capture: true, passive: true });
